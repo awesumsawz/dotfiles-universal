@@ -45,7 +45,7 @@ else
   export EDITOR='nvim'
 fi
 
-#   ZSH SETTINGS
+#   ZSH SETTINGS (BUILD TO REPLACE OMZ)
 #   ---------------------------------------
 SAVEHIST=5000
 HISTSIZE=5000
@@ -129,7 +129,6 @@ export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-
 
 #   HERD
 #   ---------------------------------------
