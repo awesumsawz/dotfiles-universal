@@ -75,6 +75,13 @@ mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and ju
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 
+
+#   LOCAL VARS
+#  --------------------------------------- 
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
+fi
+
 #    WEB DEVELOPMENT
 #    ---------------------------------------
 alias stree='/Applications/SourceTree.app/Contents/Resources/stree'
