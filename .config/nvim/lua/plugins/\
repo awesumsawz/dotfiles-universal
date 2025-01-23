@@ -1,0 +1,14 @@
+return {
+  "jackMort/ChatGPT.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim", -- Required dependency
+    "nvim-telescope/telescope.nvim", -- Required for integration
+    "MunifTanjim/nui.nvim", -- UI component
+  },
+  config = function()
+    require("chatgpt").setup({
+      -- Add your configuration here (optional)
+      api_key_cmd = "cat ~/.openai-api-key", -- Replace this with the path to your OpenAI API key file
+    })
+  end,
+}
