@@ -1,3 +1,33 @@
+#   NOTES
+#   ---------------------------------------
+#   Ghostty SSH Fix
+#   https://github.com/ghostty-org/ghostty/discussions/3911
+#   ---------------------------------------
+#   ASTROVIM INSTALL:
+#   
+#   OPTIONAL TOOLS FROM ASTROVIM INSTALL:
+#   tree-sitter (npm)
+#   ripgrep (brew)
+#   lazygit (brew)
+#   gdu-go (brew)
+#   bottom (brew)
+#
+#   commands used during installation:
+#   mv ~/.local/share/nvim ~/.local/share/nvim.bak
+#   mv ~/.local/state/nvim ~/.local/state/
+#   git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
+#   
+#   Installed a number of LspInstall language 
+#   ---------------------------------------
+#   VS CODE VIM ADJUSTMENTS
+#
+#   defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false              # For VS Code
+#   defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false      # For VS Code Insider
+#   defaults write com.vscodium ApplePressAndHoldEnabled -bool false                      # For VS Codium
+#   defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
+#   defaults delete -g ApplePressAndHoldEnabled                                           # If necessary, reset global default
+#   ---------------------------------------
+
 #   OH MY ZSH
 #   -------------------------
 export ZSH="$HOME/.oh-my-zsh"
@@ -87,51 +117,20 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 #   ---------------------------------------
 export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 
-#   ---------------------------------------
-#   Ghostty SSH Fix
-#   https://github.com/ghostty-org/ghostty/discussions/3911
-#   ---------------------------------------
-
-#   ---------------------------------------
-#   ASTROVIM INSTALL:
-#   
-#   OPTIONAL TOOLS FROM ASTROVIM INSTALL:
-#   tree-sitter (npm)
-#   ripgrep (brew)
-#   lazygit (brew)
-#   gdu-go (brew)
-#   bottom (brew)
-#
-#   commands used during installation:
-#   mv ~/.local/share/nvim ~/.local/share/nvim.bak
-#   mv ~/.local/state/nvim ~/.local/state/
-#   git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
-#   
-#   Installed a number of LspInstall language 
-#
-#   ---------------------------------------
-
-
-#   ---------------------------------------
-#   VS CODE VIM ADJUSTMENTS
-#   defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false              # For VS Code
-#   defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false      # For VS Code Insider
-#   defaults write com.vscodium ApplePressAndHoldEnabled -bool false                      # For VS Codium
-#   defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
-#   defaults delete -g ApplePressAndHoldEnabled                                           # If necessary, reset global default
-#   ---------------------------------------
 #   EVALs
 #   ---------------------------------------
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+
+
+#   HERD
+#   ---------------------------------------
 export PATH="/Users/jasonbiggs/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/Users/jasonbiggs/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
-
 # Herd injected PHP 8.4 configuration.
 export HERD_PHP_84_INI_SCAN_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/php/84/"
-
 
 # Herd injected NVM configuration
 export NVM_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/nvm"
