@@ -26,6 +26,13 @@
 #   defaults write com.vscodium ApplePressAndHoldEnabled -bool false                      # For VS Codium
 #   defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
 #   defaults delete -g ApplePressAndHoldEnabled                                           # If necessary, reset global default
+#
+#   Commands run to reverse the above:
+#
+#   defaults delete com.microsoft.VSCode ApplePressAndHoldEnabled
+#   defaults delete com.microsoft.VSCode ApplePressAndHoldEnabled
+#   defaults delete com.vscodium ApplePressAndHoldEnabled
+#   defaults delete com.microsoft.VSCodeExploration ApplePressAndHoldEnabled
 #   ---------------------------------------
 
 #   OH MY ZSH
