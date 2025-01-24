@@ -33,7 +33,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
