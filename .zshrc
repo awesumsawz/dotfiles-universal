@@ -114,7 +114,8 @@ alias l="ls -la"
 #   ZOXIDE
 #   ---------------------------------------
 unalias cd 2>/dev/null
-cd() { z "$@" && eval ls; } # Auto ls after cd
+#cd() { z "$@" && eval ls; } # Auto ls after cd
+alias cd="z"
 
 #   STARSHIP
 #   ---------------------------------------
