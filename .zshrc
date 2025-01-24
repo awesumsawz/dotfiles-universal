@@ -70,7 +70,7 @@ plugins=(... docker docker-compose)
 
 #   EZA
 #   ---------------------------------------
-alias ls="eza --color=always --long --git --icons=always --all --no-permissions --no-time --no-filesize"
+alias ls="eza --color=always --git --icons=always --long --no-permissions --no-time --no-filesize"
 alias ll="eza --color=always --long --git --icons=always --all"
 alias l="ls -la"
 
