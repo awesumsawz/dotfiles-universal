@@ -35,6 +35,21 @@
 #   defaults delete com.microsoft.VSCodeExploration ApplePressAndHoldEnabled
 #   ---------------------------------------
 
+#   OS SPECIFIC SETTINGS
+#   ---------------------------------------
+
+if [[ -f ~/.zsh_linux ]] && [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+  source PATH="$HOME/.zsh_linux"
+elif [[ -f ~/.zsh_mac ]] && [[ "$OSTYPE" == "darwin"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+  source PATH="$HOME/.zsh_mac"
+  if [[ -f ~/.zsh_knight ]] && [[ $HOSTNAME == "Knight*" ]]; then
+    source PATH="$HOME/.zsh_knight"
+  fi
+fi
+
+
 #   OH MY ZSH
 #   -------------------------
 export ZSH="$HOME/.oh-my-zsh"
@@ -145,13 +160,3 @@ eval "$(starship init zsh)"
 #export DOCKER_HOST=unix:///run/user/1000/docker.sock
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 export PATH=/usr/bin:$PATH
-
-#   HERD
-#   ---------------------------------------
-export PATH="/Users/jasonbiggs/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/Users/jasonbiggs/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-export HERD_PHP_84_INI_SCAN_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/php/84/"
-export NVM_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[[ -f "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh" ]] && builtin source "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh"
-export PATH="/Users/jasonbiggs/Library/Application Support/Herd/bin/":$PATH
