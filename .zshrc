@@ -68,7 +68,6 @@ export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 
 #   OH MY ZSH
 #   -------------------------
-
 source $ZSH/oh-my-zsh.sh
 zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 13
