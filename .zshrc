@@ -7,6 +7,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   [[ -f ~/.zsh_mac ]] && source ~/.zsh_mac
   [[ -f ~/.zsh_knight && $HOSTNAME == Knight* ]] && source ~/.zsh_knight
 fi
+
 #  ----LOCAL------------------------------------- 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
@@ -16,6 +17,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
 #   ----ZSH--------------------------------------
 SAVEHIST=5000
 HISTSIZE=5000
@@ -55,6 +57,7 @@ alias l="ls -la"
 
 #   FZF
 #   ---------------------------------------
+alias fz="fzf"
 eval "$(fzf --zsh)"
 
 #   GITHUB
@@ -66,25 +69,10 @@ eval "$(gh copilot alias -- zsh)"
 #   ---------------------------------------
 export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 
-#   OH MY ZSH
-#   -------------------------
-source $ZSH/oh-my-zsh.sh
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 13
-export ARCHFLAGS="-arch $(uname -m)"
-export ZSH="$HOME/.oh-my-zsh"
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  docker 
-  docker-compose
-)
-
 #   STARSHIP
 #   ---------------------------------------
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-eval "$(starship init zsh)"eval 
+eval "$(starship init zsh)" 
 
 #   ZOXIDE
 #   ---------------------------------------
