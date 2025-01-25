@@ -90,7 +90,6 @@ export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 #   DOCKER
 #   ---------------------------------------
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-export PATH=/usr/bin:$PATH
 
 #   EVALs
 #   ---------------------------------------
