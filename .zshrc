@@ -23,6 +23,21 @@ SAVEHIST=5000
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 
+#   ----OH-MY-ZSH--------------------------------
+export ZSH="$HOME/.oh-my-zsh"
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  docker 
+  docker-compose
+)
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 13
+COMPLETION_WAITING_DOTS="true"
+source $ZSH/oh-my-zsh.sh
+export ARCHFLAGS="-arch $(uname -m)"
+
 #------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------
