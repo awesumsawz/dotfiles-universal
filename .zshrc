@@ -97,25 +97,3 @@ export PATH=/usr/bin:$PATH
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-
-#   NOTES
-#   ---------------------------------------
-#   Ghostty SSH Fix
-#   https://github.com/ghostty-org/ghostty/discussions/3911
-#   ---------------------------------------
-#   ASTROVIM INSTALL:
-#   
-#   OPTIONAL TOOLS FROM ASTROVIM INSTALL:
-#   tree-sitter (npm)
-#   ripgrep (brew)
-#   lazygit (brew)
-#   gdu-go (brew)
-#   bottom (brew)
-#
-#   commands used during installation:
-#   mv ~/.local/share/nvim ~/.local/share/nvim.bak
-#   mv ~/.local/state/nvim ~/.local/state/
-#   git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
-#   
-#   Installed a number of LspInstall language 
-#   ---------------------------------------
