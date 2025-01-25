@@ -9,7 +9,7 @@ Additionally, I have several packages installed that are referenced in the file:
 - bat
 - oh-my-zsh
 - neovim
-- docker
+- docker/podman
 - eza
 - fzf
 - zoxide
@@ -22,10 +22,6 @@ Additionally, I have several packages installed that are referenced in the file:
 - zsh-syntax-highlighting
 - copilot cli
 - github cli
-
-## OPTIONAL
-
-Not included in the configuration but installed and helpful
 - stow
 - gdu
 
