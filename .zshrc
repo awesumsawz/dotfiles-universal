@@ -64,20 +64,9 @@ mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and ju
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 
-#   DOCKER examples
-#   ---------------------------------------
-# alias dplaybook1f="cd ~/code/docker/caas-platform/"
-# alias dplaybook1up="docker-compose -f ~/code/docker/caas-platform/docker-compose.yml up -d"
-# alias dplaybook1ssh='docker exec -it caas_wp /bin/bash'
-# alias dplaybook1halt="docker-compose -f ~/code/docker/caas-platform/docker-compose.yml down"
-# alias dplaybook1db='docker exec -it caas_db /bin/bash'
-# alias dplaybook1reboot="docker-compose -f ~/code/docker/caas-platform/docker-compose.yml down && docker-compose -f ~/code/docker/caas-platform/docker-compose.yml up -d"
-
 #   Client Web Shortcuts
 #   ---------------------------------------
 alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
-alias playdoughtoplato="cd ~/code/clients/Playdough\ to\ Plato/websites/playdough-to-plato"
-alias platopack="cd ~/code/clients/Playdough\ to\ Plato/websites/Plato\ Pack"
 
 #   EZA
 #   ---------------------------------------
