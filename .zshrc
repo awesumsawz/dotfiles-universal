@@ -35,15 +35,13 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 #ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
-plugins=(git)
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 source $ZSH/oh-my-zsh.sh
 export ARCHFLAGS="-arch $(uname -m)"
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
 
 #   ZSH SETTINGS (BUILD TO REPLACE OMZ)
 #   ---------------------------------------
@@ -76,10 +74,15 @@ trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the 
 zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 
 
-#   LOCAL VARS
+#   LOCAL SETTINGS
 #  --------------------------------------- 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
+fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
 fi
 
 #    WEB DEVELOPMENT
@@ -114,7 +117,6 @@ alias l="ls -la"
 #   ZOXIDE
 #   ---------------------------------------
 unalias cd 2>/dev/null
-#cd() { z "$@" && eval ls; } # Auto ls after cd
 alias cd="z"
 
 #   STARSHIP
@@ -131,19 +133,18 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
+#   DOCKER
+#   ---------------------------------------
+#export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+export PATH=/usr/bin:$PATH
+
 #   HERD
 #   ---------------------------------------
 export PATH="/Users/jasonbiggs/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/Users/jasonbiggs/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-
-# Herd injected PHP 8.4 configuration.
 export HERD_PHP_84_INI_SCAN_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/php/84/"
-
-# Herd injected NVM configuration
 export NVM_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
 [[ -f "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh" ]] && builtin source "/Applications/Herd.app/Contents/Resources/config/shell/zshrc.zsh"
-
-# Herd injected PHP binary.
 export PATH="/Users/jasonbiggs/Library/Application Support/Herd/bin/":$PATH
