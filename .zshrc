@@ -1,7 +1,7 @@
 #   OS SPECIFIC SETTINGS
 #   ---------------------------------------
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  export PATH="$HOME/.local/bin:$PATH"
+if [[ "$OSTYPE" == "linux"* ]]; then
+  export PATH=/usr/bin:$PATH
   [[ -f ~/.zsh_linux ]] && source ~/.zsh_linux
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
