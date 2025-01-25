@@ -1,5 +1,4 @@
-#   OS SPECIFIC SETTINGS
-#   ---------------------------------------
+#   ----OS SPECIFIC------------------------------
 if [[ "$OSTYPE" == "linux"* ]]; then
   export PATH=/usr/bin:$PATH
   [[ -f ~/.zsh_linux ]] && source ~/.zsh_linux
@@ -8,9 +7,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   [[ -f ~/.zsh_mac ]] && source ~/.zsh_mac
   [[ -f ~/.zsh_knight && $HOSTNAME == Knight* ]] && source ~/.zsh_knight
 fi
-
-#   LOCAL SETTINGS
-#  --------------------------------------- 
+#  ----LOCAL------------------------------------- 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
@@ -19,36 +16,14 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
-
-#   OH MY ZSH
-#   -------------------------
-export ZSH="$HOME/.oh-my-zsh"
-zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' frequency 13
-COMPLETION_WAITING_DOTS="true"
-source $ZSH/oh-my-zsh.sh
-export ARCHFLAGS="-arch $(uname -m)"
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  docker 
-  docker-compose
-)
-
-#   ZSH SETTINGS (BUILD TO REPLACE OMZ)
-#   ---------------------------------------
+#   ----ZSH--------------------------------------
 SAVEHIST=5000
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
-# Bind up and down arrow keys to search through command history
-autoload -Uz up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '^[[A' up-line-or-beginning-search   # Up arrow key
-bindkey '^[[B' down-line-or-beginning-search # Down arrow key
 
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------
 
 #   BAKED
 #   -----------------------------
@@ -64,9 +39,13 @@ mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and ju
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 
-#   Client Web Shortcuts
+#   CLIENT SHORTCUTS
 #   ---------------------------------------
 alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
+
+#   DOCKER
+#   ---------------------------------------
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 #   EZA
 #   ---------------------------------------
@@ -74,25 +53,42 @@ alias ls="eza --color=always --git --icons=always --long --no-permissions --no-t
 alias ll="eza --color=always --long --git --icons=always --all"
 alias l="ls -la"
 
-#   ZOXIDE
+#   FZF
 #   ---------------------------------------
-unalias cd 2>/dev/null
-alias cd="z"
+eval "$(fzf --zsh)"
 
-#   STARSHIP
+#   GITHUB
 #   ---------------------------------------
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+alias ghc="gh copilot"
+eval "$(gh copilot alias -- zsh)"
 
 #   GHOSTTY
 #   ---------------------------------------
 export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 
-#   DOCKER
-#   ---------------------------------------
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+#   OH MY ZSH
+#   -------------------------
 
-#   EVALs
+source $ZSH/oh-my-zsh.sh
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 13
+export ARCHFLAGS="-arch $(uname -m)"
+export ZSH="$HOME/.oh-my-zsh"
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  docker 
+  docker-compose
+)
+
+#   STARSHIP
 #   ---------------------------------------
-eval "$(fzf --zsh)"
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)"eval 
+
+#   ZOXIDE
+#   ---------------------------------------
+unalias cd 2>/dev/null
+alias cd="z"
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
