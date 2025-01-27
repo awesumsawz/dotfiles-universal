@@ -2,6 +2,8 @@
 if [[ "$OSTYPE" == "linux"* ]]; then
   export PATH=/usr/bin:$PATH
   [[ -f ~/.zsh_linux ]] && source ~/.zsh_linux
+  # ----- DOCKER --------------------------------
+  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
   [[ -f ~/.zsh_mac ]] && source ~/.zsh_mac
@@ -59,10 +61,6 @@ zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP arch
 #   CLIENT SHORTCUTS
 #   ---------------------------------------
 alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
-
-#   DOCKER
-#   ---------------------------------------
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 #   EZA
 #   ---------------------------------------
