@@ -1,5 +1,7 @@
 # DOTFILES
 
+https://draculatheme.com/oh-my-posh
+
 # ZSHRC
 
 ## DEPENDENCIES
