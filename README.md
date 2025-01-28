@@ -6,24 +6,38 @@
 
 My local setup is built on ZSH at the moment, so start there.
 Additionally, I have several packages installed that are referenced in the file:
+
+### System Packages (brew, pacman, dnf)
+
 - bat
-- oh-my-zsh
 - neovim
-- docker/podman
+- docker
 - eza
 - fzf
 - zoxide
 - ghostty
+- stow
+- ripgrep
+- lazygit
+- bottom
 - starship
-  	- Reliant on installing a Nerd Font (I used symbols)
-		- https://www.nerdfonts.com/font-downloads
-- zoxide
+  - Reliant on installing a nerdfont
+  - https://www.nerdfonts.com/font-downloads
+
+### Manual Installation
+
+- oh-my-zsh
 - zsh-autosuggestions
 - zsh-syntax-highlighting
 - copilot cli
 - github cli
-- stow
-- gdu
+- docker rootless
+- lazydocker
+
+### NPM
+
+- treesitter cli
+- vite
 
 ## NOTES
 

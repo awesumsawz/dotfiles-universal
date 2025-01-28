@@ -1,4 +1,4 @@
 #background = 000000
-theme = MaterialDesignColors
+theme = Dracula
 mouse-hide-while-typing = true
 font-feature = -liga

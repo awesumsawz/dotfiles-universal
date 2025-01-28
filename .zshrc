@@ -1,14 +1,13 @@
 #   ----OS SPECIFIC------------------------------
 if [[ "$OSTYPE" == "linux"* ]]; then
-  export PATH=/usr/bin:$PATH
   [[ -f ~/.zsh_linux ]] && source ~/.zsh_linux
-  # ----- DOCKER --------------------------------
-  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
   [[ -f ~/.zsh_mac ]] && source ~/.zsh_mac
   [[ -f ~/.zsh_knight && $HOSTNAME == Knight* ]] && source ~/.zsh_knight
 fi
+
+source ~/.zsh_theming
 
 #  ----LOCAL------------------------------------- 
 if [ -f ~/.zshrc_local ]; then

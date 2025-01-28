@@ -1,0 +1,44 @@
+{
+  "$version": "1.2.3",
+  "$color-alias": {
+    "dracula-foreground": "#cc0000",
+    "dracula-background": "#020202",
+    "dracula-accent": "#ffaa6c",
+    "dracula-hint": "#33bb99",
+    "dracula-info": "#00a2e8",
+    "dracula-prompts": "#94a3b8",
+    "dracula-syntax": "#569cd6"
+  },
+  "$colors": {
+    "background": "#020202",
+    " foreground": "#cc0000",
+    " cursor": "#ffaa6c",
+    " selection": "#94a3b8",
+    " prompt": "#94a3b8",
+    " error": "#ff6b6b",
+    " warning": "#ff6b6b",
+    " success": "#00a2e8",
+    " info": "#00a2e8"
+  },
+  "$font": {
+    "family": "your-favorite-font",
+    "size": 10
+  },
+  "$gments": {
+    " highlight": {
+      " background": "#020202",
+      " foreground": "#cc0000"
+    }
+  },
+  "$aliases": {
+    "git": {
+      "color": "info",
+      "command": "git"
+    }
+  },
+  "$function": {
+    "cd (dir)": "cd $dir && ls -G",
+    "e (cmd)": "echo $ cmd",
+    "p (path)": "echo $ path"
+  }
+}

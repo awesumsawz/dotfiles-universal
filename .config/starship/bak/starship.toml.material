@@ -1,35 +1,39 @@
 format = """
-[ ](purple)\
+[ ](cyan)\
 $os\
 $username\
-[ ](fg:purple bg:red)\
+[ ](fg:cyan bg:blue)\
 $hostname\
-[ ](fg:red bg:pink)\
+[ ](fg:blue bg:violet)\
 $directory\
-[ ](fg:pink bg:orange)\
+[ ](fg:violet bg:yellow)\
 $git_branch\
-[ ](fg:orange)\
+[ ](fg:yellow)\
 $fill\
 $jobs\
 $cmd_duration\
 $line_break\
 $character"""
 
-palette = 'dracula'
+palette = 'material_design_colors'
 
-[palettes.dracula]
-darkgray = "#282a36"
-gray = "#44475a"
-white = "#f8f8f2"
-redgray = "#6272a4"
-cyan = "#8be9fd"
-green = "#50fa7b"
-orange = "#ffb86c"
-pink = "#ff79c6"
-purple = "#bd93f9"
-red = "#ff5555"
-yellow = "#f1fa8c"
-
+[palettes.material_design_colors]
+white = '#ffffff'
+bright_white = '#ffffff'
+black = '#000000'
+bright_black = '#a1b0b8'
+red = '#fc3841'
+bright_red = '#fc746d'
+green = '#5cf19e'
+bright_green = '#adf7be'
+yellow = '#fed032'
+bright_yellow = '#fee16c'
+blue = '#37b6ff'
+bright_blue = '#70cfff'
+violet = '#fc226e'
+bright_violet = '#fc669b'
+cyan = '#59ffd1'
+bright_cyan = '#9affe6'
 
 
 [fill]
@@ -37,19 +41,19 @@ symbol = ' '
 
 [os]
 disabled = false
-style = "bg:purple fg:black"
+style = "bg:cyan fg:black"
 format = '[ $symbol ]($style)'
 
 [username]
 show_always = true
 format = '[$user ]($style)'
-style_user = 'bg:purple fg:bold black'
-style_root = 'bg:purple fg:bold red'
+style_user = 'bg:cyan fg:bold black'
+style_root = 'bg:cyan fg:bold red'
 
 # -----------------------------------------------------
 
 [hostname]
-style = 'fg:bold black bg:red'
+style = 'fg:bold black bg:blue'
 # ssh_only = false
 ssh_symbol = " "
 format = "[$ssh_symbol$hostname ]($style)"
@@ -62,14 +66,14 @@ read_only = " 󰌾"
 truncate_to_repo = true
 truncation_symbol = "…/"
 format = '[$path]($style)[$read_only ]($read_only_style)'
-style = 'fg:bold black bg:pink' 
-read_only_style = 'fg:bold black bg:pink' 
+style = 'fg:bold black bg:violet' 
+read_only_style = 'fg:bold black bg:violet' 
 
 # -----------------------------------------------------
 
 [git_branch]
 symbol = " "
-style = 'fg:bold black bg:orange'
+style = 'fg:bold black bg:yellow'
 format = '[$symbol$branch(:$remote_branch) ]($style)'
 
 # -----------------------------------------------------
