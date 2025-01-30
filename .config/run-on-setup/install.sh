@@ -31,3 +31,10 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
 else
     echo "zsh-syntax-highlighting already exists, skipping clone."
 fi
+
+# Check if ~/.zshrc.pre-oh-my-zsh exists
+if [ -f ~/.zshrc.pre-oh-my-zsh ]; then
+    echo "Restoring previous .zshrc configuration..."
+    rm ~/.zshrc
+    mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+fi
