@@ -5,8 +5,15 @@ then
     exit 1
 fi
 
+
 # Define the target directory
 ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+
+# Check if Oh My Zsh is installed
+if [ ! -d "$ZSH_CUSTOM" ]; then
+    echo "Oh My Zsh is not installed. Installing..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
 # Create the target directory if it doesn't exist
 mkdir -p "$ZSH_CUSTOM/plugins"
