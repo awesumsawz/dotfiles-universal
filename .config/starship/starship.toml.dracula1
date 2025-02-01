@@ -2,17 +2,16 @@ format = """
 [](bg:purple fg:purple)\
 $os\
 $username\
+[ ](fg:purple bg:green)\
 $hostname\
-[ ](fg:purple bg:pink)\
+[ ](fg:green bg:pink)\
 $directory\
 [ ](fg:pink bg:yellow)\
 $git_branch\
 [ ](fg:yellow)\
 $fill\
-[](fg:orange)\
 $jobs\
 $cmd_duration\
-[](fg:orange)\
 $line_break\
 $character"""
 
@@ -39,17 +38,19 @@ symbol = ' '
 
 [os]
 disabled = false
-style = "bg:purple fg:bold black"
+style = "bg:purple fg:black"
 format = '[ $symbol ]($style)'
 
 [username]
 show_always = true
 format = '[$user ]($style)'
 style_user = 'bg:purple fg:bold black'
-style_root = 'bg:purple fg:bold white'
+style_root = 'bg:purple fg:bold green'
+
+# -----------------------------------------------------
 
 [hostname]
-style = 'fg:bold black bg:purple'
+style = 'fg:bold black bg:green'
 # ssh_only = false
 ssh_symbol = " "
 format = "[$ssh_symbol$hostname ]($style)"
@@ -75,13 +76,10 @@ format = '[$symbol$branch(:$remote_branch) ]($style)'
 # -----------------------------------------------------
 
 [cmd_duration]
-style = 'fg:bold black bg:orange'
-format = '[ $duration ]($style)'
+format = '[$duration]($style)'
 
-# -----------------------------------------------------
 
-[jobs]
-style = 'fg:bold black bg:orange'
+
 
 
 
