@@ -30,9 +30,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- These are just examples. Replace them with the language
--- servers you have installed in your system
--- require('lspconfig').gleam.setup({})
 require('lspconfig').intelephense.setup({})
 
 local cmp = require('cmp')
@@ -43,7 +40,6 @@ cmp.setup({
   },
   snippet = {
     expand = function(args)
-      -- You need Neovim v0.10 to use vim.snippet
       vim.snippet.expand(args.body)
     end,
   },

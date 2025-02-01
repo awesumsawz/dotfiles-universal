@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\b6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0024\2\0\0B\0\2\1K\0\1\0\nsetup\fComment\frequire\0" },
+    loaded = true,
+    path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
@@ -89,6 +95,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
+  },
+  ["lazygit.nvim"] = {
+    loaded = true,
+    path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
+    url = "https://github.com/kdheepak/lazygit.nvim"
   },
   ["mason.nvim"] = {
     loaded = true,
@@ -109,6 +120,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -134,10 +150,24 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["which-key.nvim"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0" },
+    loaded = true,
+    path = "/Users/jasonbiggs/.local/share/nvim/site/pack/packer/start/which-key.nvim",
+    url = "https://github.com/folke/which-key.nvim"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\b6\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0024\2\0\0B\0\2\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
+-- Config for: which-key.nvim
+time([[Config for which-key.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0", "config", "which-key.nvim")
+time([[Config for which-key.nvim]], false)
 -- Config for: dracula
 time([[Config for dracula]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme dracula\bcmd\bvim\0", "config", "dracula")

@@ -6,37 +6,19 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
-
-	use({
-		'Mofiqul/dracula.nvim',
-		as = 'dracula',
-		config = function() 
-			vim.cmd('colorscheme dracula')
-		end
-	})
-	
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.8',
-		-- or                            , branch = '0.1.x',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
-
-	use {
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
-	}
-
-	use "nvim-lua/plenary.nvim"
-	use {
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-		requires = { {"nvim-lua/plenary.nvim"} }
-	}
-
 	use 'mbbill/undotree'
 	use 'tpope/vim-fugitive'
 	use 'neovim/nvim-lspconfig'
 	use 'hrsh7th/nvim-cmp'
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'williamboman/mason.nvim'
+	use "nvim-lua/plenary.nvim"
+    use 'nvim-tree/nvim-web-devicons'
+	use({ 'Mofiqul/dracula.nvim', as = 'dracula', config = function() vim.cmd('colorscheme dracula') end })
+	use { 'nvim-telescope/telescope.nvim', tag = '0.1.8', requires = { {'nvim-lua/plenary.nvim'} } }
+	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use { "ThePrimeagen/harpoon", branch = "harpoon2", requires = { {"nvim-lua/plenary.nvim"} } }
+    use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() {} end }
+    use({ "kdheepak/lazygit.nvim", requires = { "nvim-lua/plenary.nvim" } })
+    use { "folke/which-key.nvim", config = function() require("which-key").setup {} end }
 end)
