@@ -16,6 +16,9 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
     use 'github/copilot.vim'
     use 'numToStr/Comment.nvim'
+    use 'nvim-tree/nvim-tree.lua'
+    use 'lewis6991/gitsigns.nvim'
+    use 'romgrk/barbar.nvim'
 	use({ 'Mofiqul/dracula.nvim', as = 'dracula', config = function() vim.cmd('colorscheme dracula') end })
 	use { 'nvim-telescope/telescope.nvim', tag = '0.1.8', requires = { {'nvim-lua/plenary.nvim'} } }
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }

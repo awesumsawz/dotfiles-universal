@@ -94,3 +94,7 @@ eval "$(starship init zsh)"
 unalias cd 2>/dev/null
 alias cd="z"
 eval "$(zoxide init zsh)"
+
+
+# Herd injected PHP 8.4 configuration.
+export HERD_PHP_84_INI_SCAN_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/php/84/"
