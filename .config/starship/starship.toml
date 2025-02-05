@@ -10,9 +10,8 @@ $git_branch\
 [ ](fg:yellow)\
 $fill\
 [](fg:orange)\
-$jobs\
 $cmd_duration\
-[](fg:orange)\
+$time\
 $line_break\
 $character"""
 
@@ -78,6 +77,11 @@ format = '[$symbol$branch(:$remote_branch) ]($style)'
 style = 'fg:bold black bg:orange'
 format = '[ $duration ]($style)'
 
+[time]
+style = 'fg:bold black bg:orange'
+format = '[ $time ]($style)'
+disabled = false
+# 24hr = false
 # -----------------------------------------------------
 
 [jobs]
