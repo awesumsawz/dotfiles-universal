@@ -41,7 +41,6 @@ sketchybar --default "${default[@]}"
 # Add the aerospace_workspace_change event we specified in aerospace.toml
 sketchybar --add event aerospace_workspace_change
 
-
 # Add workspaces for all monitors
 for monitor in $(aerospace list-monitors --format "%{monitor-appkit-nsscreen-screens-id}"); do
   for sid in $(aerospace list-workspaces --monitor "$monitor"); do
@@ -76,39 +75,7 @@ for monitor in $(aerospace list-monitors --format "%{monitor-appkit-nsscreen-scr
   done
 done
 
-# Load Icons on startup for all monitors
-for monitor in $(aerospace list-monitors); do
-  for sid in $(aerospace list-workspaces --monitor "$monitor" --empty no); do
-    apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
-    sketchybar --set space.$sid drawing=on
-    icon_strip=" "
-    if [ "${apps}" != "" ]; then
-      while read -r app; do
-        icon_strip+=" $($PLUGIN_DIR/icon_map_fn.sh "$app")"
-      done <<<"${apps}"
-    else
-      icon_strip=""
-    fi
-    # sketchybar \
-    #   --set space.$sid \
-    #   label="$icon_strip" \
-    #   padding_left=0 \
-    #   padding_right=0 
-  done
-done
-
-
 ##### Adding Right Items #####
-
-# sketchybar \
-#   --add item clock right \
-#   --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
-#   --add item volume right \
-#   --set volume script="$PLUGIN_DIR/volume.sh" \
-#   --subscribe volume volume_change \
-#   --add item battery right \
-#   --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-#   --subscribe battery system_woke power_source_change
 
 sketchybar --add item clock right \
   --set clock update_freq=10 script="$PLUGIN_DIR/clock.sh" \
