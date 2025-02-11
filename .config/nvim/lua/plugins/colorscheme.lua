@@ -1,9 +1,13 @@
 return {
-  "Mofiqul/dracula.nvim",
-  name = "dracula",
-  lazy = false,
-  priority = 1000,
-  config = function()
-    vim.cmd([[colorscheme dracula]])
-  end,
+  {
+    "Mofiqul/dracula.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent_bg = true,
+    },
+    config = function()
+      vim.cmd([[colorscheme dracula]])
+    end,
+  },
 }

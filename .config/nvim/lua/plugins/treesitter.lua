@@ -4,7 +4,7 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			local configs = require("nvim-treesitter.configs")
-
+      vim.notify = require("notify")
 			configs.setup({
 				ensure_installed = { 
 					"javascript", 
