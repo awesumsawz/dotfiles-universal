@@ -1,1 +1,1 @@
-require("awesumsawz")
+require("core.init")
