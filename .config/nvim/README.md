@@ -13,3 +13,4 @@
 
 
 https://medium.com/@jogarcia/laravel-blade-on-neovim-ee530ff5d20d
+https://github.com/josean-dev/dev-environment-files?tab=readme-ov-file
