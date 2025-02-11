@@ -10,3 +10,6 @@
 (UndoTree)[https://github.com/mbbill/undotree]
 (WhichKey)[https://github.com/folke/which-key.nvim]
 (Nvim Web Icons)[https://github.com/nvim-tree/nvim-web-devicons.nvim]
+
+
+https://medium.com/@jogarcia/laravel-blade-on-neovim-ee530ff5d20d
