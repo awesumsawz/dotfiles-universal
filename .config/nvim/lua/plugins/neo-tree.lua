@@ -337,9 +337,7 @@ return {
     vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
   end,
   keys = {
-    { "<leader>pv", "<cmd>:Neotree filesystem reveal left<CR>", desc = "Open NeoTree" },
+    -- { "<leader>pv", "<cmd>:Neotree filesystem reveal left<CR>", desc = "Open NeoTree" },
+    { "<leader>pv", "<cmd>:Neotree toggle<CR>", desc = "toggle neotree" },
   }
 }
-
-
-
