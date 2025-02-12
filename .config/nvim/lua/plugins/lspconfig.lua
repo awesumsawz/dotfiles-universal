@@ -12,7 +12,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "intelephense",
+          "phpactor",
           "html",
           "cssls",
           "eslint",
@@ -48,7 +48,8 @@ return {
 
       -- Define LSP servers in a table
       local servers = {
-        intelephense = { cmd = { 'intelephense', '--stdio' }, filetypes = { 'php' } },
+        -- intelephense = { cmd = { 'intelephense', '--stdio' }, filetypes = { 'php' } },
+        phpactor = { cmd = { 'phpactor', 'language-server' }, filetypes = { 'php' } },
         html = {},
         cssls = {},
         tailwindcss = {},
