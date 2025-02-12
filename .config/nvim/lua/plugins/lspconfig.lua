@@ -39,42 +39,36 @@ return {
 
       local lspconfig = require("lspconfig")
 
-      lspconfig.intelephense.setup({
-        cmd = { 'intelephense', '--stdio' },
-        filetypes = { 'php' },
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.cssls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.tailwindcss.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.bashls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.jsonls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.emmet_ls.setup({
-        capabilities = capabilities,
-        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-        init_options = {
-          html = {
-            options = {
-              ["bem.enabled"] = true,
-            },
-          },
+      -- Function to set 2-space indentation for all LSPs
+      local function on_attach(client, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, "tabstop", 2)
+        vim.api.nvim_buf_set_option(bufnr, "shiftwidth", 2)
+        vim.api.nvim_buf_set_option(bufnr, "expandtab", true)
+      end
+
+      -- Define LSP servers in a table
+      local servers = {
+        intelephense = { cmd = { 'intelephense', '--stdio' }, filetypes = { 'php' } },
+        html = {},
+        cssls = {},
+        tailwindcss = {},
+        bashls = {},
+        jsonls = {},
+        lua_ls = {},
+        ts_ls = {},
+        emmet_ls = {
+          filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+          init_options = { html = { options = { ["bem.enabled"] = true } } }
         }
-      })
+      }
+
+      -- Setup all LSPs with shared config
+      for lsp, config in pairs(servers) do
+        lspconfig[lsp].setup(vim.tbl_deep_extend("force", {
+          capabilities = capabilities,
+          on_attach = on_attach,
+        }, config))
+      end
     end,
     keys = {
       { "<leader>ch", vim.lsp.buf.hover, { noremap = true, silent = true }, desc = "Code Hover" },
