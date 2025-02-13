@@ -39,6 +39,24 @@ return {
         },
         filetype = "blade",
       }
+
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
+      })
+
+    end,
+  },
+  {
+    'EmranMR/tree-sitter-blade',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = 'blade',
+        highlight = {
+          enable = true
+        },
+      }
     end,
   }
 }
