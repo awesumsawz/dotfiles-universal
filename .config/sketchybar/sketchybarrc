@@ -7,29 +7,31 @@ ITEM_DIR="$CONFIG_DIR/items"
 
 sketchybar --bar \
   position=top \
-  height=25 \
-  blur_radius=20 \
+  height=28 \
+  blur_radius=10 \
   color=0x40000000 \
-  notch_display_height=23 \
-  corner_radius=100 \
-  margin=5 \
-  border_color=0xffFF79C6 \
+  notch_display_height=28 \
+  corner_radius=0 \
+  margin=-1 \
+  border_color=0xCCCCCCCC \
   border_width=1 \
-  y_offset=5 
+  y_offset=-1 
 
 ##### Changing Defaults #####
 
 default=(
   padding_left=0
   padding_right=0
-  icon.font="BigBlueTerm437 Nerd Font:Regular:14.0"
-  label.font="BigBlueTerm437 Nerd Font:Regular:12.0"
+  icon.font="Symbols Nerd Font:Regular:16.0"
+  label.font="RobotoMono Nerd Font:Bold:14.0"
   icon.color=0xffffffff
   label.color=0xffffffff
   icon.padding_left=4
   icon.padding_right=4
+  icon.y_offset=1
   label.padding_left=4
   label.padding_right=4
+  label.y_offset=2
   updates=on
 )
 sketchybar --default "${default[@]}"
@@ -56,28 +58,22 @@ for monitor in $(aerospace list-monitors --format "%{monitor-appkit-nsscreen-scr
       --subscribe space.$sid aerospace_workspace_change \
       --set space.$sid \
         drawing=on \
-        background.color=0x44ffffff \
-        background.corner_radius=100 \
-        background.drawing=on \
-        background.border_color=0xAAFFFFFF \
-        background.border_width=0 \
-        background.height=18 \
-        icon="$sid" \
-        icon.padding_left=13 \
-        icon.shadow.drawing=false \
-        icon.shadow.distance=0 \
-        padding_right=5 \
-        label.font="Hack Nerd Font:Regular:14.0" \
-        label.y_offset=-1 \
-        label.shadow.drawing=false \
+        y_offset=0 \
+        scroll_texts=off \
+        blur_radius=0 \
+        label="$sid" \
+        label.font="RobotoMono Nerd Font:Bold:16.0" \
+        label.color=0x88888888 \
+        label.y_offset=2 \
         click_script="aerospace workspace $sid" \
-        script="$PLUGIN_DIR/aerospace.sh $sid" 
+        script="$PLUGIN_DIR/aerospace.sh $sid"
   done
 done
 
 ##### Adding Right Items #####
 
-sketchybar --add item clock right \
+sketchybar \
+  --add item clock right \
   --set clock update_freq=10 script="$PLUGIN_DIR/clock.sh" \
   --add item battery right \
   --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
