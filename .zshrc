@@ -21,7 +21,7 @@ fi
 
 #   ----ZSH--------------------------------------
 SAVEHIST=5000
-HISTSIZE=5000
+HISTSIZE=10000
 HISTFILE=~/.zsh_history
 
 #   ----OH-MY-ZSH--------------------------------
@@ -35,7 +35,6 @@ plugins=(
 )
 zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 13
-COMPLETION_WAITING_DOTS="true"
 source $ZSH/oh-my-zsh.sh
 export ARCHFLAGS="-arch $(uname -m)"
 
@@ -56,13 +55,10 @@ alias cp='cp -iv'
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
 alias less='less -FSRXc'
-alias ~="cd ~"
 alias c="clear"
-alias which='type -all'
 alias numFiles='echo $(ls -1 | wc -l)'
-mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
+alias tarball="tar -czvf"
+alias untarball="tar -xzvf"
 
 #   CLIENT SHORTCUTS
 #   ---------------------------------------
@@ -72,16 +68,18 @@ alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-universit
 #   ---------------------------------------
 alias ls="eza --color=always --git --icons=always --long --no-permissions --no-time --no-filesize"
 alias ll="eza --color=always --long --git --icons=always --all"
-alias l="ls -la"
+alias l="eza --color=always --git --icons=always --all"
 
 #   FZF
 #   ---------------------------------------
-alias fz="fzf"
 eval "$(fzf --zsh)"
+
+#   LAZYGIT
+#   ---------------------------------------
+alias lg="lazygit"
 
 #   GITHUB
 #   ---------------------------------------
-alias ghc="gh copilot"
 eval "$(gh copilot alias -- zsh)"
 
 #   GHOSTTY
