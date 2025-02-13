@@ -7,6 +7,7 @@ return {
       'nvim-lua/plenary.nvim'
     },
     keys = {
+      { "<leader>ns", "<cmd>:Telescope notify<cr>", { noremap = true, silent = true, desc = "Show Notifications" } },
     }
   },
   {

@@ -8,7 +8,7 @@ return {
       "rcarriga/nvim-notify",
     },
     keys = {
-      { "<leader>nd", "<cmd>:Noice disable<cr>", { noremap = true, silent = true, desc = "Disable Noice" } },
+      { "<leader>nd", "<cmd>:Noice dismiss<cr>", { noremap = true, silent = true, desc = "Dismiss Noice" } },
     }
   },
   {
