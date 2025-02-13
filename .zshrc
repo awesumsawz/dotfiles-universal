@@ -1,13 +1,16 @@
 #   ----OS SPECIFIC------------------------------
 if [[ "$OSTYPE" == "linux"* ]]; then
-  [[ -f ~/.zsh_linux ]] && source ~/.zsh_linux
+  [[ -f ~/.zsh_linux ]] \
+    && source ~/.zsh_linux
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$HOME/.local/bin:$PATH"
-  [[ -f ~/.zsh_mac ]] && source ~/.zsh_mac
-  [[ -f ~/.zsh_knight && $HOSTNAME == Knight* ]] && source ~/.zsh_knight
+  [[ -f ~/.config/zsh/mac.zsh ]] \
+    && source ~/.config/zsh/mac.zsh
+  [[ -f ~/.config/zsh/knight.zsh && $HOSTNAME == Knight* ]] \
+    && source ~/.config/zsh/knight.zsh
 fi
 
-source ~/.zsh_theming
+source ~/.config/zsh/theme.zsh
 
 #  ----LOCAL------------------------------------- 
 if [ -f ~/.zshrc_local ]; then
@@ -45,9 +48,9 @@ bindkey '^ ' autosuggest-accept
 #------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------
 
-#   TMUX
+#   NVIM
 #   ---------------------------------------------------------------------------------
-
+alias nv="nvim"
 
 #   BAKED
 #   -----------------------------
