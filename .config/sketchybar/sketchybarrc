@@ -13,7 +13,7 @@ sketchybar --bar \
   notch_display_height=28 \
   corner_radius=0 \
   margin=-1 \
-  border_color=0xCCCCCCCC \
+  border_color=0xFFFF79C6 \
   border_width=1 \
   y_offset=-1 
 
@@ -22,10 +22,10 @@ sketchybar --bar \
 default=(
   padding_left=0
   padding_right=0
-  icon.font="Symbols Nerd Font:Regular:16.0"
-  label.font="RobotoMono Nerd Font:Bold:14.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
+  icon.font="Symbols Nerd Font Mono:Regular:16.0"
+  label.font="RobotoMono Nerd Font Mono:Bold:14.0"
+  icon.color=0xFFFFFFFF
+  label.color=0xFFFFFFFF
   icon.padding_left=4
   icon.padding_right=4
   icon.y_offset=1
