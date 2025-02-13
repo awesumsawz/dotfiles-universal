@@ -66,9 +66,8 @@ alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-universit
 
 #   EZA
 #   ---------------------------------------
-alias ls="eza --color=always --git --icons=always --long --no-permissions --no-time --no-filesize"
 alias ll="eza --color=always --long --git --icons=always --all"
-alias l="eza --color=always --git --icons=always --all"
+alias ls="eza --color=always --git --icons=always --all"
 
 #   FZF
 #   ---------------------------------------
