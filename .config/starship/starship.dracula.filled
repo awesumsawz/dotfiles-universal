@@ -3,8 +3,9 @@ format = """
 $os\
 [ ](fg:gray bg:pink)\
 $directory\
-[ ](fg:pink)\
+[ ](fg:pink bg:cyan)\
 $git_branch\
+[ ](fg:cyan)\
 $fill\
 [](fg:purple)\
 $cmd_duration\
@@ -53,7 +54,7 @@ read_only_style = 'fg:bold black bg:pink'
 
 [git_branch]
 symbol = " "
-style = 'fg:bold cyan'
+style = 'fg:bold black bg:cyan'
 format = '[$symbol$branch(:$remote_branch) ]($style)'
 
 # -----------------------------------------------------

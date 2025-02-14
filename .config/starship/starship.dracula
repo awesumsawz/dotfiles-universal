@@ -1,17 +1,15 @@
 format = """
-[](bg:purple fg:purple)\
+[](bg:darkgray fg:darkgray)\
 $os\
-$username\
-[ ](fg:purple bg:green)\
-$hostname\
-[ ](fg:green bg:pink)\
+[ ](fg:darkgray bg:pink)\
 $directory\
-[ ](fg:pink bg:yellow)\
+[ ](fg:pink bg:cyan)\
 $git_branch\
-[ ](fg:yellow)\
+[ ](fg:cyan)\
 $fill\
-$jobs\
+[](fg:purple)\
 $cmd_duration\
+$time\
 $line_break\
 $character"""
 
@@ -38,22 +36,8 @@ symbol = ' '
 
 [os]
 disabled = false
-style = "bg:purple fg:black"
-format = '[ $symbol ]($style)'
-
-[username]
-show_always = true
-format = '[$user ]($style)'
-style_user = 'bg:purple fg:bold black'
-style_root = 'bg:purple fg:bold green'
-
-# -----------------------------------------------------
-
-[hostname]
-style = 'fg:bold black bg:green'
-# ssh_only = false
-ssh_symbol = " "
-format = "[$ssh_symbol$hostname ]($style)"
+style = "bg:darkgray fg:white"
+format = '[$symbol]($style)'
 
 # -----------------------------------------------------
 
@@ -62,7 +46,7 @@ read_only = " 󰌾"
 'truncation_length' = 3
 truncate_to_repo = true
 truncation_symbol = "…/"
-format = '[$path]($style)[$read_only ]($read_only_style)'
+format = '[$path ]($style)[$read_only]($read_only_style)'
 style = 'fg:bold black bg:pink' 
 read_only_style = 'fg:bold black bg:pink' 
 
@@ -70,16 +54,24 @@ read_only_style = 'fg:bold black bg:pink'
 
 [git_branch]
 symbol = " "
-style = 'fg:bold black bg:yellow'
+style = 'fg:bold black bg:cyan'
 format = '[$symbol$branch(:$remote_branch) ]($style)'
 
 # -----------------------------------------------------
 
 [cmd_duration]
-format = '[$duration]($style)'
+style = 'fg:bold black bg:purple'
+format = '[ $duration ]($style)'
 
+[time]
+style = 'fg:bold black bg:purple'
+format = '[ $time ]($style)'
+disabled = false
+# 24hr = false
+# -----------------------------------------------------
 
-
+[jobs]
+style = 'fg:bold black bg:purple'
 
 
 

@@ -1,12 +1,8 @@
 format = """
-[](bg:gray fg:gray)\
 $os\
-[ ](fg:gray bg:pink)\
 $directory\
-[ ](fg:pink)\
 $git_branch\
 $fill\
-[](fg:purple)\
 $cmd_duration\
 $time\
 $line_break\
@@ -30,13 +26,11 @@ yellow = "#f1fa8c"
 
 
 
-[fill]
-symbol = ' '
 
 [os]
 disabled = false
-style = "bg:gray fg:white"
-format = '[$symbol]($style)'
+style = "fg:white"
+format = '[ $symbol ]($style)'
 
 # -----------------------------------------------------
 
@@ -45,32 +39,38 @@ read_only = " 󰌾"
 'truncation_length' = 3
 truncate_to_repo = true
 truncation_symbol = "…/"
-format = '[$path ]($style)[$read_only]($read_only_style)'
-style = 'fg:bold black bg:pink' 
-read_only_style = 'fg:bold black bg:pink' 
+format = '[ $path]($style)[$read_only ]($read_only_style)'
+style = 'fg:bold pink' 
+read_only_style = 'fg:pink' 
 
 # -----------------------------------------------------
 
 [git_branch]
 symbol = " "
 style = 'fg:bold cyan'
-format = '[$symbol$branch(:$remote_branch) ]($style)'
+format = '[ $symbol$branch(:$remote_branch) ]($style)'
+
+# -----------------------------------------------------
+
+[fill]
+symbol = ' '
 
 # -----------------------------------------------------
 
 [cmd_duration]
-style = 'fg:bold black bg:purple'
+style = 'fg:bold green'
 format = '[ $duration ]($style)'
 
 [time]
-style = 'fg:bold black bg:purple'
+style = 'fg:bold orange'
 format = '[ $time ]($style)'
 disabled = false
-# 24hr = false
+use_12hr = true
+
 # -----------------------------------------------------
 
 [jobs]
-style = 'fg:bold black bg:purple'
+style = 'fg:bold purple'
 
 
 
