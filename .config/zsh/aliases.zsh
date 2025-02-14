@@ -15,8 +15,8 @@ alias untarball="tar -xzvf"
 # client shortcuts
 alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
 # eza
-alias ll="eza --color=always --long --git --icons=always --all"
-alias ls="eza --color=always --git --icons=always --all"
+alias ll="eza --color=always --color=auto --long --git --icons=always --all"
+alias ls="eza --color=always --color=auto --git --icons=always --all"
 # lazygit
 alias lg="lazygit"
 # zoxide
