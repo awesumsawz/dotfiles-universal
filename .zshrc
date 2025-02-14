@@ -1,4 +1,8 @@
-#   ----OS SPECIFIC------------------------------
+# ==================================================
+# INITIALIZATION
+# ----START-----------------------------------------
+source ~/.config/zsh/theme.zsh
+# os
 if [[ "$OSTYPE" == "linux"* ]]; then
   [[ -f ~/.zsh_linux ]] \
     && source ~/.zsh_linux
@@ -9,10 +13,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   [[ -f ~/.config/zsh/knight.zsh && $HOSTNAME == Knight* ]] \
     && source ~/.config/zsh/knight.zsh
 fi
-
-source ~/.config/zsh/theme.zsh
-
-#  ----LOCAL------------------------------------- 
+# local
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
@@ -21,13 +22,16 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
-
-#   ----ZSH--------------------------------------
-SAVEHIST=5000
+# zsh
+SAVEHIST=10000
 HISTSIZE=10000
 HISTFILE=~/.zsh_history
+# ----END-------------------------------------------
 
-#   ----OH-MY-ZSH--------------------------------
+# ==================================================
+# PLUGIN MANAGER
+# ----START-----------------------------------------
+# oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(
   git
@@ -40,20 +44,21 @@ zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 13
 source $ZSH/oh-my-zsh.sh
 export ARCHFLAGS="-arch $(uname -m)"
+# ----END-------------------------------------------
 
-#   ----ZSH-AUTOSUGGESTIONS----------------------
+# ==================================================
+# PLUGINS
+# ----START-----------------------------------------
+# zsh-autosuggestions
 bindkey '^ ' autosuggest-accept
+# ----END-------------------------------------------
 
-#------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------
-
-#   NVIM
-#   ---------------------------------------------------------------------------------
+# ==================================================
+# ALIASES
+# ----START-----------------------------------------
+# nvim
 alias nv="nvim"
-
-#   BAKED
-#   -----------------------------
+# baked
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
@@ -62,43 +67,41 @@ alias c="clear"
 alias numFiles='echo $(ls -1 | wc -l)'
 alias tarball="tar -czvf"
 alias untarball="tar -xzvf"
-
-#   CLIENT SHORTCUTS
-#   ---------------------------------------
+# client shortcuts
 alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
-
-#   EZA
-#   ---------------------------------------
+# eza
 alias ll="eza --color=always --long --git --icons=always --all"
 alias ls="eza --color=always --git --icons=always --all"
-
-#   FZF
-#   ---------------------------------------
-eval "$(fzf --zsh)"
-
-#   LAZYGIT
-#   ---------------------------------------
+# lazygit
 alias lg="lazygit"
-
-#   GITHUB
-#   ---------------------------------------
-eval "$(gh copilot alias -- zsh)"
-
-#   GHOSTTY
-#   ---------------------------------------
-export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
-
-#   STARSHIP
-#   ---------------------------------------
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-eval "$(starship init zsh)" 
-
-#   ZOXIDE
-#   ---------------------------------------
+# zoxide
 unalias cd 2>/dev/null
 alias cd="z"
+# ----END-------------------------------------------
+
+# ==================================================
+# TOOL CONFIGURATIONS
+# ----START-----------------------------------------
+# fzf
+eval "$(fzf --zsh)"
+# github 
+eval "$(gh copilot alias -- zsh)"
+# ghostty
+export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
+# starship
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)" 
+# zoxide
 eval "$(zoxide init zsh)"
+# ----END-------------------------------------------
+
+# ==================================================
+# FUNCTIONS
+# ----START-----------------------------------------
+#
+# ----END-------------------------------------------
 
 
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/jasonbiggs/Library/Application Support/Herd/config/php/84/"
+# ==================================================
+# INJECTED CONFIGURATIONS
+# ----START-----------------------------------------
