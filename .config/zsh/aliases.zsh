@@ -24,4 +24,6 @@ unalias cd 2>/dev/null
 alias cd="z"
 # tmux
 alias tmux="tmux -f ~/.config/tmux/tmux.conf"
+# docker
+alias dcd="docker-compose down"
 # ----END-------------------------------------------
