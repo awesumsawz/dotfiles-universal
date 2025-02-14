@@ -1,5 +1,17 @@
-# Dracula Theme (for zsh-syntax-highlighting)
-# Paste this files contents inside your ~/.zshrc before you activate zsh-syntax-highlighting
+# ==================================================
+# COMPLETION STYLING
+# ----START-----------------------------------------
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+# ----END-------------------------------------------
+
+# ==================================================
+# THEME
+# ----START-----------------------------------------
+# dracula theme for zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
 typeset -gA ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#6272A4'
@@ -48,3 +60,4 @@ ZSH_HIGHLIGHT_STYLES[redirection]='fg=#F8F8F2'
 ZSH_HIGHLIGHT_STYLES[arg0]='fg=#F8F8F2'
 ZSH_HIGHLIGHT_STYLES[default]='fg=#F8F8F2'
 ZSH_HIGHLIGHT_STYLES[cursor]='standout'
+# ----END-------------------------------------------
