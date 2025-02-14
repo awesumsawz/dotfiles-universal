@@ -14,4 +14,7 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 # thefuck
 eval "$(thefuck --alias fix)"
+# eza
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+export LS_COLORS="$(vivid generate dracula)"
 # ----END-------------------------------------------
