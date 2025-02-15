@@ -3,7 +3,7 @@
 # ----START-----------------------------------------
 # history
 HISTSIZE=10000
-SAVEHIST=$HISTSIZE
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 HISTDUP=erase
 setopt appendhistory
