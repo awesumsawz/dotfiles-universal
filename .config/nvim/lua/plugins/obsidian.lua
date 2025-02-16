@@ -20,8 +20,8 @@ return {
   opts = {
     workspaces = {
       {
-        name = "Work",
-        path = "~/Chime",
+        name = "Home",
+        path = "~/Documents/Home",
       },
     },
   },
