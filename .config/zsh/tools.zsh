@@ -22,7 +22,4 @@ if [[ -f ~/.op_session ]]; then
     source ~/.op_session
 fi
 eval "$(op signin)" > ~/.op_session
-eval "$(op signin --session-timeout=2h)"
-eval "$(op ssh-agent start)"
-
 # ----END-------------------------------------------

@@ -44,6 +44,8 @@ zinit snippet OMZP::tmux
 zinit snippet OMZP::vi-mode
 zinit snippet OMZP::vscode
 zinit snippet OMZP::wp-cli
+zinit snippet OMZP::terraform
+zinit snippet OMZP::helm
 # compile completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q

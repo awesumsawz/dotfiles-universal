@@ -85,11 +85,9 @@ run = 'layout floating'
 
 [mode.main.binding]
     # App shortcuts
-    alt-b = 'exec-and-forget open -a /Applications/Firefox.app'
+    alt-b = "exec-and-forget open -a /Applications/'Zen Browser.app'"
     alt-c = 'exec-and-forget open -a /Applications/Cursor.app'
     alt-q = 'exec-and-forget open -a /Applications/Ghostty.app'
-    alt-s = 'exec-and-forget open -a /Applications/Slack.app'
-    alt-g = 'exec-and-forget open -a /Applications/Google\ Chrome.app'
     alt-shift-r = ['exec-and-forget /opt/homebrew/bin/sketchybar --reload']
 
     alt-period = 'layout tiles horizontal vertical'
