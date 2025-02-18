@@ -22,4 +22,6 @@ if [[ -f ~/.op_session ]]; then
     source ~/.op_session
 fi
 eval "$(op signin)" > ~/.op_session
+# homebrew
+export HOMEBREW_BREWFILE="$HOME/.config/brewfile/brewfile"
 # ----END-------------------------------------------
