@@ -1,10 +1,11 @@
 #!/bin/bash
 
 start_tray() {
-    echo "Starting Kanata Tray..."
-    ~/.config/kanata-tray/kanata-tray-macos &
-    disown
-    echo "Kanata Tray startup complete!"
+    echo "Starting Kanata..."
+    ~/.config/kanata-tray/kanata-tray-macos & disown
+    sudo '/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon' & disdown
+    sudo ~/.config/kanata/kanata_macos_cmd_allowed_arm64 --cfg ~/.config/kanata/kanata.kbd & disdown
+    echo "Kanata startup complete!"
 }
 
 stop_tray() {
@@ -16,11 +17,26 @@ stop_tray() {
     else
         echo "No Kanata Tray process found."
     fi
+    if pgrep -f "kanata_macos_cmd_allowed_arm64" > /dev/null; then
+        echo "Existing Kanata process found, terminating..."
+        sudo pkill -f "kanata_macos_cmd_allowed_arm64"
+        sleep 1
+    else 
+      echo "No Kanata process found."
+    fi
+
+    if pgrep -f "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
+        echo "Existing Karabiner daemon found, terminating..."
+        sudo pkill -f "Karabiner-VirtualHIDDevice-Daemon"
+        sleep 1
+    else
+        echo "No Karabiner daemon found."
+    fi
 }
 
 case "$1" in
     start)
-        stop_tray  # First stop any existing instance
+        stop_tray
         start_tray
         ;;
     stop)
