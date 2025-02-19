@@ -18,6 +18,8 @@ exec-on-workspace-change = [ '/bin/bash', '-c',
     '$HOME/.config/aerospace/on_workspace_change.sh $AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
+#  lsappinfo list | fzf
+
 [[on-window-detected]]
 if.app-name-regex-substring = '1password'
 run = 'layout floating'
@@ -34,14 +36,6 @@ run = 'layout floating'
 if.app-name-regex-substring = 'karabiner'
 run = 'layout floating'
 
-# [[on-window-detected]]
-# if.app-name-regex-substring = 'obsidian'
-# run = 'layout floating'
-
-# [[on-window-detected]]
-# if.app-name-regex-substring = 'github'
-# run = 'layout floating'
-
 [[on-window-detected]]
 if.app-name-regex-substring = 'fantastical'
 run = 'layout floating'
@@ -53,6 +47,26 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-name-regex-substring = 'music'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'dark noise'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'ColorSlurp'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'zoom'
+run = 'layout floating'
+
+# [[on-window-detected]]
+# if.app-name-regex-substring = 'obsidian'
+# run = 'layout floating'
+
+# [[on-window-detected]]
+# if.app-name-regex-substring = 'github'
+# run = 'layout floating'
 
 # [[on-window-detected]]
 # if.app-name-regex-substring = 'docker desktop'
@@ -69,11 +83,6 @@ run = 'layout floating'
 # [[on-window-detected]]
 # if.app-name-regex-substring = 'todoist'
 # run = 'layout floating'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'zoom'
-run = 'layout floating'
-
 
 
 [key-mapping]
