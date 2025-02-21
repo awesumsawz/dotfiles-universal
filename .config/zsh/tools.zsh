@@ -24,4 +24,7 @@ fi
 eval "$(op signin)" > ~/.op_session
 # homebrew
 export HOMEBREW_BREWFILE="$HOME/.config/brewfile/brewfile"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 # ----END-------------------------------------------
