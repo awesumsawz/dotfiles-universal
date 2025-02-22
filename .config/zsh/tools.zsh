@@ -27,6 +27,4 @@ export HOMEBREW_BREWFILE="$HOME/.config/brewfile/brewfile"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-# open ai api key
-export OPEN_AI_KEY=$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)
 # ----END-------------------------------------------
