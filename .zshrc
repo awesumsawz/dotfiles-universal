@@ -38,7 +38,7 @@ fi
 # LOCAL
 # ==================================================
 if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
+  source ~/.config/zsh/local.zsh
 fi
 
 # ==================================================
