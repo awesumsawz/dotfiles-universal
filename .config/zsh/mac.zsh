@@ -4,4 +4,4 @@ fi
 export PATH="/Users/jasonbiggs/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/Users/jasonbiggs/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 unalias drs
-alias drs="darwin-rebuild switch --flake ~/nix#knight"
+alias drs="darwin-rebuild switch --flake ~/dotfiles-mac/nix#knight"
