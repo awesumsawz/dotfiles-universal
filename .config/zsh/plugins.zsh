@@ -40,12 +40,12 @@ zinit snippet OMZP::laravel
 zinit snippet OMZP::npm
 zinit snippet OMZP::ssh-agent
 zinit snippet OMZP::systemd
-zinit snippet OMZP::tmux
+# zinit snippet OMZP::tmux
 zinit snippet OMZP::vi-mode
 zinit snippet OMZP::vscode
 zinit snippet OMZP::wp-cli
 zinit snippet OMZP::terraform
-zinit snippet OMZP::helm
+# zinit snippet OMZP::helm
 # compile completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q
