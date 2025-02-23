@@ -1,17 +1,14 @@
 # Fonts
 font-family = "RobotoMono Nerd Font Mono"
 font-family = "Symbols Nerd Font Mono"
-# adjust-underline-position = 4
 
 # Mouse
-# mouse-hide-while-typing = true
-# mouse-scroll-multiplier = 1
+mouse-hide-while-typing = true
 
 # Theme
 theme = Dracula
 background-opacity = 0.8
 background-blur-radius = 20
-# cursor-invert-fg-bg = true
 window-theme = ghostty
 window-decoration = true
 
