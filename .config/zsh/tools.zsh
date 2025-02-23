@@ -27,4 +27,6 @@ export HOMEBREW_BREWFILE="$HOME/.config/brewfile/brewfile"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+# imagemagick
+export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 # ----END-------------------------------------------
