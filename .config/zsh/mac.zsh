@@ -1,7 +1,17 @@
-if [[ -f "/opt/homebrew/bin/brew" ]] then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+# Mac ZSH configuration
+
+# Homebrew setup
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-export PATH="/Users/jasonbiggs/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/Users/jasonbiggs/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-unalias drs
-alias drs="darwin-rebuild switch --flake ~/dotfiles-mac/nix#knight"
+
+# Path configurations
+export PATH="${HOME}/.config/herd-lite/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
+
+# PHP configuration
+export PHP_INI_SCAN_DIR="${HOME}/.config/herd-lite/bin:${PHP_INI_SCAN_DIR}"
+
+# Nix-Darwin aliases
+unalias drs 2>/dev/null  # Suppress error if alias doesn't exist
+alias drs="darwin-rebuild switch --flake ~/nix#knight"
