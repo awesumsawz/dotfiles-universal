@@ -1,33 +1,48 @@
 # ==================================================
-# ALIASES
-# ----START-----------------------------------------
-# nvim
-alias nv="nvim"
-# baked
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias mkdir='mkdir -pv'
-alias less='less -FSRXc'
+# FILE OPERATIONS
+# --------------------------------------------------
+alias cp='cp -iv'        # Interactive and verbose copy
+alias mv='mv -iv'        # Interactive and verbose move
+alias mkdir='mkdir -pv'  # Create parent dirs, verbose
+alias less='less -FSRXc' # Better less defaults
 alias c="clear"
 alias numFiles='echo $(ls -1 | wc -l)'
+
+# ==================================================
+# ARCHIVE OPERATIONS
+# --------------------------------------------------
 alias tarball="tar -czvf"
 alias untarball="tar -xzvf"
-# client shortcuts
-alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
-# eza
+
+# ==================================================
+# MODERN REPLACEMENTS
+# --------------------------------------------------
+# Replace ls with eza
 alias ll="eza --color=always --color=auto --long --git --icons=always --all"
 alias ls="eza --color=always --color=auto --git --icons=always --all"
-# lazygit
-alias lg="lazygit"
-# zoxide
+
+# Replace cd with zoxide
 unalias cd 2>/dev/null
 alias cd="z"
-# tmux
-alias tmux="tmux -f ~/.config/tmux/tmux.conf"
-# docker
+
+# ==================================================
+# DEVELOPMENT TOOLS
+# --------------------------------------------------
+# Editors and Git
+alias nv="nvim"
+alias lg="lazygit"
+
+# Docker
 alias dcd="docker-compose down"
-# tgpt
-alias chat="tgpt --key '$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)' --provider 'openai' --model 'gpt-3.5-turbo'"
-# zellij
+
+# Terminal Multiplexers
+alias tmux="tmux -f ~/.config/tmux/tmux.conf"
 alias zj="zellij"
-# ----END-------------------------------------------
+
+# AI Assistant
+alias chat="tgpt --key '$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)' --provider 'openai' --model 'gpt-3.5-turbo'"
+
+# ==================================================
+# PROJECT SHORTCUTS
+# --------------------------------------------------
+alias modelhorseuniversity="cd ~/code/clients/MHU/websites/model-horse-university/"
