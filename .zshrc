@@ -1,48 +1,6 @@
-# SETTINGS
-# ==================================================
-source ~/.config/zsh/settings.zsh
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
-# PLUGINS
-# ==================================================
-source ~/.config/zsh/plugins.zsh
-
-# BINDKEYS
-# ==================================================
-source ~/.config/zsh/bindkeys.zsh
-
-# STYLING
-# ==================================================
-source ~/.config/zsh/style.zsh
-
-# ALIASES
-# ==================================================
-source ~/.config/zsh/aliases.zsh
-
-# TOOLS
-# ==================================================
-source ~/.config/zsh/tools.zsh
-
-# OS
-# ==================================================
-if [[ "$OSTYPE" == "linux"* ]]; then
-  [[ -f ~/.zsh_linux ]] \
-    && source ~/.zsh_linux
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  export PATH="$HOME/.local/bin:$PATH"
-  [[ -f ~/.config/zsh/mac.zsh ]] \
-    && source ~/.config/zsh/mac.zsh
-  [[ -f ~/.config/zsh/knight.zsh && $HOSTNAME == Knight* ]] \
-    && source ~/.config/zsh/knight.zsh
-fi
-
-# LOCAL
-# ==================================================
-if [ -f ~/.zshrc_local ]; then
-  source ~/.config/zsh/local.zsh
-fi
-
-# ==================================================
-# ==================================================
-# ==================================================
-# ==================================================
-# ==================================================
+source "$XDG_CONFIG_HOME/zsh/_index.zsh"
