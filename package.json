@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "tree-sitter-cli": "^0.24.7"
-  },
-  "devDependencies": {
-    "sass": "^1.84.0",
-    "vite": "^6.0.8"
-  }
-}
