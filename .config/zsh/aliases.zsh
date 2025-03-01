@@ -32,6 +32,7 @@ alias cd="z"
 # Editors and Git
 alias nv="nvim"
 alias lg="lazygit"
+alias ld="lazydocker"
 
 # Docker
 alias dcd="docker-compose down"
