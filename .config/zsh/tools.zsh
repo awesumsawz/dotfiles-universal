@@ -3,8 +3,6 @@
 # ----START-----------------------------------------
 # fzf
 eval "$(fzf --zsh)"
-# github 
-eval "$(gh copilot alias -- zsh)"
 # ghostty
 export GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 # starship
@@ -22,11 +20,7 @@ if [[ -f ~/.op_session ]]; then
     source ~/.op_session
 fi
 eval "$(op signin)" > ~/.op_session
-# homebrew
-export HOMEBREW_BREWFILE="$HOME/.config/brewfile/brewfile"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-# imagemagick
-export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 # ----END-------------------------------------------
