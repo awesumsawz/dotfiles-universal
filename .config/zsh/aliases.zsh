@@ -7,6 +7,7 @@ alias mkdir='mkdir -pv'  # Create parent dirs, verbose
 alias less='less -FSRXc' # Better less defaults
 alias c="clear"
 alias numFiles='echo $(ls -1 | wc -l)'
+alias rgl="rg -L"
 
 # ==================================================
 # ARCHIVE OPERATIONS
