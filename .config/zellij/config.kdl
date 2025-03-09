@@ -266,12 +266,12 @@ default_mode "locked"
 // The folder in which Zellij will look for layouts
 // (Requires restart)
 // 
-// layout_dir "/tmp"
+// layout_dir "$HOME/.config/zellij/layouts"
  
 // The folder in which Zellij will look for themes
 // (Requires restart)
 // 
-// theme_dir "/tmp"
+// theme_dir "$HOME/.config/zellij/themes"
  
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
@@ -339,7 +339,7 @@ pane_frames false
 // Enable automatic copying (and clearing) of selection when releasing mouse
 // Default: true
 // 
-// copy_on_select true
+copy_on_select true
  
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
@@ -356,7 +356,7 @@ pane_frames false
 // if it is already running or creates it otherwise.
 // Default: false
 // 
-// attach_to_session true
+attach_to_session true
  
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:

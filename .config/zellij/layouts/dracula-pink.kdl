@@ -1,0 +1,82 @@
+layout {
+  default_tab_template {
+    children
+    pane size=1 borderless=true {
+      plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+        // dracula-pink theme                          
+        color_fg "#F8F8F2" // Foreground
+        color_bg "#282A36" // Background (slightly darker)
+        color_black "#282A36" // Background
+        color_red "#FF5555" // Red
+        color_green "#50FA7B" // Green
+        color_yellow "#F1FA8C" // Yellow
+        color_blue "#BD93F9" // Purple
+        color_magenta "#FF79C6" // Pink
+        color_cyan "#8BE9FD" // Cyan
+        color_white "#F8F8F2" // Foreground
+        color_orange "#FFB86C" // Orange
+        
+        // Custom colors for pink theme
+        color_purple_light "#D6ACFF" // Lighter purple
+        color_pink_light "#FF9CE6" // Lighter pink
+        color_purple_dark "#9B6BDF" // Darker purple
+
+        format_left   "{mode}#[bg=$bg] {tabs}"
+        format_center "#[bg=$bg,fg=$magenta] Zellij: #[bg=$bg,fg=$magenta,bold]{session}"
+        format_right  "{datetime}"
+        format_space  "#[bg=$bg]"
+        format_hide_on_overlength "true"
+        format_precedence "crl"
+
+        border_enabled  "true"
+        border_char     "─"
+        border_format   "#[fg=$magenta]{char}"
+        border_position "top"
+
+        hide_frame_for_single_pane "true"
+
+        mode_normal        "#[bg=$magenta,fg=$bg,bold] NORMAL#[bg=$bg,fg=$magenta]"
+        mode_locked        "#[bg=$red,fg=$bg,bold] LOCKED #[bg=$bg,fg=$red]"
+        mode_resize        "#[bg=$blue,fg=$bg,bold] RESIZE#[bg=$bg,fg=$blue]"
+        mode_pane          "#[bg=$purple_light,fg=$bg,bold] PANE#[bg=$bg,fg=$purple_light]"
+        mode_tab           "#[bg=$magenta,fg=$bg,bold] TAB#[bg=$bg,fg=$magenta]"
+        mode_scroll        "#[bg=$blue,fg=$bg,bold] SCROLL#[bg=$bg,fg=$blue]"
+        mode_enter_search  "#[bg=$pink_light,fg=$bg,bold] ENT-SEARCH#[bg=$bg,fg=$pink_light]"
+        mode_search        "#[bg=$pink_light,fg=$bg,bold] SEARCH#[bg=$bg,fg=$pink_light]"
+        mode_rename_tab    "#[bg=$magenta,fg=$bg,bold] RENAME-TAB#[bg=$bg,fg=$magenta]"
+        mode_rename_pane   "#[bg=$purple_light,fg=$bg,bold] RENAME-PANE#[bg=$bg,fg=$purple_light]"
+        mode_session       "#[bg=$magenta,fg=$bg,bold] SESSION#[bg=$bg,fg=$magenta]"
+        mode_move          "#[bg=$purple_dark,fg=$bg,bold] MOVE#[bg=$bg,fg=$purple_dark]"
+        mode_prompt        "#[bg=$blue,fg=$bg,bold] PROMPT#[bg=$bg,fg=$blue]"
+        mode_tmux          "#[bg=$magenta,fg=$bg,bold] TMUX#[bg=$bg,fg=$magenta]"
+
+        // formatting for inactive tabs
+        tab_normal              "#[bg=$bg,fg=$blue]#[bg=$blue,fg=$bg,bold]{index} #[bg=$bg,fg=$blue,bold] {name}{floating_indicator}#[bg=$bg,fg=$bg,bold]"
+        tab_normal_fullscreen   "#[bg=$bg,fg=$blue]#[bg=$blue,fg=$bg,bold]{index} #[bg=$bg,fg=$blue,bold] {name}{fullscreen_indicator}#[bg=$bg,fg=$bg,bold]"
+        tab_normal_sync         "#[bg=$bg,fg=$blue]#[bg=$blue,fg=$bg,bold]{index} #[bg=$bg,fg=$blue,bold] {name}{sync_indicator}#[bg=$bg,fg=$bg,bold]"
+
+        // formatting for the current active tab
+        tab_active              "#[bg=$bg,fg=$magenta]#[bg=$magenta,fg=$bg,bold]{index} #[bg=$bg,fg=$magenta,bold] {name}{floating_indicator}#[bg=$bg,fg=$bg,bold]"
+        tab_active_fullscreen   "#[bg=$bg,fg=$magenta]#[bg=$magenta,fg=$bg,bold]{index} #[bg=$bg,fg=$magenta,bold] {name}{fullscreen_indicator}#[bg=$bg,fg=$bg,bold]"
+        tab_active_sync         "#[bg=$bg,fg=$magenta]#[bg=$magenta,fg=$bg,bold]{index} #[bg=$bg,fg=$magenta,bold] {name}{sync_indicator}#[bg=$bg,fg=$bg,bold]"
+
+        // separator between the tabs
+        tab_separator           "#[bg=$bg] "
+
+        // indicators
+        tab_sync_indicator       " "
+        tab_fullscreen_indicator " 󰊓"
+        tab_floating_indicator   " 󰹙"
+
+        command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+        command_git_branch_format      "#[fg=$purple_light] {stdout} "
+        command_git_branch_interval    "10"
+        command_git_branch_rendermode  "static"
+
+        datetime        "#[fg=$magenta] {format} "
+        datetime_format "%Y-%m-%d %H:%M"
+        datetime_timezone "Europe/Helsinki"
+      }
+    }
+  }
+} 
