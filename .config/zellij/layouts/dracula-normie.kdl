@@ -1,5 +1,6 @@
 layout {
   default_tab_template {
+    children
     pane size=1 borderless=true {
       plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
         // dracula theme                          
@@ -29,8 +30,8 @@ layout {
 
         hide_frame_for_single_pane "true"
 
-        mode_normal        "#[bg=$green,fg=$bg,bold] NORMAL#[bg=$bg,fg=$green]"
-        mode_locked        "#[bg=$blue,fg=$bg,bold] LOCKED #[bg=$bg,fg=$blue]"
+        mode_normal        "#[bg=$green,fg=$bg,bold] NORMAL#[bg=$bg,fg=$]"
+        mode_locked        "#[bg=$red,fg=$bg,bold] LOCKED #[bg=$bg,fg=$red]"
         mode_resize        "#[bg=$blue,fg=$bg,bold] RESIZE#[bg=$bg,fg=$blue]"
         mode_pane          "#[bg=$blue,fg=$bg,bold] PANE#[bg=$bg,fg=$blue]"
         mode_tab           "#[bg=$yellow,fg=$bg,bold] TAB#[bg=$bg,fg=$yellow]"
@@ -69,9 +70,8 @@ layout {
 
         datetime        "#[fg=$fg] {format} "
         datetime_format "%Y-%m-%d %H:%M"
-        datetime_timezone "America/Chicago"
+        datetime_timezone "Europe/Helsinki"
       }
     }
-    children
   }
 }
