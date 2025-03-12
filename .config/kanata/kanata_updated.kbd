@@ -1,0 +1,53 @@
+;; defsrc is still necessary
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
+  caps a s d f j k l ;
+  fn lmet rmet
+)
+(defvar
+  tap-hold-time 200
+  tap-dance-time 200
+  hold-time 200
+)
+
+(defalias
+  escctrl (tap-hold $tap-hold-time $hold-time esc lctl)
+  base-a (tap-hold $tap-hold-time $hold-time a lalt)
+  base-s (tap-hold $tap-hold-time $hold-time s lmet)
+  base-d (tap-hold $tap-hold-time $hold-time d lsft)
+  base-f (tap-hold $tap-hold-time $hold-time f lctl)
+  base-j (tap-hold $tap-hold-time $hold-time j rctl)
+  base-k (tap-hold $tap-hold-time $hold-time k rsft)
+  base-l (tap-hold $tap-hold-time $hold-time l rmet)
+  base-; (tap-hold $tap-hold-time $hold-time ; ralt)
+  one-h 
+  one-j 
+  one-k
+  one-l
+  fnl (tap-hold 200 200 fn (layer-toggle fn))
+  lmet (tap-hold $tap-hold-time $hold-time bspc lmet)
+  rmet (tap-hold $tap-hold-time $hold-time ret rmet)
+  ropt (layer-while-held one)
+)
+
+(deflayer base
+  brdn  brup  _    _    _    _   prev  pp  next  mute  vold  volu
+  @escctrl @a @s @d @f @j @k @l @;
+  @fnl @lmet @rmet
+)
+
+(deflayer fn
+  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
+  @escctrl _ _ _ _ _ _ _ _ _
+  @fnl @lmet @rmet
+)
+
+(deflayer one
+  _ _ _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ @one-h @one-j @one-k @one-l _
+  @fnl @lmet @rmet
+)
