@@ -7,3 +7,8 @@ source "$XDG_CONFIG_HOME/zsh/_index.zsh"
 
 # bun completions
 [ -s "/Users/jasonbiggs/.bun/_bun" ] && source "/Users/jasonbiggs/.bun/_bun"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/jasonbiggs/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
