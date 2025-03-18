@@ -17,3 +17,10 @@ export PHP_INI_SCAN_DIR="${HOME}/.config/herd-lite/bin:${PHP_INI_SCAN_DIR}"
 # Nix-Darwin aliases
 unalias drs 2>/dev/null  # Suppress error if alias doesn't exist
 alias drs="darwin-rebuild switch --flake ~/nix#knight"
+
+# Laravel aliases
+alias art="php artisan"
+alias tinker="php artisan tinker"
+alias migrate="php artisan migrate"
+alias sail="./vendor/bin/sail"
+alias pest="./vendor/bin/pest"
