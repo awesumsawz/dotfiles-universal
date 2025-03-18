@@ -36,6 +36,7 @@ alias lg="lazygit"
 alias ld="lazydocker"
 
 # Docker
+alias docker-compose="docker compose" # Use the new Docker CLI syntax
 alias dcd="docker-compose down"
 
 # Terminal Multiplexers
