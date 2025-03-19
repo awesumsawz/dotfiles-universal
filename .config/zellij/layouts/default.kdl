@@ -73,59 +73,5 @@ layout {
       }
     }
     children
-    pane size=2 borderless=true {
-      plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-        // dracula theme for bottom bar                  
-        color_fg "#F8F8F2" // Foreground
-        color_bg "#282A36" // Background
-        color_black "#282A36" // Background
-        color_red "#FF5555" // Red
-        color_green "#50FA7B" // Green
-        color_yellow "#F1FA8C" // Yellow
-        color_blue "#BD93F9" // Purple
-        color_magenta "#FF79C6" // Pink
-        color_cyan "#8BE9FD" // Cyan
-        color_white "#F8F8F2" // Foreground
-        color_orange "#FFB86C" // Orange
-        
-        // Use mode as the entire content for the bottom bar
-        format_left "{mode}"
-        format_center ""
-        format_right ""
-        format_space "#[bg=$bg]"
-        
-        // Display all content regardless of length
-        format_hide_on_overlength "false"
-        
-        // Mode-specific content with keybindings information based on config.kdl - styled to match top bar
-        mode_normal        "#[bg=$green,fg=$bg,bold] NORMAL #[bg=$bg,fg=$fg] #[bg=$bg,fg=$green]t#[bg=$bg,fg=$fg]/#[bg=$bg,fg=$cyan]p#[bg=$bg,fg=$fg] tab/pane │ #[bg=$bg,fg=$blue]r#[bg=$bg,fg=$fg] resize │ #[bg=$bg,fg=$magenta]m#[bg=$bg,fg=$fg] move │ #[bg=$bg,fg=$cyan]s#[bg=$bg,fg=$fg] scroll │ #[bg=$bg,fg=$orange]o#[bg=$bg,fg=$fg] session │ #[bg=$bg,fg=$green]Ctrl g#[bg=$bg,fg=$fg] lock"
-        
-        mode_locked        "#[bg=$blue,fg=$bg,bold] LOCKED #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]Ctrl a#[bg=$bg,fg=$fg] unlock │ #[bg=$bg,fg=$yellow]Alt#[bg=$bg,fg=$fg]+arrows focus │ #[bg=$bg,fg=$magenta]Alt n#[bg=$bg,fg=$fg] new pane │ #[bg=$bg,fg=$green]Alt [/]#[bg=$bg,fg=$fg] layout │ #[bg=$bg,fg=$orange]Alt +/-#[bg=$bg,fg=$fg] resize │ #[bg=$bg,fg=$yellow]Alt f#[bg=$bg,fg=$fg] float"
-        
-        mode_resize        "#[bg=$blue,fg=$bg,bold] RESIZE #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]←↓↑→/hjkl#[bg=$bg,fg=$fg] resize │ #[bg=$bg,fg=$yellow]+/=#[bg=$bg,fg=$fg] increase │ #[bg=$bg,fg=$magenta]-#[bg=$bg,fg=$fg] decrease │ #[bg=$bg,fg=$green]r#[bg=$bg,fg=$fg] normal │ #[bg=$bg,fg=$cyan]Ctrl g#[bg=$bg,fg=$fg] lock"
-        
-        mode_pane          "#[bg=$blue,fg=$bg,bold] PANE #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]←↓↑→/hjkl#[bg=$bg,fg=$fg] focus │ #[bg=$bg,fg=$magenta]n#[bg=$bg,fg=$fg] new │ #[bg=$bg,fg=$green]x#[bg=$bg,fg=$fg] close │ #[bg=$bg,fg=$yellow]f#[bg=$bg,fg=$fg] fullscreen │ #[bg=$bg,fg=$cyan]z#[bg=$bg,fg=$fg] frames │ #[bg=$bg,fg=$orange]c#[bg=$bg,fg=$fg] rename │ #[bg=$bg,fg=$green]e#[bg=$bg,fg=$fg] float │ #[bg=$bg,fg=$magenta]p#[bg=$bg,fg=$fg] normal"
-        
-        mode_tab           "#[bg=$yellow,fg=$bg,bold] TAB #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]←↓↑→/hjkl#[bg=$bg,fg=$fg] next/prev │ #[bg=$bg,fg=$magenta]n#[bg=$bg,fg=$fg] new │ #[bg=$bg,fg=$green]x#[bg=$bg,fg=$fg] close │ #[bg=$bg,fg=$blue]r#[bg=$bg,fg=$fg] rename │ #[bg=$bg,fg=$cyan]s#[bg=$bg,fg=$fg] sync │ #[bg=$bg,fg=$green]1-9#[bg=$bg,fg=$fg] goto │ #[bg=$bg,fg=$magenta]b#[bg=$bg,fg=$fg] break │ #[bg=$bg,fg=$yellow][/]#[bg=$bg,fg=$fg] break L/R"
-        
-        mode_scroll        "#[bg=$blue,fg=$bg,bold] SCROLL #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]←↓↑→/hjkl#[bg=$bg,fg=$fg] scroll │ #[bg=$bg,fg=$magenta]PgUp/PgDn#[bg=$bg,fg=$fg] page │ #[bg=$bg,fg=$green]d#[bg=$bg,fg=$fg] half down │ #[bg=$bg,fg=$cyan]u#[bg=$bg,fg=$fg] half up │ #[bg=$bg,fg=$orange]f#[bg=$bg,fg=$fg] search │ #[bg=$bg,fg=$green]s#[bg=$bg,fg=$fg] normal"
-        
-        mode_session       "#[bg=$blue,fg=$bg,bold] SESSION #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]d#[bg=$bg,fg=$fg] detach │ #[bg=$bg,fg=$magenta]w#[bg=$bg,fg=$fg] windows │ #[bg=$bg,fg=$green]c#[bg=$bg,fg=$fg] config │ #[bg=$bg,fg=$yellow]p#[bg=$bg,fg=$fg] plugins │ #[bg=$bg,fg=$orange]o#[bg=$bg,fg=$fg] normal"
-        
-        mode_move          "#[bg=$blue,fg=$bg,bold] MOVE #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]←↓↑→/hjkl#[bg=$bg,fg=$fg] move pane │ #[bg=$bg,fg=$green]n#[bg=$bg,fg=$fg] next │ #[bg=$bg,fg=$magenta]p#[bg=$bg,fg=$fg] previous │ #[bg=$bg,fg=$yellow]m#[bg=$bg,fg=$fg] normal"
-        
-        mode_tmux          "#[bg=$magenta,fg=$bg,bold] TMUX #[bg=$bg,fg=$fg] All keypresses forwarded to tmux except prefix. Press prefix again to exit mode."
-        
-        mode_enter_search  "#[bg=$orange,fg=$bg,bold] ENTER SEARCH #[bg=$bg,fg=$fg] Type search pattern and press Enter │ #[bg=$bg,fg=$cyan]Esc/Ctrl+c#[bg=$bg,fg=$fg] to cancel"
-        
-        mode_search        "#[bg=$orange,fg=$bg,bold] SEARCH #[bg=$bg,fg=$fg] #[bg=$bg,fg=$cyan]n/p#[bg=$bg,fg=$fg] next/prev │ #[bg=$bg,fg=$magenta]c#[bg=$bg,fg=$fg] case │ #[bg=$bg,fg=$green]w#[bg=$bg,fg=$fg] wrap │ #[bg=$bg,fg=$yellow]o#[bg=$bg,fg=$fg] word"
-        
-        mode_rename_tab    "#[bg=$yellow,fg=$bg,bold] RENAME TAB #[bg=$bg,fg=$fg] Enter new name and press Enter │ #[bg=$bg,fg=$cyan]Esc#[bg=$bg,fg=$fg] cancel │ #[bg=$bg,fg=$green]Ctrl+c#[bg=$bg,fg=$fg] exit"
-        
-        mode_rename_pane   "#[bg=$blue,fg=$bg,bold] RENAME PANE #[bg=$bg,fg=$fg] Enter new name and press Enter │ #[bg=$bg,fg=$cyan]Esc#[bg=$bg,fg=$fg] cancel │ #[bg=$bg,fg=$green]Ctrl+c#[bg=$bg,fg=$fg] exit"
-        
-        mode_prompt        "#[bg=$blue,fg=$bg,bold] PROMPT #[bg=$bg,fg=$fg] Answer prompt at top"
-      }
-    }
   }
 }
