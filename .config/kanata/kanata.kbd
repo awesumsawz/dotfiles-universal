@@ -9,7 +9,7 @@
   fn lalt lmet rmet ralt
 )
 (defvar
-  tap-hold-time 150
+  tap-hold-time 250
   tap-hold-time-fast 150
   tap-hold-time-slow 300
   hold-time 200
