@@ -16,3 +16,20 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+
+
+let base_paths = [
+  '/usr/bin'
+  '/bin'
+  '/usr/sbin'
+  '/sbin'
+  '/opt/homebrew/bin'
+  '/opt/homebrew/sbin'
+]
+
+load-env { PATH: ($env.PATH | append $base_paths | uniq) }
+
+source ~/.config/nushell/env-modules/local.nu
+source ~/.config/nushell/env-modules/mac.nu
+source ~/.config/nushell/env-modules/tools.nu
+source ~/.config/nushell/env-modules/plugins.nu

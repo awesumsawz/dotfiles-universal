@@ -17,6 +17,8 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+$env.config.show_banner = false
+
 # Import config modules
 source ~/.config/nushell/config-modules/aliases.nu
 source ~/.config/nushell/config-modules/local.nu

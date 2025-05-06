@@ -15,3 +15,6 @@ def --env y [...args] {
 	}
 	rm -fp $tmp
 }
+
+# Zoxide
+source ~/.zoxide.nu
