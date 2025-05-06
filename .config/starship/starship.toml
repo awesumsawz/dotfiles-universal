@@ -1,6 +1,7 @@
 format = """
 [](bg:gray fg:gray)\
 $os\
+$shell\
 [ ](fg:gray bg:pink)\
 $directory\
 [ ](fg:pink)\
@@ -37,6 +38,11 @@ symbol = ' '
 disabled = false
 style = "bg:gray fg:white"
 format = '[$symbol]($style)'
+
+[shell]
+disabled = false
+style = "fg:white bg:gray"
+format = '[$indicator ]($style)'
 
 # -----------------------------------------------------
 
