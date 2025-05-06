@@ -3,6 +3,7 @@
 .config/nvim/lazy-lock.json
 .config/tmux/plugins/*
 .config/karabiner/automatic_backups/*
+.config/nushell/history*
 *.log
 local.zsh
 notes/
