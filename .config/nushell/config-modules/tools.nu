@@ -2,6 +2,9 @@
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
+# Neovim
+$env.config.buffer_editor = "nvim"
+
 # Yazi
 def --env y [...args] {
 	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
