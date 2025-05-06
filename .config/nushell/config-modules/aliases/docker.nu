@@ -1,0 +1,62 @@
+# --- Begin custom functions for argument-taking docker aliases ---
+# (none needed, all are static)
+# --- End custom functions ---
+
+# Simple aliases
+alias dbl = docker build
+alias dcb = docker compose build
+alias dcd = docker compose down
+alias dcdn = docker compose down
+alias dce = docker compose exec
+alias dcin = docker container inspect
+alias dck = docker compose kill
+alias dcl = docker compose logs
+alias dclF = docker compose logs -f --tail 0
+alias dclf = docker compose logs -f
+alias dcls = docker container ls
+alias dclsa = docker container ls -a
+alias dco = docker compose
+alias dcps = docker compose ps
+alias dcpull = docker compose pull
+alias dcr = docker compose run
+alias dcrestart = docker compose restart
+alias dcrm = docker compose rm
+alias dcstart = docker compose start
+alias dcstop = docker compose stop
+alias dcup = docker compose up
+alias dcupb = docker compose up --build
+alias dcupd = docker compose up -d
+alias dcupdb = docker compose up -d --build
+alias dib = docker image build
+alias dii = docker image inspect
+alias dils = docker image ls
+alias dipru = docker image prune -a
+alias dipu = docker image push
+alias dirm = docker image rm
+alias dit = docker image tag
+alias dlo = docker container logs
+alias dnc = docker network create
+alias dncn = docker network connect
+alias dndcn = docker network disconnect
+alias dni = docker network inspect
+alias dnls = docker network ls
+alias dnrm = docker network rm
+alias dpo = docker container port
+alias dps = docker ps
+alias dpsa = docker ps -a
+alias dpu = docker pull
+alias dr = docker container run
+alias drit = docker container run -it
+alias drm = docker container rm
+alias 'drm!' = docker container rm -f
+alias drs = docker container restart
+alias dst = docker container start
+alias dsta = docker ps -q | each { docker stop $it }
+alias dstp = docker container stop
+alias dtop = docker top
+alias dvi = docker volume inspect
+alias dvls = docker volume ls
+alias dvprune = docker volume prune
+alias dxc = docker container exec
+alias dxcit = docker container exec -it
+alias docker-compose = docker compose

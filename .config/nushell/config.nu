@@ -16,12 +16,11 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
-mkdir ($nu.data-dir | path join "vendor/autoload")
-starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
-alias ll = ls -l
-alias lg = lazygit
-alias c = clear
-alias ld = lazydocker
-alias nv = neovim
-alias yz = yazi
+# Import config modules
+source ~/.config/nushell/config-modules/aliases.nu
+source ~/.config/nushell/config-modules/local.nu
+source ~/.config/nushell/config-modules/mac.nu
+source ~/.config/nushell/config-modules/settings.nu
+source ~/.config/nushell/config-modules/style.nu
+source ~/.config/nushell/config-modules/tools.nu
