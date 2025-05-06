@@ -6,4 +6,5 @@
 .config/nushell/history*
 *.log
 local.zsh
+local.nu
 notes/
