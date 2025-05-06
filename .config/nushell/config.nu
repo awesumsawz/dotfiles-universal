@@ -22,7 +22,6 @@ starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.n
 alias ll = ls -l
 alias lg = lazygit
 alias c = clear
-alias cd = z
 alias ld = lazydocker
 alias nv = neovim
 alias yz = yazi
