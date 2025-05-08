@@ -21,8 +21,18 @@ $env.config.show_banner = false
 
 # Import config modules
 source ~/.config/nushell/config-modules/aliases.nu
-source ~/.config/nushell/config-modules/local.nu
-source ~/.config/nushell/config-modules/mac.nu
 source ~/.config/nushell/config-modules/settings.nu
 source ~/.config/nushell/config-modules/style.nu
 source ~/.config/nushell/config-modules/tools.nu
+
+# Local config
+source ~/.config/nushell/config-modules/local.nu
+
+# Source OS-specific config file if it exists
+if ($nu.os-info.name | str starts-with "macos") {
+  source ~/.config/nushell/config-modules/os-specific/mac.nu
+} else if ($nu.os-info.name | str starts-with "linux") {
+  source ~/.config/nushell/config-modules/os-specific/linux.nu
+} else if ($nu.os-info.name | str starts-with "windows") {
+  source ~/.config/nushell/config-modules/os-specific/windows.nu
+}
