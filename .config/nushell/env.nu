@@ -33,6 +33,13 @@ let base_paths = [
 load-env { PATH: ($env.PATH | append $base_paths | uniq) }
 
 source ~/.config/nushell/env-modules/local.nu
-source ~/.config/nushell/env-modules/mac.nu
 source ~/.config/nushell/env-modules/tools.nu
-source ~/.config/nushell/env-modules/plugins.nu
+
+# Source OS-specific config file if it exists
+if ($nu.os-info.name | str starts-with "macos") {
+  source ~/.config/nushell/env-modules/os-specific/mac.nu
+} else if ($nu.os-info.name | str starts-with "linux") {
+  source ~/.config/nushell/env-modules/os-specific/linux.nu
+} else if ($nu.os-info.name | str starts-with "windows") {
+  source ~/.config/nushell/env-modules/os-specific/windows.nu
+}
