@@ -1,11 +1,10 @@
 # Starship
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
-$env.STARSHIP_CONFIG = "/Users/jason.biggs/.config/starship/starship.toml"
+# $env.STARSHIP_CONFIG = ("~/.config/starship/starship.toml" | path expand)
 
 # Neovim
 $env.config.buffer_editor = "nvim"
-$env.EDITOR = "nvim"
 
 # Yazi
 def --env y [...args] {
