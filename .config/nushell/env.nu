@@ -17,9 +17,8 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
-$env.XDG_CONFIG_HOME = "/Users/jason.biggs/.config"
-$env.XDG_DATA_HOME = "/Users/jason.biggs/.local/share"
-$env.STARSHIP_CONFIG = "/Users/jason.biggs/.config/starship/starship.toml"
+$env.XDG_CONFIG_HOME = ("~/.config" | path expand)
+$env.XDG_DATA_HOME = ("~/.local/share" | path expand)
 
 let base_paths = [
   '/usr/bin'
