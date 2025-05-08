@@ -1,9 +1,11 @@
 # Starship
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+$env.STARSHIP_CONFIG = "/Users/jason.biggs/.config/starship/starship.toml"
 
 # Neovim
 $env.config.buffer_editor = "nvim"
+$env.EDITOR = "nvim"
 
 # Yazi
 def --env y [...args] {
@@ -18,3 +20,6 @@ def --env y [...args] {
 
 # Zoxide
 source ~/.zoxide.nu
+
+# Vi module 
+$env.config.edit_mode = 'vi'

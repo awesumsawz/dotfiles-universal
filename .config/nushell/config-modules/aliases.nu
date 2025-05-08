@@ -19,8 +19,9 @@ alias untarball = tar -xzvf
 # MODERN REPLACEMENTS
 # --------------------------------------------------
 alias cd = z
-alias ll = ls -l
-alias l = eza --color=always --color=auto --long --git --icons=always --all
+alias ls = ls -a
+alias ll = ls -la
+alias le = eza --color=always --color=auto --long --git --icons=always --all
 
 # ==================================================
 # DEVELOPMENT TOOLS
