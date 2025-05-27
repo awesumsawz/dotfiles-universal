@@ -1,3 +1,4 @@
+echo "Loading mac zsh..."
 # Mac ZSH configuration
 
 # Homebrew setup
