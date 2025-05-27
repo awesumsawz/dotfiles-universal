@@ -20,10 +20,9 @@
 $env.config.show_banner = false
 
 # Import config modules
+source ~/.config/nushell/config-modules/tools.nu # must be first
 source ~/.config/nushell/config-modules/aliases.nu
 source ~/.config/nushell/config-modules/settings.nu
-source ~/.config/nushell/config-modules/style.nu
-source ~/.config/nushell/config-modules/tools.nu
 
 # Local config
 source ~/.config/nushell/config-modules/local.nu

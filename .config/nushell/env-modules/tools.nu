@@ -6,3 +6,8 @@ $env.STARSHIP_CONFIG = ("~/.config/starship/starship.toml" | path expand)
 
 # neovim
 $env.EDITOR = "nvim"
+
+# zoxide
+if (not ("~/.zoxide.nu" | path expand | path exists)) {
+  zoxide init nushell | save --raw ~/.zoxide.nu
+}
