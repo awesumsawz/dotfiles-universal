@@ -5,12 +5,16 @@ return {
   version = false,
   opts = {
     provider = "openai",
-    openai = {
-      endpoint = "https://api.openai.com/v1",
-      model = "gpt-4o",
-      timeout = 30000,
-      temperature = 0,
-      max_tokens = 4096,
+    providers = {
+      openai = {
+        endpoint = "https://api.openai.com/v1",
+        model = "gpt-4o",
+        timeout = 30000,
+        max_tokens = 4096,
+        extra_request_body = {
+          temperature = 0,
+        },
+      },
     },
   },
   build = "make",
