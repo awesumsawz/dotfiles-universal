@@ -15,3 +15,13 @@ window-decoration = true
 
 # Keyboard
 macos-option-as-alt = true
+
+# Shaders
+custom-shader = "shaders/cursor_blaze_no_trail.glsl"
+#custom-shader = "shaders/cursor_blaze.glsl"
+#custom-shader = "shaders/cursor_smear_fade.glsl"
+custom-shader = "shaders/cursor_smear.glsl"
+#custom-shader = "shaders/debug_cursor_animated.glsl"
+#custom-shader = "shaders/debug_cursor_static.glsl"
+#custom-shader = "shaders/ghostty_wrapper.glsl"
+#custom-shader = "shaders/WIP.glsl"
