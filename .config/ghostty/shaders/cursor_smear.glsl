@@ -60,8 +60,8 @@ float ease(float x) {
     return pow(1.0 - x, 3.0);
 }
 
-const vec4 TRAIL_COLOR = vec4(1., 1., 0., 1.0); // gold
-//const vec4 TRAIL_COLOR = vec4(1.0, 0.475, 0.776, 1.0); // pink
+// const vec4 TRAIL_COLOR = vec4(1., 1., 0., 1.0); // gold
+const vec4 TRAIL_COLOR = vec4(1.0, 0.475, 0.776, 1.0); // pink
 // const vec4 TRAIL_COLOR = vec4(0.741, 0.576, 0.976, 1.0); // purple
 // const vec4 TRAIL_COLOR = vec4(0.545, 0.914, 0.992, 1.0); // cyan
 const float OPACITY = 0.6;
