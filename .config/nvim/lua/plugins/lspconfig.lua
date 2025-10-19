@@ -37,8 +37,6 @@ return {
         cmp_nvim_lsp.default_capabilities()
       )
 
-      local lspconfig = require("lspconfig")
-
       -- Function to set 2-space indentation for all LSPs
       local function on_attach(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, "tabstop", 2)
@@ -63,12 +61,13 @@ return {
         }
       }
 
-      -- Setup all LSPs with shared config
+      -- Setup all LSPs with shared config using vim.lsp.config
       for lsp, config in pairs(servers) do
-        lspconfig[lsp].setup(vim.tbl_deep_extend("force", {
+        vim.lsp.config[lsp] = vim.tbl_deep_extend("force", {
           capabilities = capabilities,
           on_attach = on_attach,
-        }, config))
+        }, config)
+        vim.lsp.enable(lsp)
       end
     end,
     keys = {
