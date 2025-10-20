@@ -3,6 +3,13 @@
   "editor": {
     "vimMode": false
   },
+  "model": {
+    "modelId": "gpt-5",
+    "displayModelId": "gpt-5",
+    "displayName": "OpenAI GPT-5",
+    "displayNameShort": "GPT-5",
+    "aliases": []
+  },
   "hasChangedDefaultModel": false,
   "permissions": {
     "allow": [
@@ -13,13 +20,6 @@
   "privacyCache": {
     "ghostMode": true,
     "privacyMode": 2,
-    "updatedAt": 1754622312863
-  },
-  "model": {
-    "modelId": "gpt-5",
-    "displayModelId": "gpt-5",
-    "displayName": "OpenAI GPT-5",
-    "displayNameShort": "GPT-5",
-    "aliases": []
+    "updatedAt": 1759249741062
   }
 }
