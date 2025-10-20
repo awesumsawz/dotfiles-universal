@@ -44,8 +44,8 @@ alias dcd="docker-compose down"
 alias tmux="tmux -f ~/.config/tmux/tmux.conf"
 alias zj="zellij"
 
-# AI Assistant
-alias chat="tgpt --key '$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)' --provider 'openai' --model 'gpt-3.5-turbo'"
+# # AI Assistant
+# alias chat="tgpt --key '$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)' --provider 'openai' --model 'gpt-3.5-turbo'"
 
 alias yz="yazi"
 
