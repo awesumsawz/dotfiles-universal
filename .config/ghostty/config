@@ -1,6 +1,7 @@
 # Fonts
 font-family = "RobotoMono Nerd Font Mono"
 font-family = "Symbols Nerd Font Mono"
+font-size = 10
 
 # Mouse
 mouse-hide-while-typing = true
