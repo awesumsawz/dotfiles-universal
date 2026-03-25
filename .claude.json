@@ -1,5 +1,5 @@
 {
-  "numStartups": 157,
+  "numStartups": 158,
   "installMethod": "native",
   "autoUpdates": false,
   "hasSeenTasksHint": true,
@@ -18,8 +18,8 @@
     "double-esc": 46,
     "continue": 155,
     "custom-commands": 148,
-    "shift-tab": 145,
-    "plan-mode-for-complex-tasks": 150,
+    "shift-tab": 158,
+    "plan-mode-for-complex-tasks": 158,
     "git-worktrees": 149,
     "status-line": 155,
     "ide-upsell-external-terminal": 145,
@@ -31,9 +31,9 @@
     "ultrathink-keyword": 79,
     "stickers-command": 85,
     "frontend-design-plugin": 83,
-    "rename-conversation": 143,
+    "rename-conversation": 158,
     "config-thinking-mode": 79,
-    "desktop-app": 143,
+    "desktop-app": 158,
     "web-app": 144,
     "mobile-app": 144,
     "install-slack-app": 154,
@@ -41,7 +41,7 @@
     "default-permission-mode-config": 154,
     "agent-flag": 151,
     "feedback-command": 145,
-    "color-when-multi-clauding": 148
+    "color-when-multi-clauding": 158
   },
   "promptQueueUseCount": 29,
   "cachedStatsigGates": {
@@ -579,12 +579,12 @@
       "hasClaudeMdExternalIncludesWarningShown": false,
       "exampleFiles": [
         ".zshrc",
-        "packer.lua",
-        "lspconfig.lua",
-        "telescope.lua",
-        "aerospace.toml"
+        "config",
+        "aliases.zsh",
+        "aerospace.sh",
+        "sketchybarrc"
       ],
-      "exampleFilesGeneratedAt": 1762363621400,
+      "exampleFilesGeneratedAt": 1774451936633,
       "lastTotalWebSearchRequests": 0,
       "lastCost": 0.05549825,
       "lastAPIDuration": 30724,
@@ -1218,6 +1218,9 @@
     "hone-health/buy-honehealth-com": [
       "/Users/jbiggs/code/buy-hh/buy-honehealth-com/main",
       "/Users/jbiggs/code/buy-hh/buy-honehealth-com/longevity-lp"
+    ],
+    "awesumsawz/dotfiles-universal": [
+      "/Users/jbiggs/dotfiles-universal"
     ]
   },
   "opusProMigrationComplete": true,
@@ -1298,7 +1301,7 @@
   },
   "metricsStatusCache": {
     "enabled": true,
-    "timestamp": 1774365442228
+    "timestamp": 1774452058112
   },
   "claudeAiMcpEverConnected": [
     "claude.ai PubMed",
