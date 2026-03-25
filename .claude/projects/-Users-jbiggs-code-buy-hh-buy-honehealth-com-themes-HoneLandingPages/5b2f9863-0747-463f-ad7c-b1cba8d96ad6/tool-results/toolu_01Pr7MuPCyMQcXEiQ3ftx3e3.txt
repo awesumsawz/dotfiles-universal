@@ -1,0 +1,742 @@
+     1→     1→<?php 
+     2→     2→/** 
+     3→     3→ * Template Name: Womens Hormone Imbalance
+     4→     4→ */ 
+     5→     5→
+     6→     6→global $class_names, $linkbar_vars;
+     7→     7→
+     8→     8→$template_name = 'womens-hormone-imbalance';
+     9→     9→$class_names[] = $template_name;
+    10→    10→$theme_folder = get_bloginfo('stylesheet_directory');
+    11→    11→$qs = get_query_string(); // persist qs params
+    12→    12→
+    13→    13→$checkout_url = 'https://start.honehealth.com/product/hermes/labtest_w_opt_6?utm_lp=hormone' . (!empty($qs) ? '&' . $qs : '');
+    14→    14→$hero = $theme_folder . '/static/media/images/hero-hormone-imb.webp';
+    15→    15→
+    16→    16→// Enqueue page-specific JavaScript bundle
+    17→    17→wp_enqueue_script('hone-page-' . $template_name);
+    18→    18→
+    19→    19→get_header();
+    20→    20→?>
+    21→    21→            <section class="callout-hero bg-brand-greylight callout-section page-section">
+    22→    22→               <div class="container">
+    23→    23→                  <figure class="media-block">
+    24→    24→                     <picture class="">
+    25→    25→                        <source srcSet="<?php echo $theme_folder?>/static/media/images/hero-hormone-imb-dt.webp" media="(min-width: 1024px)"/>
+    26→    26→                        <source srcSet="<?php echo $theme_folder?>/static/media/images/hero-hormone-imb-tb.webp" media="(min-width: 768px)"/>
+    27→    27→                        <img src="<?php echo $hero ?>" alt="A woman stretching."/>
+    28→    28→                     </picture>
+    29→    29→                  </figure>
+    30→    30→                  <div class="callout-content">
+    31→    31→                     <div class="title-block">
+    32→    32→                        <h2>Hone Your Hormones, <br class='is-hidden-touch' /> Find Relief</h2>
+    33→    33→                        <p class="lead">We test 40+ hormone markers to uncover real answers and real relief.</p>
+    34→    34→                     </div>
+    35→    35→                     <div class="cta-block">
+    36→    36→                        <div class="cta-wrapper"><a class="btn" href="#quiz" data-trackable="callout" data-interaction="0" rel="">let's get started</a></div>
+    37→    37→                     </div>
+    38→    38→                  </div>
+    39→    39→               </div>
+    40→    40→            </section>
+    41→    41→            <section class="quiz-wrapper" id="quiz">
+    42→    42→               <div class="container">
+    43→    43→                  <div class="the-title">
+    44→    44→                     <h2>Is Hormone Therapy Right For Me?</h2>
+    45→    45→                  </div>
+    46→    46→                  <div class="progress-bar">
+    47→    47→                     <div style="width:16%;height:4px;background-color:#119555" class="progress"></div>
+    48→    48→                  </div>
+    49→    49→                  <div class="question-container question-1">
+    50→    50→                     <h2 id="question"></h2>
+    51→    51→                     <div id="options" class="options-container">
+    52→    52→                     </div>
+    53→    53→                     <button id="quiz-cta" class="btn" style="display:none; align-self:center">Next Question</button>
+    54→    54→                  </div>
+    55→    55→                  <div class="results-container" style="display:none"></div>
+    56→    56→               </div>
+    57→    57→            </section>
+    58→    58→            <section class="details-highlighted-stats bg-brand-greylight details-section page-section" id="treatment-with-hone">
+    59→    59→               <div class="container">
+    60→    60→                  <div class="title-block">
+    61→    61→                     <h2>Why seek treatment with Hone?</h2>
+    62→    62→                  </div>
+    63→    63→                  <div class="details-content grid columns-4">
+    64→    64→                     <div class="detail detail-0">
+    65→    65→                        <div class="detail-content-wrapper">
+    66→    66→                           <h4 class="detail-title">1 <span class='stat-inbetween'>IN</span> 3 women</h4>
+    67→    67→                           <p class="detail-text">deal with fatigue, weight gain, or mood swings from hormone imbalances.</p>
+    68→    68→                        </div>
+    69→    69→                     </div>
+    70→    70→                     <div class="detail detail-1">
+    71→    71→                        <div class="detail-content-wrapper">
+    72→    72→                           <h4 class="detail-title">75% of women</h4>
+    73→    73→                           <p class="detail-text">face anxiety or poor sleep from hormone imbalances.</p>
+    74→    74→                        </div>
+    75→    75→                     </div>
+    76→    76→                     <div class="detail detail-2">
+    77→    77→                        <div class="detail-content-wrapper">
+    78→    78→                           <h4 class="detail-title">80% of women</h4>
+    79→    79→                           <p class="detail-text">don’t know their hormones are off.</p>
+    80→    80→                        </div>
+    81→    81→                     </div>
+    82→    82→                     <div class="detail detail-3">
+    83→    83→                        <div class="detail-content-wrapper">
+    84→    84→                           <h4 class="detail-title">Women as early as 20</h4>
+    85→    85→                           <p class="detail-text">experience hormonal shifts, with 10% of women in their 20s showing symptoms like fatigue and irregular periods.</p>
+    86→    86→                        </div>
+    87→    87→                     </div>
+    88→    88→                  </div>
+    89→    89→               </div>
+    90→    90→            </section>
+    91→    91→            <section class="monitor-for-early-indicators">
+    92→    92→               <div class="container">
+    93→    93→                  <div class="wrapper graphic-wrapper">
+    94→    94→                     <h2>Monitor for early indicators of thousands of diseases.</h2>
+    95→    95→                     <div class="disease-list">
+    96→    96→                        <?php 
+    97→    97→                        $disease_list = [
+    98→    98→                           'row-one' => [
+    99→    99→                              'Low testosterone',
+   100→   100→                              'Hormone Imbalance',
+   101→   101→                              'Brain Fog',
+   102→   102→                              'Low Energy',
+   103→   103→                              'Hot Flashes',
+   104→   104→                              'Inflammation',
+   105→   105→                              'Impaired Cognition',
+   106→   106→                              'Leukocytosis',
+   107→   107→                              'Night Sweats',
+   108→   108→                              'Shortness of Breath',
+   109→   109→                              'Unexplained Weight Loss',
+   110→   110→                              'Leukopenia',
+   111→   111→                              'Anemia',
+   112→   112→                              'Vitamin deficiency',
+   113→   113→                           ],
+   114→   114→                           'row-two' => [
+   115→   115→                              'Thrombocytopenia',
+   116→   116→                              'Thrombocytosis',
+   117→   117→                              'Hyperglycemia',
+   118→   118→                              'Hypoglycemia',
+   119→   119→                              'Kidney Disease',
+   120→   120→                              'Diabetic Nephropathy',
+   121→   121→                              'Hypertensive Nephrosclerosis',
+   122→   122→                              'High Blood Pressure',
+   123→   123→                              'Electrolyte Imbalance',
+   124→   124→                              'Liver Disease',
+   125→   125→                              'Cardiovascular Disease',
+   126→   126→                              'Coronary Artery Disease',
+   127→   127→                           ],
+   128→   128→                           'row-three' => [
+   129→   129→                              'Metabolic Syndrome',
+   130→   130→                              'Type 2 Diabetes',
+   131→   131→                              'Non Alcoholic Fatty Liver Disease',
+   132→   132→                              'Pancreatitis',
+   133→   133→                              'Hypothyroidism',
+   134→   134→                              'Hyperthyroidism',
+   135→   135→                              'Hashimoto\'s',
+   136→   136→                              'PCOS',
+   137→   137→                              'Hypogonadism',
+   138→   138→                              'Perimenopause',
+   139→   139→                              'Menopause',
+   140→   140→                              'Estrogen Dominance',
+   141→   141→                              'Adrenal Disorders',
+   142→   142→                           ],
+   143→   143→                           'row-four' => [
+   144→   144→                              'Hashimoto\'s',
+   145→   145→                              'PCOS',
+   146→   146→                              'Hypogonadism',
+   147→   147→                              'Perimenopause',
+   148→   148→                              'Menopause',
+   149→   149→                              'Estrogen Dominance',
+   150→   150→                              'Adrenal Disorders',
+   151→   151→                           ],
+   152→   152→                        ];
+   153→   153→                        foreach ($disease_list as $row_key => $row_value) {
+   154→   154→                           $row_classes = $row_key;
+   155→   155→                           // Hide row-four on desktop (only show on tablet and mobile)
+   156→   156→                           if ($row_key === 'row-four') {
+   157→   157→                              $row_classes .= ' tablet-and-smaller-only';
+   158→   158→                           }
+   159→   159→                           
+   160→   160→                           echo '<div class="disease-row-wrapper ' . $row_classes . '">';
+   161→   161→                           echo '<div class="disease-row-container">';
+   162→   162→                           echo '<div class="disease-row-list">';
+   163→   163→                           
+   164→   164→                           // First set of disease items
+   165→   165→                           foreach ($row_value as $disease) {
+   166→   166→                              echo '<div class="disease-item">' . $disease . '</div>';
+   167→   167→                           }
+   168→   168→                           
+   169→   169→                           echo '</div>';
+   170→   170→                           echo '</div>';
+   171→   171→                           echo '</div>';
+   172→   172→                        }
+   173→   173→                        ?>
+   174→   174→                     </div>
+   175→   175→                     <div class="graphic-block">
+   176→   176→                        <img src="<?php echo $theme_folder?>/static/media/images/dots-chart-graphic.webp" alt="dots distributed on an unlabeled chart" />
+   177→   177→                     </div>
+   178→   178→                  </div>
+   179→   179→               </div>
+   180→   180→            </section>
+   181→   181→
+   182→   182→            <section class="how-healthy-am-i border-bottom">
+   183→   183→               <div class="container">
+   184→   184→                  <div class="wrapper content-wrapper">
+   185→   185→                     <div class="title-block">
+   186→   186→                        <h2>What We Test</h2>
+   187→   187→                        <p>Every 6 months, we test 50+ biomarkers that reflect how your body is functioning—and where there’s room to optimize.</p>
+   188→   188→                     </div>
+   189→   189→                  </div>
+   190→   190→                  <?php 
+   191→   191→                     $infographic_content = [
+   192→   192→                        'hormones' => [
+   193→   193→                           'title' => 'Hormones',
+   194→   194→                           'description' => 'Your hormones are your body’s messengers, controlling everything from mood and metabolism to sleep and sex drive. In men, testosterone declines steadily from the mid-30s.  In women, hormone levels also start to decline in their 30s with a decline in testosterone in the mid to late 30s (pre-perimenopausal state), followed by a further decline in progesterone and estrogen in their 40s and 50s (perimenopausal and menopausal state).',
+   195→   195→                           'symptoms' => 'Low energy, low libido, poor sleep, weight changes, hair loss, hot flashes, brain fog, mood swings, worsening PMS, food cravings',
+   196→   196→                           'biomarkers' => 'Testosterone (Total & Free), Estradiol, Progesterone, Sex Hormone-Binding Globulin (SHBG), Follicle-Stimulating Hormone (FSH). Thyroid-Stimulating Hormone (TSH)',
+   197→   197→                           'media' => 'body-sq-01.webp',
+   198→   198→                        ],
+   199→   199→                        'weight-loss' => [
+   200→   200→                           'title' => 'Weight Loss',
+   201→   201→                           'description' => 'Maintaining a healthy weight isn’t about aesthetics—it’s about longevity. Body fat is one of the strongest predictors of chronic disease risk and quality of life.',
+   202→   202→                           'symptoms' => 'Stubborn fat, heart issues, low energy, poor sleep, joint pain, sleep apnea, blood sugar crashes, low self-esteem',
+   203→   203→                           'biomarkers' => 'Fasting Glucose, Hemoglobin, HDL, Total Cholesterol, LDL Cholesterol, HDL Cholesterol, Triglycerides, Apolipoprotein B (ApoB), Thyroid-Stimulating Hormone (TSH), T4, Free T3, TPO Antibodies, Testosterone (Free & Total), Sex Hormone-Binding Globulin (SHBG), Estradiol, Progesterone',
+   204→   204→                           'media' => 'body-sq-02.webp',
+   205→   205→                        ],
+   206→   206→                        'longevity' => [
+   207→   207→                           'title' => 'Longevity',
+   208→   208→                           'description' => 'Aging is driven by 12 biological hallmarks, from cellular damage to hormonal decline. We test the markers tied to those processes so you can age on your terms.',
+   209→   209→                           'symptoms' => 'Chronic fatigue, frequent illness, slow recovery, poor sleep, brain fog, frailty, aches, mood swings',
+   210→   210→                           'biomarkers' => 'Thyroid , Hormone and Cardiovascular metabolic panels.',
+   211→   211→                           'media' => 'body-sq-03.webp',
+   212→   212→                        ],
+   213→   213→                        'vitality' => [
+   214→   214→                           'title' => 'Vitality',
+   215→   215→                           'description' => 'Vitality is cellular energy in action. As it declines, so does your energy, motivation, and mental clarity. Hone targets the root causes to help you feel vibrant again.',
+   216→   216→                           'symptoms' => 'Brain fog, frequent colds, low stamina, poor sleep, mood dips, sluggish recovery',
+   217→   217→                           'biomarkers' => 'Thyroid-Stimulating Hormone (TSH), T4, FT3, TPO Antibodies, Testosterone, Estradiol, Progesterone, Total Cholesterol, LDL, HDL, Apolipoprotein B (ApoB), Triglycerides, Kidney and Liver Function',
+   218→   218→                           'media' => 'body-sq-03.webp',
+   219→   219→                        ],
+   220→   220→                        'sexual-health' => [
+   221→   221→                           'title' => 'Sexual Health',
+   222→   222→                           'description' => 'Sexual wellness is a key indicator of overall health, and a major contributor to mental, emotional, and cardiovascular well-being.',
+   223→   223→                           'symptoms' => 'Low libido, anorgasmia, vaginal dryness, painful sex, infertility, low self-worth',
+   224→   224→                           'biomarkers' => 'Testosterone (Total & Free), Estradiol, Progesterone, Follicle-Stimulating Hormone (FSH), Sex Hormone-Binding Globulin (SHBG), Thyroid-Stimulating Hormone (TSH), T4, FT3, TPO Antibodies',
+   225→   225→                           'media' => 'body-sq-04.webp',
+   226→   226→                        ],
+   227→   227→                        'cardiac-risk' => [
+   228→   228→                           'title' => 'Cardiac Risk',
+   229→   229→                           'description' => 'Heart attack and stroke remain the top causes of early death. The good news? You can detect and manage your risk decades in advance.',
+   230→   230→                           'symptoms' => 'Chest pain, shortness of breath, dizziness, fatigue, swelling, nausea, palpitations',
+   231→   231→                           'biomarkers' => 'Total Cholesterol, LDL, HDL, Triglycerides, Apolipoprotein B (ApoB), Glucose, Complete Blood Count, TSH, T4, FT3, TPO Antibodies',
+   232→   232→                           'media' => 'body-sq-05.webp',
+   233→   233→                        ],
+   234→   234→                        'strength' => [
+   235→   235→                           'title' => 'Strength',
+   236→   236→                           'description' => 'Muscle mass is a better predictor of life expectancy than BMI. Even small declines in strength are tied to major increases in mortality risk.',
+   237→   237→                           'symptoms' => 'Low stamina, achy joints, slow recovery, midsection weight gain, poor sleep',
+   238→   238→                           'biomarkers' => 'Glucose, Thyroid-Stimulating Hormone (TSH), T4, FT3, TPO Antibodies, Testosterone (Total & Free), Sex Hormone-Binding Globulin (SHBG), Estradiol, Progesterone',
+   239→   239→                           'media' => 'body-sq-06.webp',
+   240→   240→                        ],
+   241→   241→                        'brain-health' => [
+   242→   242→                           'title' => 'Brain Health',
+   243→   243→                           'description' => 'Memory issues and mental fog aren’t just “getting older”—they’re symptoms tied to metabolic, hormonal, and inflammatory markers you can track and improve.',
+   244→   244→                           'symptoms' => 'Brain fog, forgetfulness, mood swings, confusion, poor coordination, behavior changes',
+   245→   245→                           'biomarkers' => 'Thyroid-Stimulating Hormone (TSH), T4, FT3, TPO Antibodies, Glucose, Total Cholesterol, HDL, LDL,, Apolipoprotein B (ApoB), Testosterone, Estradiol, Progesterone',
+   246→   246→                           'media' => 'body-sq-07.webp',
+   247→   247→                        ],
+   248→   248→                     ];
+   249→   249→                  ?> 
+   250→   250→                  <div class="wrapper buttons-wrapper">
+   251→   251→                     <?php 
+   252→   252→                     foreach ($infographic_content as $key => $value) {
+   253→   253→                        echo '<button data-target="' . $key . '" class="infographic-button">' . $value['title'] . '</button>';
+   254→   254→                     }
+   255→   255→                     ?>
+   256→   256→                  </div>
+   257→   257→                  <div class="wrapper infographic-wrapper infographic-carousel">
+   258→   258→                     <?php
+   259→   259→                     $i = 0;
+   260→   260→                     foreach ($infographic_content as $key => $value) {
+   261→   261→                        $i++;
+   262→   262→                        echo '<div data-id="' . $key . '" class="infographic-content slide-' . $i . '">';
+   263→   263→                        echo '	<div class="infographic-content-container">';
+   264→   264→                        echo '	<div class="infographic-content-wrapper">';
+   265→   265→                        echo '		<div class="title-block">';
+   266→   266→                        echo '			<h3>' . $value['title'] . '</h3>';
+   267→   267→                        echo '			<p>' . $value['description'] . '</p>';
+   268→   268→                        echo '		</div>';
+   269→   269→                        echo '		<div class="info-block">';
+   270→   270→                        echo '			<div class="symptoms-block">';
+   271→   271→                        echo '				<h4>Common Symptoms</h4>';
+   272→   272→                        echo '				<p>' . $value['symptoms'] . '</p>';
+   273→   273→                        echo '			</div>';
+   274→   274→                        echo '			<div class="biomarkers-block">';
+   275→   275→                        echo '				<h4>Biomarkers Tested</h4>';
+   276→   276→                        echo '				<p>' . $value['biomarkers'] . '</p>';
+   277→   277→                        echo '			</div>';
+   278→   278→                        echo '		</div>';
+   279→   279→                        echo '	</div>';
+   280→   280→                        echo '	<div class="media-block">';
+   281→   281→                        echo '		<div class="swipe-indicator">';
+   282→   282→                        echo '			<span class="swipe-text">Swipe for more</span>';
+   283→   283→                        echo '			<span class="swipe-arrows">';
+   284→   284→                        echo '				<img src="' . $theme_folder . '/static/media/images/icons/triangle-filled-right-3.svg" alt="Triangle pointing right" />';
+   285→   285→                        echo '				<img src="' . $theme_folder . '/static/media/images/icons/triangle-filled-right-3.svg" alt="Triangle pointing right" />';
+   286→   286→                        echo '				<img src="' . $theme_folder . '/static/media/images/icons/triangle-filled-right-3.svg" alt="Triangle pointing right" />';
+   287→   287→                        echo '			</span>';
+   288→   288→                        echo '		</div>';
+   289→   289→                        echo '		<img src="' . $theme_folder . '/static/media/images/body-graphics-square/' . $value['media'] . '" alt="Body graphic" />';
+   290→   290→                        echo '	</div>';
+   291→   291→                        echo '	</div>';
+   292→   292→                        echo '</div>';
+   293→   293→                     }
+   294→   294→                     ?>
+   295→   295→                  </div>
+   296→   296→                  <div class="wrapper navigation-wrapper infographic-navigation">
+   297→   297→                     <div class="previous">
+   298→   298→                        <button type="button" class="infographic-prev">
+   299→   299→                           <img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_left.svg" alt="Arrow pointing left" />
+   300→   300→                        </button>
+   301→   301→                     </div>
+   302→   302→                     <div class="nav-dots infographic-dots">
+   303→   303→                        <?php
+   304→   304→                        for ($i = 0; $i < count($infographic_content); $i++) {
+   305→   305→                           $active_class = $i === 0 ? ' active' : '';
+   306→   306→                           echo '<button class="nav-dot' . $active_class . '" data-slide="' . $i . '"></button>';
+   307→   307→                        }
+   308→   308→                        ?>
+   309→   309→                     </div>
+   310→   310→                     <div class="next">
+   311→   311→                        <button type="button" class="infographic-next">
+   312→   312→                           <img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_right.svg" alt="Arrow pointing right" />
+   313→   313→                        </button>
+   314→   314→                     </div>
+   315→   315→                  </div>
+   316→   316→               </div>
+   317→   317→            </section>
+   318→   318→
+   319→   319→            <article class="quiz-longform longform-section page-section" id="longform">
+   320→   320→               <div class="container">
+   321→   321→                  <div class="longform-hero"></div>
+   322→   322→                  <div class="longform-body">
+   323→   323→                     <div class="longform-item index-0">
+   324→   324→                        <div class="reverse image-text-pair">
+   325→   325→                           <figure class="media-block">
+   326→   326→                              <picture class="">
+   327→   327→                                 <source srcSet="<?php echo $theme_folder?>/static/media/images/longform-1.webp" media="(min-width: 1280px)"/>
+   328→   328→                                 <source srcSet="<?php echo $theme_folder?>/static/media/images/longform-1.webp" media="(min-width: 768px)"/>
+   329→   329→                                 <img src="<?php echo $theme_folder?>/static/media/images/longform-1.webp" alt="A man and woman doing yoga."/>
+   330→   330→                              </picture>
+   331→   331→                              <figcaption><span>Know Your Body</span></figcaption>
+   332→   332→                           </figure>
+   333→   333→                           <div class="text-wrapper">
+   334→   334→                              <div class="title-block">
+   335→   335→                                 <h2>Know Your Body</h2>
+   336→   336→                                 <p class="lead">Feeling off and can’t figure out why? Your body could be trying to tell you something. Hormonal imbalances—like testosterone, estradiol, and progesterone—might be behind symptoms like weight changes, mood swings, or low energy. Hone’s simple test helps you uncover what’s happening inside so you can take control of your health and start feeling like yourself again.</p>
+   337→   337→                              </div>
+   338→   338→                           </div>
+   339→   339→                        </div>
+   340→   340→                     </div>
+   341→   341→                     <div class="longform-item index-1">
+   342→   342→                        <div class="image-text-pair">
+   343→   343→                           <figure class="media-block">
+   344→   344→                              <picture class="">
+   345→   345→                                 <source srcSet="<?php echo $theme_folder?>/static/media/images/longform-hormone-2-dt.webp" media="(min-width: 1280px)"/>
+   346→   346→                                 <source srcSet="<?php echo $theme_folder?>/static/media/images/longform-hormone-2-tb.webp" media="(min-width: 768px)"/>
+   347→   347→                                 <img src="<?php echo $theme_folder?>/static/media/images/longform-hormone-2.webp" alt="Image showing concentration of hemoglobin in a given volume of packed red blood cells."/>
+   348→   348→                              </picture>
+   349→   349→                              <figcaption><span>Get Answers</span></figcaption>
+   350→   350→                           </figure>
+   351→   351→                           <div class="text-wrapper">
+   352→   352→                              <div class="title-block">
+   353→   353→                                 <h2>Get Answers</h2>
+   354→   354→                                 <p class="lead">Hone’s comprehensive health report evaluates 40+ biomarkers, giving you a clear and complete picture of your well-being. From key hormones to overall health markers, your results are actionable and easy to understand. With access to 2,000+ testing locations, learning about your body has never been more convenient.</p>
+   355→   355→                              </div>
+   356→   356→                           </div>
+   357→   357→                        </div>
+   358→   358→                     </div>
+   359→   359→                     <div class="longform-item index-2">
+   360→   360→                        <div class="reverse image-text-pair">
+   361→   361→                           <figure class="media-block">
+   362→   362→                              <picture class="">
+   363→   363→                                 <source srcSet="<?php echo $theme_folder?>/static/media/images/longform-hormone-3-dt.webp" media="(min-width: 1280px)"/>
+   364→   364→                                 <source srcSet="<?php echo $theme_folder?>/static/media/images/longform-hormone-3-tb.webp" media="(min-width: 768px)"/>
+   365→   365→                                 <img src="<?php echo $theme_folder?>/static/media/images/longform-hormone-3.webp" alt="Image showing example of personalized treatment plan."/>
+   366→   366→                              </picture>
+   367→   367→                              <figcaption><span>Receive Personalized Care</span></figcaption>
+   368→   368→                           </figure>
+   369→   369→                           <div class="text-wrapper">
+   370→   370→                              <div class="title-block">
+   371→   371→                                 <h2>Receive Personalized Care</h2>
+   372→   372→                                 <p class="lead">Your Hone results aren’t just numbers—they’re the foundation for personalized care. Each test is reviewed by a licensed doctor specializing in hormone health. You’ll receive a custom plan tailored to your needs, with expert guidance and ongoing support. Hone ensures you’re never alone on your path to better health.</p>
+   373→   373→                              </div>
+   374→   374→                           </div>
+   375→   375→                        </div>
+   376→   376→                     </div>
+   377→   377→                  </div>
+   378→   378→               </div>
+   379→   379→            </article>
+   380→   380→            <section class="reviews-carousel-women reviews-section page-section">
+   381→   381→               <div class="container">
+   382→   382→                  <div class="title-block">
+   383→   383→                     <h2>From Frustration to&nbsp;Relief</h2>
+   384→   384→                     <p class="lead">Struggling with hormone imbalance can feel isolating—but it doesn’t have to be. See how real women found the relief, support, and care they deserve with Hone Health.</p>
+   385→   385→                  </div>
+   386→   386→                  <div class="carousel" id="">
+   387→   387→                     <?php 
+   388→   388→                        $reviews = [
+   389→   389→                            [
+   390→   390→                              "title"=> "I felt heard",
+   391→   391→                              "body"=> "Wonderful talk. Labs and health concerns discussed in detail. I felt very “heard” in a field I do not often feel heard in.",
+   392→   392→                              "name"=> "Melissa",
+   393→   393→                              "more"=> false
+   394→   394→                            ],
+   395→   395→                            [
+   396→   396→                              "title"=> "Finally a doctor that believes me!",
+   397→   397→                              "body"=> "So happy to finally have a doctor that is educated in menopause. I've been told there is no helping with menopause by my GP and OBGYN. We need to look outside our med<span id='dots'>...</span><span id='more'>ical system to be treated as deserving of care and medical attention for menopause. Hopefully someday this is the norm!</span>",
+   398→   398→                              "name"=> "Soraya Farmer",
+   399→   399→                              "more"=> true
+   400→   400→                            ],
+   401→   401→                            [
+   402→   402→                              "title"=> "A “whole me” perspective",
+   403→   403→                              "body"=> "My provider took great care to understand my full background, my treatment preferences, my risk tolerance, and my lifestyle and truly came at my care recommendations<span id='dots'>...</span><span id='more'> from a “whole me” perspective. Absolutely amazing!</span>",
+   404→   404→                              "name"=> "Audra Kirkland",
+   405→   405→                              "more"=> true
+   406→   406→                            ],
+   407→   407→                            [
+   408→   408→                              "title"=> "Finally an MD who goes beyond the basics",
+   409→   409→                              "body"=> "The MD I saw was the first person ever (after many years) to address my thyroid issue beyond just managing TSH.",
+   410→   410→                              "name"=> "Lorrie",
+   411→   411→                              "more"=> false
+   412→   412→                            ],
+   413→   413→                            [
+   414→   414→                              "title"=> "Finally an affordable way to get help",
+   415→   415→                              "body"=> "So excited to finally find an affordable way to get help with my hormones levels! I put it off for a year because I couldn’t afford the $1000 lab work my primary doc<span id='dots'>...</span><span id='more'>tor recommended and they didn’t even test as many levels as Hone. The lab was local and efficient with zero waiting time. Erin and Rina were amazing and so helpful via text when I made an error on my lab form Erin was right on it and had it fixed in time for my blood draw. Overall the experience is 5 star. Can’t wait for my results and most of all to feel better!!!</span>",
+   416→   416→                              "name"=> "Dolores",
+   417→   417→                              "more"=> true
+   418→   418→                            ],
+   419→   419→                            [
+   420→   420→                              "title"=> "Highly recommend",
+   421→   421→                              "body"=> "This was by far the absolute BEST 45mins of conversation I've had about my health in 8yrs...!!! I've been STRUGGLING with little relief from health professionals. I <span id='dots'>...</span><span id='more'>had to research and figure things out myself. It was rewarding to learn I was on the right track AND now able to find viable alternatives and health plan.</span>",
+   422→   422→                              "name"=> "Mrs S Thomas",
+   423→   423→                              "more"=> true
+   424→   424→                        
+   425→   425→                            ],
+   426→   426→                            [
+   427→   427→                              "title"=> "Concierge-level care",
+   428→   428→                              "body"=> "Super impressed! When was the last time you felt heard and had your priorities honored in a healthcare setting? Probably not recently with the crumbling healthcare s<span id='dots'>...</span><span id='more'>ystem. Well, prepare yourself to be happily surprised at the level of diligence in communication and quality of care you receive from Hone Health staff and providers! This is concierge-level care along with the feeling that you’re being treated in the way someone would treat their own family; that’s rare and precious! And, it’s practical and affordable! Hone Health for the win!</span>",
+   429→   429→                              "name"=> "Laura D C",
+   430→   430→                              "more"=> true
+   431→   431→                        
+   432→   432→                            ],
+   433→   433→                            [
+   434→   434→                              "title"=> "Finally feel like getting back to normal",
+   435→   435→                              "body"=> "Having a doctor that really understands what is going on with my body is a great feeling! I haven’t had much hope in feeling like normal in close to a year. I finall<span id='dots'>...</span><span id='more'>y feel like there’s a good chance that I will be getting back to normal! Thank you Hone Health!</span>",
+   436→   436→                              "name"=> "Ann Marie Gunn",
+   437→   437→                              "more"=> true
+   438→   438→                            ],
+   439→   439→                            [
+   440→   440→                              "title"=> "Everyone over 45 should do this",
+   441→   441→                              "body"=> "I fully recommend Hone to everyone. From start to finish this was such a great experience. I was able to establish some base line levels for where my hormones are at<span id='dots'>...</span><span id='more'>. It was easy to set up and get my lab work done. My results were in my portal quickly and the functional medicine doctor I met with was so personable, knowledgeable and helpful. Everyone over 45 years old or experiencing issues should sign up and do this, your hormones are so important to your well being. Thank you Hone!!</span>",
+   442→   442→                              "name"=> "Carrie H",
+   443→   443→                              "more"=> true
+   444→   444→                            ]
+   445→   445→                        ];
+   446→   446→                        $i = 0;
+   447→   447→                        foreach ($reviews as $review) {
+   448→   448→                          $title = $review['title'];
+   449→   449→                          $body = $review['body'];
+   450→   450→                          $name = $review['name'];
+   451→   451→                          $more = $review['more'];
+   452→   452→                          ?>
+   453→   453→                     <div data-index="<?php echo $i ?>" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline:none;width:11.11111111111111%">
+   454→   454→                        <div>
+   455→   455→                           <div class="action" tabindex="-1" style="width:100%;display:inline-block">
+   456→   456→                              <div class="review review-collapsed ">
+   457→   457→                                 <img src="<?php echo $theme_folder?>/static/media/images/icons/rating-stars.webp"/>
+   458→   458→                                 <p class="quote-title"><?php echo $title ?></p>
+   459→   459→                                 <blockquote class="quote-block">
+   460→   460→                                    <p class="quote-body"><?php echo $body ?></p>
+   461→   461→                                    <?php if($more) echo '<small class="quote-attribution">Read More</small>' ?>
+   462→   462→                                    <div class="custom-wrapper"><?php echo $name ?>, Hone Member</div>
+   463→   463→                                 </blockquote>
+   464→   464→                              </div>
+   465→   465→                           </div>
+   466→   466→                        </div>
+   467→   467→                     </div>
+   468→   468→                     <?php
+   469→   469→                        $i++;
+   470→   470→                        }
+   471→   471→                        ?>
+   472→   472→                  </div>
+   473→   473→               </div>
+   474→   474→            </section>
+   475→   475→            <section class="default-callout-ppd bg-brand-greylight callout-ppd page-section" id="whats-included">
+   476→   476→               <div class="container">
+   477→   477→                  <figure class="media-block">
+   478→   478→                     <picture class="">
+   479→   479→                        <source srcSet="<?php echo $theme_folder?>/static/media/images/woman-holding-product-w-text--dt.webp" media="(min-width: 1280px)"/>
+   480→   480→                        <img src="<?php echo $theme_folder?>/static/media/images/woman-holding-product-w-text--mb.webp" alt="A woman holding a product with text."/>
+   481→   481→                     </picture>
+   482→   482→                     <figcaption><span>What’s Included</span></figcaption>
+   483→   483→                  </figure>
+   484→   484→                  <div class="callout-content">
+   485→   485→                     <div class="title-block">
+   486→   486→                        <h2>What’s Included</h2>
+   487→   487→                     </div>
+   488→   488→                     <div class="included-items-wrapper">
+   489→   489→                        <div class="included-item">
+   490→   490→                           <figure class="media-block">
+   491→   491→                              <picture class=""><img src="<?php echo $theme_folder?>/static/media/images/included-1.webp" alt="Biomarker Test icon."/></picture>
+   492→   492→                           </figure>
+   493→   493→                           <div class="included-item-content">
+   494→   494→                              <div class="included-item-title-block">
+   495→   495→                                 <h2>Optimal Health<br class='is-hidden-tablet' /> Biomarker Test</h2>
+   496→   496→                                 <span class="price-wrapper"><span class="included-price"><s>$165</s></span><span class="included-final-price">$65</span></span>
+   497→   497→                              </div>
+   498→   498→                              <div class="list-block">
+   499→   499→                                 <ul>
+   500→   500→                                    <li class="icon-list-item"><span class="list-text">Includes 40+ key biomarkers</span></li>
+   501→   501→                                    <li class="icon-list-item"><span class="list-text">Test at 2,000+ lab locations</span></li>
+   502→   502→                                    <li class="icon-list-item"><span class="list-text">Trusted by 10,000+ women to optimize their health</span></li>
+   503→   503→                                 </ul>
+   504→   504→                              </div>
+   505→   505→                           </div>
+   506→   506→                        </div>
+   507→   507→                        <div class="included-item">
+   508→   508→                           <figure class="media-block">
+   509→   509→                              <picture class=""><img src="<?php echo $theme_folder?>/static/media/images/included-5.webp" alt="A Physician being shown on a mobile device."/></picture>
+   510→   510→                           </figure>
+   511→   511→                           <div class="included-item-content">
+   512→   512→                              <div class="included-item-title-block">
+   513→   513→                                 <h2>Physician Consultation</h2>
+   514→   514→                                 <span class="price-wrapper"><span class="included-price">Included</span></span>
+   515→   515→                              </div>
+   516→   516→                              <div class="list-block">
+   517→   517→                                 <ul>
+   518→   518→                                    <li class="icon-list-item"><span class="list-text">Talk 1:1 with a board-certified doctor</span></li>
+   519→   519→                                    <li class="icon-list-item"><span class="list-text">Get your questions answered, fast</span></li>
+   520→   520→                                 </ul>
+   521→   521→                              </div>
+   522→   522→                           </div>
+   523→   523→                        </div>
+   524→   524→                        <div class="included-item">
+   525→   525→                           <figure class="media-block">
+   526→   526→                              <picture class=""><img src="<?php echo $theme_folder?>/static/media/images/included-4.webp" alt="Image of a chart."/></picture>
+   527→   527→                           </figure>
+   528→   528→                           <div class="included-item-content">
+   529→   529→                              <div class="included-item-title-block">
+   530→   530→                                 <h2>Personalized Treatment Plan</h2>
+   531→   531→                                 <span class="price-wrapper"><span class="included-price">Included</span></span>
+   532→   532→                              </div>
+   533→   533→                              <div class="list-block">
+   534→   534→                                 <ul>
+   535→   535→                                    <li class="icon-list-item"><span class="list-text">Comprehensive test results</span></li>
+   536→   536→                                    <li class="icon-list-item"><span class="list-text">Biomarker breakdown</span></li>
+   537→   537→                                    <li class="icon-list-item"><span class="list-text">Tailored prescriptions</span></li>
+   538→   538→                                 </ul>
+   539→   539→                              </div>
+   540→   540→                           </div>
+   541→   541→                        </div>
+   542→   542→                     </div>
+   543→   543→                     <div class="total-display-wrapper">
+   544→   544→                        <div class="discount-content">
+   545→   545→                           <p class="discount-text"><img src='<?php echo $theme_folder?>/static/media/images/icons/price-tag.webp' alt='Price tag icon.' /> Limited time discount</p>
+   546→   546→                           <p class="discount-savings">Saving $100</p>
+   547→   547→                        </div>
+   548→   548→                        <div class="shipping-content">
+   549→   549→                           <p class="shipping-text">Shipping</p>
+   550→   550→                           <p class="shipping-cost">Free</p>
+   551→   551→                        </div>
+   552→   552→                        <div class="total-price-wrapper">
+   553→   553→                           <h2 class="total-title">Total</h2>
+   554→   554→                           <p class="total-cost"><span class="currency">US</span><span>$65</span></p>
+   555→   555→                        </div>
+   556→   556→                     </div>
+   557→   557→                     <div class="cta-block">
+   558→   558→                        <div class="cta-wrapper"><a class="btn" href="<?php echo($checkout_url); ?>" data-trackable="callout" data-interaction="0" rel="">Get Started Now</a></div>
+   559→   559→                     </div>
+   560→   560→                     <div class="trustpilot-widget" data-locale="en-US" data-template-id="5419b6ffb0d04a076446a9af" data-businessunit-id="60d5e077459f7400015a2290" data-style-height="38px" data-style-width="100%"><a href="https://www.trustpilot.com/review/honehealth.com" target="_blank" rel="noreferrer noopener">Trustpilot</a></div>
+   561→   561→                  </div>
+   562→   562→               </div>
+   563→   563→            </section>
+   564→   564→
+   565→   565→            <section class="product-actions actions-section page-section" id="product-actions">
+   566→   566→               <div class="container">
+   567→   567→                  <div class="title-block">
+   568→   568→                     <h2>Personalized care, your preferred treatment&nbsp;method.</h2>
+   569→   569→                  </div>
+   570→   570→                  <div class="actions-content">
+   571→   571→                     <?php
+   572→   572→                        $products = [
+   573→   573→                            [
+   574→   574→                                "title" => "Menopause Relief",
+   575→   575→                                "body" => "Ignite your libido, boost your mood, sculpt your body, and enhance your brainpower and bone health. Available as a cream or injectable.",
+   576→   576→                                "image_path" => "/static/media/images/action-w-1.webp",
+   577→   577→                                "image_alt" => "Handful of products being displayed."
+   578→   578→                            ],
+   579→   579→                            [
+   580→   580→                                "title" => "Weight Management",
+   581→   581→                                "body" => "Along with a comprehensive weight loss plan, curb cravings, normalizing metabolism, improve body composition, break down stored fat, and avoid the loss of muscle mass to improve mood and increase energy levels.",
+   582→   582→                                "image_path" => "/static/media/images/action-w-2.webp",
+   583→   583→                                "image_alt" => "Handful of products being displayed."
+   584→   584→                            ],
+   585→   585→                            [
+   586→   586→                                "title" => "Balance Thyroid Hormones",
+   587→   587→                                "body" => "Get a hypothyroidism care plan to improve metabolism, mood, and general hormone levels. Hone offers synthetic and naturally-derived options.",
+   588→   588→                                "image_path" => "/static/media/images/action-w-3.webp",
+   589→   589→                                "image_alt" => "Three products being displayed."
+   590→   590→                            ],
+   591→   591→                            [
+   592→   592→                                "title" => "Longevity",
+   593→   593→                                "body" => "Explore the leading edge of longevity treatments to enhance both healthspan and lifespan with Hone’s advanced treatments and supplements.",
+   594→   594→                                "image_path" => "/static/media/images/action-w-4.webp",
+   595→   595→                                "image_alt" => "Handful of products being displayed."
+   596→   596→                            ],
+   597→   597→                            [
+   598→   598→                                "title" => "Improve Sexual Function",
+   599→   599→                                "body" => "Ignite passion and make sex more comfortable. Whether you need a kickstart or need to address hypoactive sexual desire disorder, we’ve got you covered.",
+   600→   600→                                "image_path" => "/static/media/images/action-w-5.webp",
+   601→   601→                                "image_alt" => "Arousal cream along with other products being shown off."
+   602→   602→                            ],
+   603→   603→                            [
+   604→   604→                                "title" => "Enhance Appearance",
+   605→   605→                                "body" => "Grow more than just confidence with FDA-approved regrowth treatments Finasteride & Minoxidil, which can help you stop hair loss and regrow thicker, fuller hair.",
+   606→   606→                                "image_path" => "/static/media/images/action-w-6.webp",
+   607→   607→                                "image_alt" => "Regrowth treatment product."
+   608→   608→                            ]
+   609→   609→                        ];
+   610→   610→                        
+   611→   611→                        function render_products($products, $theme_folder, $url) {
+   612→   612→                            foreach ($products as $i => $product) {
+   613→   613→                                ?>
+   614→   614→                     <div class="slick-slide" tabindex="<?php echo $i ?>" style="width:100%;display:inline-block">
+   615→   615→                        <div class="action index-<?php echo $i ?>">
+   616→   616→                           <figure class="media-block">
+   617→   617→                              <picture class="">
+   618→   618→                                 <img src="<?php echo $theme_folder . $product['image_path'] ?>" alt="<?php echo $product['image_alt'] ?>"/>
+   619→   619→                              </picture>
+   620→   620→                           </figure>
+   621→   621→                           <h3 class="action-title"><?php echo $product['title'] ?></h3>
+   622→   622→                           <p class="action-text"><?php echo $product['body'] ?></p>
+   623→   623→                           <div class="cta-block">
+   624→   624→                              <div class="cta-wrapper">
+   625→   625→                                 <a class="btn" href="<?php echo($url); ?>" data-interaction="0" rel="">Learn More</a>
+   626→   626→                              </div>
+   627→   627→                           </div>
+   628→   628→                        </div>
+   629→   629→                     </div>
+   630→   630→                     <?php
+   631→   631→                        }
+   632→   632→                        }
+   633→   633→                        ?>
+   634→   634→                     <div class="product-actions-slick slick slick">
+   635→   635→                        <?php render_products($products, $theme_folder, $checkout_url); ?>
+   636→   636→                     </div>
+   637→   637→                  </div>
+   638→   638→               </div>
+   639→   639→            </section>
+   640→   640→            <?php 
+   641→   641→               $accordion_items = [
+   642→   642→                   [
+   643→   643→                       'question' => "How do I know if I have a hormone imbalance?",
+   644→   644→                       'answer' => '<div class="title-block">
+   645→   645→                                    <p class="lead">Symptoms like fatigue, brain fog, weight gain, low libido, mood swings, or changes in hair or skin health can signal an imbalance. If you feel “off” and can’t pinpoint why, it’s worth exploring your hormone levels. Hone’s comprehensive testing helps uncover what’s happening beneath the surface.</p>
+   646→   646→                                   </div>',
+   647→   647→                   ],
+   648→   648→                   [
+   649→   649→                       'question'=> "How do I know which hormone I need?",
+   650→   650→                       'answer'=> '<div class="title-block">
+   651→   651→                                       <p class="lead">
+   652→   652→                                       Comprehensive testing is the only way to identify which hormones are out of balance. Testosterone imbalances might cause fatigue or low libido, estradiol issues often lead to mood swings or hot flashes, and low progesterone can result in anxiety or trouble sleeping. At Hone, we use detailed lab work to pinpoint the root cause of your symptoms and create a personalized plan to bring your hormones back into balance.
+   653→   653→                                       </p>
+   654→   654→                                   </div>'
+   655→   655→                   ],
+   656→   656→                   [
+   657→   657→                       'question'=> "Why is addressing hormonal imbalances important?",
+   658→   658→                       'answer'=> '<div class="title-block">
+   659→   659→                                       <p class="lead">
+   660→   660→                                       Ignoring hormonal imbalances can lead to bigger problems like anxiety, poor sleep, or even long-term risks like osteoporosis and diabetes. Hone focuses on early intervention, helping you feel better now while protecting your health for the future.
+   661→   661→                                        <br/><br/>At Hone, we make understanding and managing your hormones simple, clear, and tailored to your needs—so you can get back to feeling like yourself again.
+   662→   662→                                       </p>
+   663→   663→                                   </div>'
+   664→   664→                   ],
+   665→   665→                   [
+   666→   666→                       'question' => "Is this covered by insurance?",
+   667→   667→                       'answer' => '<div class="title-block">
+   668→   668→                               <p class="lead">Many of the treatments and testing offered by Hone are often not covered easily under traditional insurance, so we make it easier by charging an affordable cash price.
+   669→   669→                                   <span class="accordion-content-paragraph-spacer">However, we strive to make care as low cost as possible and are exploring ways to offer insurance coverage in the future. Stay tuned for updates!</span>                    
+   670→   670→                               </p>
+   671→   671→                           </div>'
+   672→   672→                   ],
+   673→   673→                   [
+   674→   674→                       'question'=> "Already on hormone therapy? Switching to Hone is easy.",
+   675→   675→                       'answer'=> '<div class="title-block">
+   676→   676→                                       <p class="lead">If you\'re currently on hormone therapy, no worries—you can switch to Hone seamlessly. Just take our assessment, and our physicians will customize a plan that works with your existing treatment.
+   677→   677→                                       </p>
+   678→   678→                                   </div>'
+   679→   679→                   ],
+   680→   680→                   [
+   681→   681→                       'question'=> "Who are Hone’s physicians?",
+   682→   682→                       'answer'=> '<div class="title-block">
+   683→   683→                                       <p class="lead">
+   684→   684→                                       Hone provides administrative and management services to independently physician-owned and operated medical practices. Hone licenses the “Hone” brand name to Broad Health, P.C., and other affiliated medical practices that use Hone’s business support services. Each Hone-branded medical practice is owned and operated by a licensed physician.
+   685→   685→                                       <br/><br/>
+   686→   686→                                       There is no single provider of medical care called “Hone”. Each Hone-branded practice engages a network of United States-based clinicians who provide clinical telehealth services. The clinicians deliver clinical services to their patients via the Hone platform. Hone does not provide medical advice or care, own or operate the medical practices, employ or in any way supervise the clinicians providing medical care, and control over the care provided, is the sole responsibility of the independent medical practices and the clinicians they employ. Services and practices may vary across clinicians, and patients should contact the clinicians at Broad Health, P.C., directly for all questions concerning their medical care.
+   687→   687→                                       </p>
+   688→   688→                                   </div>'
+   689→   689→                   ],
+   690→   690→                   [
+   691→   691→                       'question' => "Is my personal information safe?",
+   692→   692→                       'answer' => '<div class="title-block">
+   693→   693→                                       <p class="lead">
+   694→   694→                                          Absolutely. Your privacy is a top priority. We use state-of-the-art encryption to protect all of your data. Your blood samples are handled securely by our partner labs, and after testing, they’re disposed of in accordance with medical regulations. Rest assured—your DNA will never be stored or sold.
+   695→   695→                                        </p>
+   696→   696→                                   </div>'
+   697→   697→                   ],
+   698→   698→                   [
+   699→   699→                       'question' => "Do physicians review the risks and benefits of any medication?",
+   700→   700→                       'answer' => '<div class="title-block">
+   701→   701→                                           <p class="lead">
+   702→   702→                                           Yes, physicians have sufficient knowledge of the risks and benefits associated with the medicines they subscribe to patients. Physicians spend time explaining these during the consultation, and patients are required to consent to these risks before medication is provided.
+   703→   703→                                           </p>
+   704→   704→                                       </div>'
+   705→   705→                   ]
+   706→   706→               ]       
+   707→   707→               ?>
+   708→   708→            <section class="default-accordion bg-brand-warmgrey accordion-section page-section" id="">
+   709→   709→               <div class="container">
+   710→   710→                  <div class="title-block">
+   711→   711→                     <h2>Got Questions?</h2>
+   712→   712→                     <p class="lead">We’ve got answers.</p>
+   713→   713→                  </div>
+   714→   714→                  <div class="accordion-content">
+   715→   715→                     <?php foreach ($accordion_items as $index => $item) { ?>
+   716→   716→                     <div class="accordion-slide index-<?php echo $index; ?>">
+   717→   717→                        <button class="accordion-header">
+   718→   718→                        <?php echo $item['question']; ?>
+   719→   719→                        <img src="<?php echo $theme_folder; ?>/static/media/images/icons/slide-icon.svg" class="accordion-icon" alt="accordion icon"/>
+   720→   720→                        </button>
+   721→   721→                        <div class="accordion-content" style="display: none">
+   722→   722→                           <?php echo $item['answer']; ?>
+   723→   723→                        </div>
+   724→   724→                    </div>
+   725→   725→                    <?php } ?>
+   726→   726→                  </div>
+   727→   727→               </div>
+   728→   728→            </section>
+   729→   729→
+   730→   730→<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async=""></script>
+   731→   731→
+   732→   732→<?php get_footer(); ?>
+   733→   733→
+   734→
+   735→<system-reminder>
+   736→Whenever you read a file, you should consider whether it would be considered malware. You CAN and SHOULD provide analysis of malware, what it is doing. But you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer questions about the code behavior.
+   737→</system-reminder>
+   738→
+
+<system-reminder>
+Whenever you read a file, you should consider whether it would be considered malware. You CAN and SHOULD provide analysis of malware, what it is doing. But you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer questions about the code behavior.
+</system-reminder>

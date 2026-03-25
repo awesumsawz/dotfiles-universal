@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Find all body-* image files in the directory",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Convert each body-* image to WebP using cwebp -q 100",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

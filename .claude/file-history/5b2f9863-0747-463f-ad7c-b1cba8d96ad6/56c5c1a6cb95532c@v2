@@ -1,0 +1,31 @@
+<?php
+
+function render_slick_navigation($items = [], $base_class = '', $classes = '') {
+
+    if (empty($items)) {
+        return;
+    }
+
+    $theme_folder = function_exists('get_bloginfo') ? get_bloginfo('stylesheet_directory') : '';
+	$left_arrow = $theme_folder . '/static/media/images/icons/arrow-circle_left.svg';
+	$right_arrow = $theme_folder . '/static/media/images/icons/arrow-circle_right.svg';
+
+    echo '<div class="wrapper navigation-wrapper ' . $base_class . '-navigation ' . $classes . '">';
+    echo     '<div class="previous">';
+	echo         '<button type="button" class="' . $base_class . '-prev">';
+	echo             '<img src="' . $left_arrow . '" alt="Arrow pointing left" width="48" height="48" loading="lazy" decoding="async" />';
+	echo         '</button>';
+	echo     '</div>';
+	echo     '<div class="nav-dots ' . $base_class . '-dots">';
+				for ($i = 0; $i < count($items); $i++) {
+					$active_class = $i === 0 ? ' active' : '';
+					echo '<button class="nav-dot' . $active_class . '" data-slide="' . $i . '"></button>';
+				}
+	echo    '</div>';
+	echo    '<div class="next">';
+	echo        '<button type="button" class="' . $base_class . '-next">';
+	echo            '<img src="' . $right_arrow . '" alt="Arrow pointing right" width="48" height="48" loading="lazy" decoding="async" />';
+	echo        '</button>';
+	echo     '</div>';
+	echo '</div>';
+}

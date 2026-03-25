@@ -1,0 +1,707 @@
+<?php
+/**
+ * Template Name: Mens HRT Enhanced PDP 1
+ *
+ * Autoplay first video when the how it works section scrolls into view
+ */
+
+global $class_names, $additional_disclaimers;
+$template_name = 'mens-hrt-enhanced-pdp-1';
+$class_names[] = $template_name;
+$theme_folder = get_bloginfo('stylesheet_directory');
+$qs = get_query_string();
+
+$checkout_url = 'https://start.honehealth.com/product/hermes/labtest-hrt-1' . (!empty($qs) ? '?' . $qs : '');
+$image_directory = '/';
+$icon_directory = '/icons';
+$video_directory = $theme_folder . '/static/media/videos';
+
+$additional_disclaimers = [
+	'Results may vary. Medications are prescribed if deemed to be clinically
+	necessary by a licensed physician after risks and benefits of treatment
+	are reviewed and accepted. Potential risks include, but are not limited to,
+	acne, oily hair, injection site pain and inflammation, increased appetite,
+	aggression/irritability, increased estrogen and red blood cell count,
+	swelling, high blood pressure, increased cholesterol, increased heart rate,
+	thinning hair, testicular atrophy or shrinkage, infertility, blood clots,
+	allergic reaction, heart attack, and stroke. More information is available
+	by speaking with the prescribing doctor.'
+];
+
+// ── Performance: preload hero LCP image ──────────────────────────────────────
+add_action('wp_head', function() use ($video_directory) {
+	echo '<link rel="preload" as="image" fetchpriority="high" href="' . $video_directory . '/hero-trt-vial-with-text.webp">' . "\n";
+}, 1);
+
+// ── Performance: remove noisy WP head output ─────────────────────────────────
+remove_action('wp_head', 'rest_output_link_wp_head');
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wp_generator');
+
+// ── Performance: dequeue unused styles, move jQuery to footer, defer bundle ──
+add_action('wp_enqueue_scripts', function() use ($template_name, $theme_folder) {
+	// Dequeue unused WP default styles
+	wp_dequeue_style('wp-block-library');
+	wp_dequeue_style('wp-block-library-theme');
+	wp_dequeue_style('global-styles');
+	wp_dequeue_style('classic-theme-styles');
+	remove_action('wp_head', 'print_emoji_detection_script', 7);
+	remove_action('wp_print_styles', 'print_emoji_styles');
+
+	// Move jQuery to footer — this template's bundle is vanilla JS
+	wp_scripts()->add_data('jquery-core', 'group', 1);
+	wp_scripts()->add_data('jquery-migrate', 'group', 1);
+
+	// Re-register bundle without Slick/jQuery deps and with defer strategy
+	wp_deregister_script('hone-page-' . $template_name);
+	$theme_uri     = get_template_directory_uri();
+	$theme_version = wp_get_theme()->get('Version');
+	wp_register_script(
+		'hone-page-' . $template_name,
+		$theme_uri . '/static/js/dist/pages/' . $template_name . '.bundle.min.js',
+		[],
+		$theme_version,
+		['in_footer' => true, 'strategy' => 'defer']
+	);
+	wp_enqueue_script('hone-page-' . $template_name);
+	wp_localize_script('hone-page-' . $template_name, 'honePageData', [
+		'themeFolder' => $theme_folder,
+	]);
+}, 15);
+
+get_header();
+require_once get_template_directory() . '/template-parts/cta-block.php';
+require_once get_template_directory() . '/template-parts/carousel-navigation.php';
+require_once get_template_directory() . '/template-parts/image.php';
+?>
+
+<section class="boost-your-testosterone hero border-bottom">
+	<div class="container grid">
+		<div class="wrapper media-wrapper">
+			<div class="media-block">
+				<!-- Static image is the LCP element; JS swaps it for the video after load -->
+				<img fetchpriority="high" decoding="async"
+					src="<?php echo $video_directory; ?>/hero-trt-vial-with-text.webp"
+					alt="TRT vial with prescription text"
+					width="600" height="600"
+					class="hero-poster" />
+				<video class="hero-video" muted loop playsinline preload="none"
+					poster="<?php echo $video_directory; ?>/hero-trt-vial-with-text.webp"
+					style="display:none">
+					<source data-src="<?php echo $video_directory; ?>/hero-trt-vial-with-text--dt.webm" type="video/webm">
+					<source data-src="<?php echo $video_directory; ?>/hero-trt-vial-with-text--dt.mp4" type="video/mp4">
+				</video>
+			</div>
+		</div>
+		<div class="wrapper content-wrapper">
+			<div class="title-block">
+				<h2>Boost your testosterone and restore energy, strength, and libido</h2>
+			</div>
+			<div class="content-block">
+				<ul>
+					<li>10-minute Testosterone test from home</li>
+					<li>Tailored prescription and treatment</li>
+					<li>Free shipping discreet to your door</li>
+					<li>Start treatment in as little as 14 days</li>
+				</ul>
+			</div>
+			<?php render_cta_block('#injections-section', 'Test my T-Levels'); ?>
+			<div class="badges-wrapper">
+				<?php
+				$badges = [
+					'Free shipping',
+					'HSA/FSA eligible',
+					'100% Satisfaction Guaranteed'
+				];
+				foreach ($badges as $badge) {
+					?>
+					<div class="badge">
+						<?php render_image($icon_directory.'/check-green.svg', $badge, '', false); ?>
+						<span><?php echo $badge; ?></span>
+					</div>
+					<?php
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="marquee trustpilot-ratings border-bottom extended-center-border-below">
+	<div class="container">
+		<div class="trustpilot-wrapper">
+			<a class="trustpilot-static" href="https://www.trustpilot.com/review/honehealth.com" target="_blank" rel="noreferrer noopener">
+				<span class="tp-text">Excellent</span>
+				<img class="tp-stars" loading="lazy" decoding="async"
+					src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/trustpilot-stars-5.svg"
+					alt="Rated 5 out of 5 stars" width="86" height="14" />
+				<span class="tp-count">10,000+ reviews on</span>
+				<img class="tp-brandmark" loading="lazy" decoding="async"
+					src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/trustpilot-brandmark.svg"
+					alt="" width="108" height="16" />
+			</a>
+		</div>
+		<div class="reviews-wrapper">
+			<?php
+			$reviews = hone_get_trustpilot_reviews();
+			if (!$reviews) {
+				$reviews = [
+					['quote' => 'I\'m in control of my health', 'reviewer' => 'Greg B.'],
+					['quote' => 'My motivation returned', 'reviewer' => 'Amedee I.'],
+					['quote' => 'I\'m the lightest I\'ve been in adult life', 'reviewer' => 'Brant H.'],
+					['quote' => 'I\'m a better coach and husband', 'reviewer' => 'Eric G.'],
+				];
+			}
+			?>
+			<div class="reviews-marquee" style="--review-count: <?php echo count($reviews); ?>">
+				<?php
+				for ($i = 0; $i < 2; $i++) {
+					foreach ($reviews as $review) {
+						?>
+						<div class="review-item">
+							<span class="quote-content">&ldquo;<?php echo $review['quote']; ?>&rdquo;</span>
+							<span class="reviewer-details"><?php echo $review['reviewer']; ?></span>
+						</div>
+						<?php
+					}
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="how-it-works social-videos extended-center-border-below">
+	<div class="container">
+		<div class="title-wrapper">
+			<h2 class="title">How it works</h2>
+			<p class="subtitle">Skip the hassle - see for yourself<br class="tablet-and-smaller-only"/> how Hone works</p>
+		</div>
+		<div class="wrapper carousel-wrapper carousel social-videos-carousel">
+			<?php
+			$review_videos = [
+				[
+					'thumbnail' => 'review-vid-1.webp',
+					'video' => 'review-vid-1--dt.webm',
+					'alt' => 'Review video 1',
+				],
+				[
+					'thumbnail' => 'review-vid-2.webp',
+					'video' => 'review-vid-2--dt.webm',
+					'alt' => 'Review video 2',
+				],
+				[
+					'thumbnail' => 'review-vid-3.webp',
+					'video' => 'review-vid-3--dt.webm',
+					'alt' => 'Review video 3',
+				],
+				[
+					'thumbnail' => 'review-vid-4.webp',
+					'video' => 'review-vid-4--dt.webm',
+					'alt' => 'Review video 4',
+				],
+			];
+			foreach ($review_videos as $review_video) {
+				?>
+				<div class="review-video-item">
+					<div class="thumbnail-wrapper">
+						<img src="<?php echo $video_directory; ?>/<?php echo $review_video['thumbnail']; ?>"
+							alt="<?php echo $review_video['alt']; ?>"
+							loading="lazy" decoding="async"
+							width="270" height="480" />
+					</div>
+					<button class="play-button" aria-label="Play video">
+						<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24" fill="currentColor">
+							<polygon points="5 3 19 12 5 21 5 3"/>
+						</svg>
+					</button>
+					<div class="video-wrapper">
+						<video data-src="<?php echo $video_directory; ?>/<?php echo $review_video['video']; ?>" muted loop playsinline preload="none"></video>
+					</div>
+					<button class="mute-toggle" aria-label="Unmute video">
+						<svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+							<line x1="23" y1="9" x2="17" y2="15"/>
+							<line x1="17" y1="9" x2="23" y2="15"/>
+						</svg>
+						<svg class="icon-unmuted" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+							<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+							<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+						</svg>
+					</button>
+				</div>
+				<?php
+			}
+			?>
+		</div>
+	</div>
+</section>
+
+<section class="benefits-timeline border-bottom extended-center-border-above">
+	<div class="container">
+		<div class="title-block">
+			<h2 class="title">Benefits that Build<br>Over Time</h2>
+		</div>
+		<div class="wrapper timeline-wrapper">
+			<div class="benefits-timeline-carousel">
+				<?php
+				$timeline_items = [
+					[
+						'image' => 'beaker-with-amber-fluid.webp',
+						'day' => 'Day 7',
+						'heading' => 'Clarity + a Personalized Plan',
+						'body' => 'You start with advanced lab testing to measure testosterone and key health markers. Your licensed physician reviews your results and symptoms to create a personalized TRT plan tailored to your goals, health history, and lifestyle.',
+					],
+					[
+						'image' => 'man-running-blue-clothing.webp',
+						'day' => 'Day 30',
+						'heading' => 'Energy & Performance Improve',
+						'body' => 'As testosterone stabilizes, your body responds more efficiently to exercise and recovery. Energy feels more consistent throughout the day, workouts feel stronger, and fatigue starts to fade.',
+					],
+					[
+						'image' => 'muscle-fibers-unsaturated.webp',
+						'day' => 'Day 60',
+						'heading' => 'Build Muscle. Burn Fat.',
+						'body' => 'Lean muscle begins to increase as fat mass declines. Strength improves, metabolism becomes more efficient, and insulin sensitivity rises. You\'ll look better and feel healthier.',
+					],
+					[
+						'image' => 'man-holding-child-overhead.webp',
+						'day' => 'Day 90',
+						'heading' => 'Build for the Long-Term',
+						'body' => 'By 90 days, the deeper benefits take hold. Bone density and connective tissue strengthen, while red blood cell production improves. This means better oxygen delivery, stamina, and long-term physical resilience.',
+					],
+				];
+				foreach ($timeline_items as $item) {
+					?>
+					<div class="timeline-card">
+						<div class="image-wrapper">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $image_directory; ?>/<?php echo $item['image']; ?>"
+								alt="<?php echo $item['heading']; ?>"
+								loading="lazy" decoding="async"
+								width="296" height="296" />
+						</div>
+						<div class="divider-wrapper">
+							<span class="dot"></span>
+							<span class="line"></span>
+						</div>
+						<div class="content-wrapper">
+							<span class="day"><?php echo $item['day']; ?></span>
+							<h3 class="heading"><?php echo $item['heading']; ?></h3>
+							<p class="body"><?php echo $item['body']; ?></p>
+						</div>
+					</div>
+					<?php
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="proven-benefits border-bottom extended-center-border-above">
+	<div class="container grid grid-2-col">
+		<div class="media-wrapper border-right">
+			<div class="media-block">
+				<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $image_directory; ?>/man-in-front-squat-position.webp"
+					alt="Proven Benefits of TRT"
+					loading="lazy" decoding="async"
+					width="600" height="750" />
+			</div>
+		</div>
+		<div class="content-wrapper">
+			<div class="title-block">
+				<h2 class="title">Proven Benefits of TRT</h2>
+			</div>
+			<div class="grid-block">
+				<?php
+				$benefits = [
+					[
+						'icon' => 'lightning-bolt-inside-circle.svg',
+						'title' => 'Energy',
+						'desc' => 'Energy and motivation return'
+					],
+					[
+						'icon' => 'heart-inside-circle.svg',
+						'title' => 'Libido',
+						'desc' => 'increased libido, stronger, sustained performance'
+					],
+					[
+						'icon' => 'flexed-arm-inside-circle.svg',
+						'title' => 'Strength',
+						'desc' => 'leaner, muscles grow stronger, and exercise stamina improves'
+					],
+					[
+						'icon' => 'brain-inside-circle.svg',
+						'title' => 'Focus',
+						'desc' => 'memory and concentration often improve along with mental acuity'
+					],
+					[
+						'icon' => 'bone-inside-circle.svg',
+						'title' => 'Bone Density',
+						'desc' => 'bone density loss may slow, giving new bone time to fortify'
+					],
+					[
+						'icon' => 'downward-arrow-inside-circle.svg',
+						'title' => 'Fat loss',
+						'desc' => 'supports abdominal belly fat loss, increasing lean body mass.'
+					],
+				];
+				foreach ($benefits as $benefit): ?>
+				<div class="benefits-item">
+					<div class="icon-wrapper">
+						<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/<?php echo $benefit['icon']; ?>"
+							alt=""
+							loading="lazy" decoding="async"
+							width="36" height="36" />
+					</div>
+					<h4 class="title"><?php echo $benefit['title']; ?></h4>
+					<p class="description"><?php echo $benefit['desc']; ?></p>
+				</div>
+				<?php endforeach; ?>
+			</div>
+			<?php render_cta_block($checkout_url, 'Test My T-Levels', false, 'proven-benefits-cta-block'); ?>
+		</div>
+	</div>
+</section>
+
+<section id="injections-section" class="injections-section border-bottom extended-center-border-below">
+	<?php
+	$injections_gallery_images = [
+		'grid-1-vial-with-sky.webp',
+		'grid-2-chart.webp',
+		'grid-3-chart.webp',
+		'grid-4-injections.webp',
+		'grid-5-man-portrait.webp',
+		'grid-6-benefits.webp',
+	];
+	?>
+	<div class="container">
+		<div class="gallery-wrapper">
+			<div class="gallery-carousel grid desktop-only">
+				<?php
+				foreach ($injections_gallery_images as $gallery_image) {
+					?>
+					<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $image_directory; ?>/<?php echo $gallery_image; ?>"
+						alt="<?php echo $gallery_image; ?>"
+						class="gallery-image"
+						loading="lazy" decoding="async"
+						width="462" height="462" />
+					<?php
+				}
+				?>
+			</div>
+			<div class="injections-slider-wrapper tablet-and-smaller-only">
+				<div class="injections-main-carousel">
+					<?php foreach ($injections_gallery_images as $index => $gallery_image) { ?>
+						<div class="slide" data-slide="<?php echo $index; ?>">
+							<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $image_directory; ?>/<?php echo $gallery_image; ?>"
+								alt="<?php echo $gallery_image; ?>"
+								class="gallery-image"
+								loading="lazy" decoding="async"
+								width="462" height="462" />
+						</div>
+					<?php }; ?>
+				</div>
+				<div class="injections-thumbs">
+					<?php foreach ($injections_gallery_images as $index => $gallery_image) { ?>
+						<div class="thumb<?php echo $index === 0 ? ' active' : ''; ?>" data-slide="<?php echo $index; ?>">
+							<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $image_directory; ?>/<?php echo $gallery_image; ?>"
+								alt="<?php echo $gallery_image; ?>"
+								loading="lazy" decoding="async"
+								width="54" height="54" />
+						</div>
+					<?php }; ?>
+				</div>
+			</div>
+		</div>
+		<div class="content-wrapper">
+			<div class="content-block">
+				<div class="title-block">
+					<h2 class="title">Testosterone Injections</h2>
+					<p class="subtitle">Check your current T levels with an at-home lab test. Simple 10-minute finger-prick test, get results in as little as 3 days.</p>
+				</div>
+				<div class="list-block">
+					<ul>
+						<li>Improve your T levels from your couch</li>
+						<li>90-day supply</li>
+						<li>Prescriptions delivered straight to your door</li>
+					</ul>
+				</div>
+				<div class="cta-block">
+					<?php render_cta_block($checkout_url, 'Test My T-Levels', false, 'injections-cta-block'); ?>
+					<div class="badges-wrapper">
+						<div class="badge">
+							<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/check-green.svg"
+								alt="" loading="lazy" decoding="async" width="24" height="24" />
+							<span>Fast + Free US Shipping</span>
+						</div>
+						<div class="badge">
+							<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/check-green.svg"
+								alt="" loading="lazy" decoding="async" width="24" height="24" />
+							<span>HSA/FSA eligible</span>
+						</div>
+						<div class="badge">
+							<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/check-green.svg"
+								alt="" loading="lazy" decoding="async" width="24" height="24" />
+							<span>100% Satisfaction Guaranteed</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="faq-block">
+			<?php
+			$faqs = [
+				[
+					'q' => 'Why should I check my testosterone levels?',
+					'a' => '<strong>20 million men</strong> struggle with low
+					testosterone<br><strong>57% of men</strong> have never had
+					their testosterone levels checked.<br><strong>1 IN
+					4</strong> men 30+ will suffer from low testosterone.<br>
+					<strong>2 IN 5</strong> men avoided the doctor until their
+					symptoms were urgent.'
+				],
+				[
+					'q' => 'How fast will I get results?',
+					'a' => 'We ship our test directly to you with expedited
+					shipping. We will provide you with instructions to help you
+					best prepare the night before your test arrives. Take the
+					10-minute at-home test and follow the shipping instructions
+					with a free shipping label to get your assessment to the
+					lab. Get test results in the app in as little as 3 days. We
+					will coordinate with you to schedule your consultation on
+					your time. If you\'re eligible for testosterone treatment,
+					you may receive your medications in as little as 14 days
+					from starting the assessment process. Testosterone
+					injections can begin to stabilize your hormone levels in as
+					little as two weeks.'
+				],
+				[
+					'q' => 'How do I get started with my low testosterone treatment?',
+					'a' => 'To start low testosterone treatment through Hone,
+					you\'ll have a telehealth consultation with a licensed
+					healthcare provider. The provider will use results from
+					your at-home test to assess your testosterone levels and
+					determine whether you have a testosterone deficiency. If
+					eligible, a treatment plan will be prescribed and shipped
+					directly to you.'
+				],
+				[
+					'q' => "I'm already on HRT treatment, can I switch to Hone?",
+					'a' => 'Yes, you can. You\'ll still need to take the
+					assessment to get started with Hone, and we\'ll make your
+					customized treatment plan based on your current hormone
+					levels. If you have questions about your current
+					testosterone therapy, our licensed physicians can answer
+					your concerns during your consultation.'
+				],
+				[
+					'q' => 'I messed up on my test, what can I do?',
+					'a' => 'If you are having issues completing your test or
+					have any errors in the steps, you can email us at
+					support@honehealth.com and we will help resolve your issue
+					or ship you a free replacement.<br>Unsure if your sample
+					collection card is good?<br>Send us a photo of your card to
+					support@honehealth.com and we will let you know if you
+					should submit your sample.'
+				],
+				[
+					'q' => 'Is this covered by insurance?',
+					'a' => 'Many of the treatments and testing offered by Hone
+					are often not covered easily under traditional insurance,
+					so we make it easier by charging an affordable out of
+					pocket price.'
+				],
+			];
+			foreach ($faqs as $faq) {
+				?>
+				<div class="faq-item">
+					<div class="faq-header" role="button" tabindex="0" aria-expanded="false">
+						<span class="faq-question"><?php echo $faq['q']; ?></span>
+						<span class="faq-icon">
+							<span class="icon-line line-horizontal"></span>
+							<span class="icon-line line-vertical"></span>
+						</span>
+					</div>
+					<div class="faq-content">
+						<div class="faq-item-answer">
+							<?php echo $faq['a']; ?>
+						</div>
+					</div>
+				</div>
+				<?php
+			} ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="testimonials extended-center-border-below">
+	<div class="container">
+		<div class="wrapper title-wrapper">
+			<div class="title-block">
+				<div class="stars-wrapper">
+					<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/five-stars-green.webp"
+						alt="5 stars"
+						loading="lazy" decoding="async"
+						width="86" height="15" />
+					<span>10,000+ trusted reviews</span>
+				</div>
+				<h2>Real Guys, Real Results</h2>
+			</div>
+		</div>
+		<div class="wrapper carousel-wrapper carousel testimonials-carousel">
+			<?php
+			$testimonials = [
+				[
+					'rating' => 5,
+					'title' => 'I\'m in control of my health',
+					'description' => 'I know that some guys are embarrassed to say that they\'re on TRT because they think it means that they\'re less of a man. But I never felt that it was a shameful thing. I trusted the doctor who put me on TRT in the first place, and I trust the physicians at Hone.',
+					'name' => 'Greg B.',
+					'source' => '62',
+				],
+				[
+					'rating' => 5,
+					'title' => 'My motivation returned',
+					'description' => 'My irritability went up and my motivation to do the things I used to find fun dropped; I had no stamina to keep up with my two-year-old daughter. I\'ve been on TRT for about six months: my motivation returned, and I actually enjoyed being physically active again.',
+					'name' => 'Amedee I.',
+					'source' => '36',
+				],
+				[
+					'rating' => 5,
+					'title' => 'I\'m the lightest I\'ve been in adult life',
+					'description' => 'Six months into hormone therapy, I\'m able to share my passion for fitness with my son. We go to the gym together every day—my wife practically has to drag us off of the basketball court. I\'m down to 184 pounds, the lightest I\'ve been in my adult life.',
+					'name' => 'Brant H.',
+					'source' => '38',
+				],
+				[
+					'rating' => 5,
+					'title' => 'I\'m a better coach and husband',
+					'description' => 'I\'ve now been on TRT for close to a year. I\'ve lost 110 pounds and work out every day. I\'m a better coach and husband. I feel as strong as I did when I was playing college ball.',
+					'name' => 'Eric G.',
+					'source' => '54',
+				],
+				[
+					'rating' => 5,
+					'title' => 'My love life has done a 180',
+					'description' => 'It\'s been over a year and a half since starting TRT from Hone and my love life has done a 180. Two weeks after starting treatment, I initiated bedroom drive for the first time in 6 months and was able to perform.',
+					'name' => 'Kevin G.',
+					'source' => '44',
+				],
+			];
+			foreach ($testimonials as $testimonial) {
+				?>
+				<div class="testimonial-item">
+					<div class="testimonial-item-rating">
+						<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $icon_directory; ?>/five-stars-green.webp"
+							alt="Five star rating"
+							loading="lazy" decoding="async"
+							width="86" height="15" />
+					</div>
+					<div class="testimonial-item-title">
+						<span>"<?php echo $testimonial['title']; ?>"</span>
+					</div>
+					<div class="testimonial-item-description">
+						<span><?php echo $testimonial['description']; ?></span>
+					</div>
+					<div class="testimonial-item-attribution">
+						<span class="name"><?php echo $testimonial['name']; ?></span> - <span class="source"><?php echo $testimonial['source']; ?></span>
+					</div>
+				</div>
+				<?php
+			}
+			?>
+		</div>
+
+		<div class="wrapper navigation-wrapper testimonials-navigation">
+			<div class="previous">
+				<button type="button" class="testimonials-prev">
+					<img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_left.svg"
+						alt="Arrow pointing left"
+						loading="lazy" decoding="async"
+						width="40" height="40" />
+				</button>
+			</div>
+			<div class="nav-dots testimonials-dots">
+				<?php
+				for ($i = 0; $i < count($testimonials); $i++) {
+					$active_class = $i === 0 ? ' active' : '';
+					echo '<button class="nav-dot' . $active_class . '" data-slide="' . $i . '"></button>';
+				}
+				?>
+			</div>
+			<div class="next">
+				<button type="button" class="testimonials-next">
+					<img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_right.svg"
+						alt="Arrow pointing right"
+						loading="lazy" decoding="async"
+						width="40" height="40" />
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="alternatives extended-center-border-above">
+	<div class="container">
+		<div class="title-wrapper">
+			<div class="title-block">
+				<h2 class="title">Not a fan of needles?</h2>
+				<p class="subtitle">Not everyone wants injections.</p>
+				<p class="description">Needle-free testosterone options available with the At-Home Testosterone Testing Kit</p>
+			</div>
+		</div>
+		<div class="grid-block">
+			<?php
+			$alternatives = [
+				[
+					'image' => 'trt-pill-packaging.webp',
+					'title' => 'Testosterone Oral Troches',
+					'description' => 'Twice-daily rapid disolvable oral supplements',
+				],
+				[
+					'image' => 'trt-cream-packaging.webp',
+					'title' => 'Testosterone Cream',
+					'description' => 'Daily moisturizing, fast-acting cream',
+				],
+			];
+			foreach ($alternatives as $alternative) {
+				?>
+				<div class="grid-item">
+					<div class="image-wrapper">
+						<img src="<?php echo $theme_folder; ?>/static/media/images<?php echo $image_directory; ?>/<?php echo $alternative['image']; ?>"
+							alt="<?php echo $alternative['title']; ?>"
+							loading="lazy" decoding="async"
+							width="360" height="360" />
+					</div>
+					<div class="item-content">
+						<h3 class="item-title"><?php echo $alternative['title']; ?></h3>
+						<p class="item-description"><?php echo $alternative['description']; ?></p>
+					</div>
+				</div>
+				<?php
+			}
+			?>
+			<?php render_cta_block($checkout_url, 'Test My T-Levels', false, 'alternatives-cta-block'); ?>
+		</div>
+	</div>
+</section>
+
+<!-- Trustpilot widget: deferred until first user interaction -->
+<script>
+(function () {
+	function loadTrustpilot() {
+		var s = document.createElement('script');
+		s.src = '//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js';
+		s.async = true;
+		document.head.appendChild(s);
+	}
+	['scroll', 'mousemove', 'touchstart'].forEach(function (evt) {
+		document.addEventListener(evt, loadTrustpilot, { once: true, passive: true });
+	});
+}());
+</script>
+
+<?php get_footer(); ?>

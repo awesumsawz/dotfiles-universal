@@ -1,0 +1,13 @@
+<?php
+function render_cta_block($url = '#', $text = 'Join Hone', $icon = true, $classes = '') {
+    $theme_folder = function_exists('get_bloginfo') ? get_bloginfo('stylesheet_directory') : '';
+    $icon_path = $theme_folder . '/static/media/images/icons/triangle-filled-right-3.svg';
+    
+    echo '<div class="cta-block ' . $classes . '">';
+    echo '    <div class="cta-wrapper primary-button">';
+    echo '        <a class="btn" href="' . $url . '" data-trackable="callout" data-interaction="0" rel="">';
+    echo '            ' . $text . ($icon ? '<img src="' . $icon_path . '" alt="Arrow pointing right." />' : '');
+    echo '        </a>';
+    echo '    </div>';
+    echo '</div>';
+} 

@@ -1,0 +1,127 @@
+# Figma Extraction Workflow
+
+How to efficiently extract design data from Figma for template creation.
+
+## Overview
+
+The Figma MCP tools provide design context as React+Tailwind code. This must be **translated** — not copied — into the theme's PHP/SCSS stack. The Figma output is a reference for layout, spacing, colors, and typography — never use it as-is.
+
+## Step 1: Get Screenshots First
+
+Always start with screenshots to understand the full page visually.
+
+```
+Tools to use:
+- mcp__figma-desktop__get_screenshot (for desktop app / no fileKey needed)
+- mcp__figma__get_screenshot (for API / requires fileKey + nodeId)
+```
+
+Get all three breakpoints:
+- **Desktop** frame (1440px wide)
+- **Tablet** frame (768px wide)
+- **Mobile** frame (393px wide)
+
+## Step 2: Get Page Structure
+
+Use `get_design_context` on the top-level frame first. If the output is too large (common for full-page frames), it will return sparse metadata with node IDs. Then drill into individual sections.
+
+**Strategy for large pages:**
+1. Call `get_design_context` on the top frame → get section IDs from metadata
+2. Call `get_design_context` on each section individually
+3. Focus on the Desktop version first — tablet and mobile are responsive adaptations
+
+## Step 3: Extract Section-by-Section
+
+For each section in the Desktop frame, call `get_design_context` with:
+```
+clientLanguages: "php,html,css,javascript"
+clientFrameworks: "wordpress"
+artifactType: "COMPONENT_WITHIN_A_WEB_PAGE_OR_APP_SCREEN"
+```
+
+### What to Extract from Each Section
+
+From the Figma output, capture:
+1. **Layout structure** — flex direction, alignment, gaps, padding
+2. **Typography** — font family, size, weight, line-height, letter-spacing, color
+3. **Colors** — background colors, text colors, border colors
+4. **Spacing** — padding, margins, gaps (in px)
+5. **Asset URLs** — image constants at the top of each component
+6. **Content text** — actual copy/headlines for the template
+
+### What to Ignore from Figma Output
+
+- React/JSX syntax (translate to PHP)
+- Tailwind classes (translate to SCSS)
+- `data-node-id` attributes
+- `css-*` class names (Figma-generated, not real classes)
+- `fontVariationSettings` (use font-weight instead)
+- Overly complex image layering (multiple stacked images are usually one photo with Figma export artifacts)
+
+## Step 4: Get Responsive Variants
+
+After completing Desktop extraction, get the **Tablet** and **Mobile** versions of key sections that change layout significantly:
+
+- **Hero**: Layout shifts from side-by-side to stacked
+- **Listicle**: Image/text stacking changes
+- **Cards/Stats**: Grid columns reduce
+- **Review carousels**: Slides per view changes
+
+Sections that scale linearly (FAQ, simple text blocks) usually only need padding/font-size adjustments.
+
+## Step 5: Handle Image Assets
+
+The Figma MCP provides image URLs as `https://www.figma.com/api/mcp/asset/...` constants. **These expire in 7 days — never use them directly in production PHP.**
+
+**Pattern for assets that don't exist yet:**
+- Reference the expected final path in PHP: `$theme_folder . '/static/media/images/' . $template_name . '/guide-health-hub.webp'`
+- Add `style="background-color: #d2cec4"` inline on the parent container — if the image 404s, the bg color shows through and the placeholder looks intentional
+- This keeps the PHP production-ready and lets designers drop the real files in without code changes
+
+**Pattern for placeholders during development:**
+- Use `https://placehold.co/{W}x{H}/{hex}/{hex}` (no #) with the correct bg color from the Figma design
+- Only use placehold.co when you genuinely have NO correct asset and NO expected filename — prefer the bg-color fallback approach above
+
+**For SVG icons:**
+- Check `src/static/media/images/icons/` first — many common icons already exist
+- Use inline SVG in PHP only when the icon needs CSS color overrides (e.g., changes on hover/active)
+
+## Step 6: Build and Verify with Chrome DevTools MCP
+
+Always run `yarn build` then use the Chrome DevTools MCP to verify the section renders correctly before moving on.
+
+```
+After build:
+1. mcp__chrome-devtools__navigate_page (reload with ignoreCache: true)
+2. mcp__chrome-devtools__evaluate_script — check section exists, images load, carousel initialized
+3. Scroll to section: element.scrollIntoView({ block: 'center' })
+4. mcp__chrome-devtools__take_screenshot
+```
+
+**Key things to check in evaluate_script:**
+```javascript
+// Image 404 check
+imgs.map(img => ({ src: img.src, naturalWidth: img.naturalWidth, complete: img.complete }))
+// naturalWidth: 0 + complete: true = 404
+
+// Carousel init check
+carousel.classList.contains('slick-initialized')
+
+// Slide visibility check (aria-hidden bug)
+slides.map(s => ({ ariaHidden: s.getAttribute('aria-hidden'), display: getComputedStyle(s).display }))
+// display: "none" on aria-hidden="true" slides = global CSS conflict (see QUICK_REFERENCE)
+```
+
+## Common Figma Patterns
+
+### Multiple Stacked Images = One Photo
+Figma often exports a single photo as multiple layered `<img>` tags (background fill, actual image, overlay). In production, this should be **one** `<img>` tag with `object-fit: cover`.
+
+### Font Variation Settings
+Figma outputs `fontVariationSettings: "'opsz' 14"` for DM Sans. Ignore this — the font files handle optical sizing automatically.
+
+### Decorative SVG Patterns
+Some sections include decorative wave/dot patterns as masked SVGs. Evaluate whether these add enough value to implement. If yes, include as background images in CSS.
+
+### Progress Bar Segments
+The quiz progress bar shows segments as individual `<div>` elements. The `quiz.js` utility generates these dynamically — don't hardcode them.

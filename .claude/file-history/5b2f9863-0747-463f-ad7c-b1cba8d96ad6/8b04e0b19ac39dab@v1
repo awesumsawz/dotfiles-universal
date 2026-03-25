@@ -1,0 +1,34 @@
+<?php
+function render_carousel_navigation($items = [], $classes = '') {
+    if (empty($items)) {
+        return;
+    }
+    
+    $theme_folder = function_exists('get_bloginfo') ? get_bloginfo('stylesheet_directory') : '';
+    $left_arrow = $theme_folder . '/static/media/images/icons/arrow-circle_left.svg';
+    $right_arrow = $theme_folder . '/static/media/images/icons/arrow-circle_right.svg';
+    
+    // Generate prefixed class names for carousel.js compatibility
+    $prev_class = $classes ? $classes . '-prev' : 'carousel-prev';
+    $next_class = $classes ? $classes . '-next' : 'carousel-next';
+    $dots_class = $classes ? $classes . '-dots' : 'carousel-dots';
+    
+    echo '<div class="wrapper navigation-wrapper ' . $classes . '">';
+    echo '    <div class="previous ' . $prev_class . '">';
+    echo '        <button><img src="' . $left_arrow . '" alt="Arrow pointing left" /></button>';
+    echo '    </div>';
+    echo '    <div class="nav-dots ' . $dots_class . '">';
+    
+    $dot_index = 0;
+    foreach ($items as $key => $value) {
+        $active_class = $dot_index === 0 ? ' active' : '';
+        echo '        <button class="nav-dot' . $active_class . '" data-slide="' . $dot_index . '" data-target="' . $key . '"></button>';
+        $dot_index++;
+    }
+    
+    echo '    </div>';
+    echo '    <div class="next ' . $next_class . '">';
+    echo '        <button><img src="' . $right_arrow . '" alt="Arrow pointing right" /></button>';
+    echo '    </div>';
+    echo '</div>';
+} 

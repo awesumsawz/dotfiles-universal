@@ -1,0 +1,65 @@
+<?php
+/**
+ * Plugin Name: Hone Page Sync
+ * Description: Auto-creates and removes WordPress pages to match page-*.php templates in the active theme.
+ * Version: 1.0
+ */
+
+add_action('admin_init', 'hone_sync_template_pages');
+
+function hone_sync_template_pages() {
+    $theme_dir = get_template_directory();
+
+    // Discover template slugs from page-*.php files
+    $template_files = glob($theme_dir . '/page-*.php') ?: [];
+    $template_slugs = array_map(
+        fn($f) => preg_replace('/^page-(.+)\.php$/', '$1', basename($f)),
+        $template_files
+    );
+    sort($template_slugs);
+
+    // Skip if nothing changed since last sync
+    $cache_key = 'hone_synced_templates';
+    if (get_option($cache_key) === $template_slugs) {
+        return;
+    }
+
+    // Fetch all pages created by this plugin
+    $existing_pages = get_posts([
+        'post_type'      => 'page',
+        'post_status'    => ['publish', 'draft'],
+        'posts_per_page' => -1,
+        'meta_query'     => [['key' => '_hone_managed_page', 'value' => '1']],
+    ]);
+
+    $existing_by_slug = [];
+    foreach ($existing_pages as $page) {
+        $existing_by_slug[$page->post_name] = $page;
+    }
+
+    // Create pages for new templates
+    foreach ($template_slugs as $slug) {
+        if (isset($existing_by_slug[$slug])) continue;
+
+        $post_id = wp_insert_post([
+            'post_title'  => $slug,
+            'post_name'   => $slug,
+            'post_type'   => 'page',
+            'post_status' => 'publish',
+        ]);
+
+        if ($post_id && !is_wp_error($post_id)) {
+            update_post_meta($post_id, '_wp_page_template', 'page-' . $slug . '.php');
+            update_post_meta($post_id, '_hone_managed_page', '1');
+        }
+    }
+
+    // Delete pages whose template file no longer exists
+    foreach ($existing_by_slug as $slug => $page) {
+        if (!in_array($slug, $template_slugs, true)) {
+            wp_delete_post($page->ID, true);
+        }
+    }
+
+    update_option($cache_key, $template_slugs);
+}

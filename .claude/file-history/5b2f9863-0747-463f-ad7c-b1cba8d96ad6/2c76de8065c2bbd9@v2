@@ -1,0 +1,487 @@
+<?php 
+// Template Name: Overview Pricing
+
+global $class_names;
+
+$template_name = 'overview-pricing';
+$class_names[] = $template_name;
+$theme_folder = get_bloginfo('stylesheet_directory');
+$qs = get_query_string();
+$checkout_url = 'https://start.honehealth.com/product/hermes/labtest-hrt-4' . (!empty($qs) ? '?' . $qs : '');
+
+$hero = $theme_folder . '/static/media/images/hero-forbes-health.webp';
+
+wp_enqueue_script('hone-page-' . $template_name);
+
+get_header(); 
+?>
+<section class="text-white stickycta-section page-section">
+   <div class="container">
+      <div class="title-block">
+         <p class="lead">Pricing: <span class='price'><s>$150</s> $50</span> <span class='small-text'>(+ Doctor consultation Included)</span><span class='availability'>Availability: In Stock</span></p>
+      </div>
+      <div class="cta-block">
+         <div class="cta-wrapper"><a class="btn" href="<?php echo($checkout_url); ?>" data-interaction="0" rel="">get my home assessment</a></div>
+      </div>
+   </div>
+</section>
+<section class="callout-before-after callout-section page-section">
+   <div class="container">
+      <figure class="media-block">
+         <picture class="">
+            <img src="<?php echo $hero?>" alt="A man working out." fetchpriority="high" width="1440" height="485" style="aspect-ratio: auto 1440 / 485;" decoding="async" />
+         </picture>
+      </figure>
+      <div class="callout-content">
+         <div class="title-block">
+            <h2>Boost your testosterone and restore energy, strength, and libido</h2>
+            <p class="lead">Check your testosterone levels from home and start treatment in as little as 14 days</p>
+         </div>
+         <div class="cta-block">
+            <div class="cta-wrapper"><a class="btn" href="#quiz" data-trackable="callout" data-interaction="0" rel="">Let’s Get Started</a></div>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="quiz-wrapper default-embedded-quiz" id="quiz">
+   <div class="container">
+      <div class="progress-bar ">
+         <div style="width:20%;height:4px;background-color:#119555" class="progress"></div>
+      </div>
+      <div class="question-container question-1">
+         <h2 id="question"></h2>
+         <h3></h3>
+         <div id='options' class="options-container">
+         </div>
+      </div>
+      <div class="results-container" style="display:none">
+      </div>
+   </div>
+</section>
+<section class="details-highlighted-stats bg-brand-greylight details-section page-section" id="treatment-with-hone">
+   <div class="container">
+      <div class="title-block">
+         <h2>Why seek treatment?</h2>
+      </div>
+      <div class="details-content grid columns-4">
+         <div class="detail detail-0">
+            <div class="detail-content-wrapper">
+               <h4 class="detail-title">1 <span class='stat-inbetween'>IN</span> 4</h4>
+               <p class="detail-text">men 30+ will suffer from low testosterone.</p>
+            </div>
+         </div>
+         <div class="detail detail-1">
+            <div class="detail-content-wrapper">
+               <h4 class="detail-title">17%</h4>
+               <p class="detail-text">less testosterone in the average 30+ man. <br><span class='citation'>*Journal of Clinical Endocrinology & Metabolism<span></p>
+            </div>
+         </div>
+         <div class="detail detail-2">
+            <div class="detail-content-wrapper">
+               <h4 class="detail-title">57%</h4>
+               <p class="detail-text">of men have never had their testosterone levels checked.</p>
+            </div>
+         </div>
+         <div class="detail detail-3">
+            <div class="detail-content-wrapper">
+               <h4 class="detail-title">2 <span class='stat-inbetween'>IN</span> 5</h4>
+               <p class="detail-text">men avoided the doctor until their symptoms were urgent.</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<article class="quiz-longform longform-section page-section" id="longform">
+   <div class="container">
+      <div class="longform-hero"></div>
+      <div class="longform-body">
+         <div class="longform-item index-0">
+            <div class="reverse image-text-pair">
+               <figure class="media-block">
+                  <picture class="">
+                     <img src="<?php echo $theme_folder?>/static/media/images/listicle-item-1-tb.webp" alt="Man running outside." loading="lazy" decoding="async" width="1376" height="832" />
+                  </picture>
+                  <figcaption><span>You’ll Have More Energy</span></figcaption>
+               </figure>
+               <div class="text-wrapper">
+                  <div class="title-block">
+                     <h2>You’ll Have More Energy</h2>
+                     <p class="lead">Experience better sleep, increased motivation, and the drive to be more active. With TRT, you’ll notice a boost in energy that makes physical activity easier and more enjoyable, enhancing your overall well-being.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="longform-item index-1">
+            <div class="image-text-pair">
+               <figure class="media-block">
+                  <picture class="">
+                     <img src="<?php echo $theme_folder?>/static/media/images/listicle-item-2-tb.webp" alt="Man dribbling a basketball." loading="lazy" decoding="async" width="1376" height="832" />
+                  </picture>
+                  <figcaption><span>You’ll Build Muscle and Burn Belly Fat Faster</span></figcaption>
+               </figure>
+               <div class="text-wrapper">
+                  <div class="title-block">
+                     <h2>You’ll Build Muscle and Burn Belly Fat Faster</h2>
+                     <p class="lead">Diet, rest, and exercise are key to your success. However, when your testosterone levels dip below your normal range, your strength strains, your body mass gets mushy, and your once-unbeatable endurance ends. The only thing low testosterone builds up is fat deposits around your midsection, which leaves you to carry a growing problem wherever you go.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="longform-item index-2">
+            <div class="reverse image-text-pair">
+               <figure class="media-block">
+                  <picture class="">
+                     <img src="<?php echo $theme_folder?>/static/media/images/listicle-item-3-tb.webp" alt="Man and woman walking through a field." loading="lazy" decoding="async" width="1376" height="832" />
+                  </picture>
+                  <figcaption><span>You’ll See a BIG Change in Your Love Life</span></figcaption>
+               </figure>
+               <div class="text-wrapper">
+                  <div class="title-block">
+                     <h2>You’ll See a BIG Change in Your Love Life</h2>
+                     <p class="lead">You’ll start to feel the difference as soon as three weeks of treatment. By six weeks, you and your loved one will discover that your “drive” is back to what it once was, if not better.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="longform-item index-3">
+            <div class="image-text-pair">
+               <figure class="media-block">
+                  <picture class="">
+                     <img src="<?php echo $theme_folder?>/static/media/images/listicle-item-4-tb.webp" alt="Man working at a desk." loading="lazy" decoding="async" width="1376" height="832" />
+                  </picture>
+                  <figcaption><span>Your Mental Acuity and Focus Return</span></figcaption>
+               </figure>
+               <div class="text-wrapper">
+                  <div class="title-block">
+                     <h2>Your Mental Acuity and Focus Return</h2>
+                     <p class="lead">Your change in demeanor will support a radically improved self-confidence and clearer mindset, plus an inner strength that’s more ready to go toe-to-toe with whatever life throws your way.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</article>
+<section class="default-callout-ppd bg-brand-greylight callout-ppd page-section" id="whats-included">
+   <div class="container">
+      <figure class="media-block">
+         <picture class="">
+            <img src="<?php echo $theme_folder?>/static/media/images/ppd-dt.webp" alt="Testosterone product displayed on table." loading="lazy" decoding="async" width="1312" height="1546" />
+         </picture>
+         <figcaption><span>What’s Included</span></figcaption>
+      </figure>
+      <div class="callout-content">
+         <div class="title-block">
+            <h2>What’s Included</h2>
+         </div>
+         <div class="included-items-wrapper">
+            <div class="included-item">
+               <figure class="media-block">
+                  <picture class=""><img src="<?php echo $theme_folder?>/static/media/images/included-1.webp" alt="Biomarker test icon." loading="lazy" decoding="async" width="224" height="224" /></picture>
+               </figure>
+               <div class="included-item-content">
+                  <div class="included-item-title-block">
+                     <h2>Optimal Health<br class='is-hidden-tablet' /> At-Home Test</h2>
+                     <span class="price-wrapper"><span class="included-price"><s>$150</s></span><span class="included-final-price">$50</span></span>
+                  </div>
+                  <div class="list-block">
+                     <ul>
+                        <li class="icon-list-item"><span class="list-text">Easy, 5-minute test</span></li>
+                        <li class="icon-list-item"><span class="list-text">9 bio-markers</span></li>
+                        <li class="icon-list-item"><span class="list-text">CLIA/CAP accredited lab</span></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="included-item">
+               <figure class="media-block">
+                  <picture class=""><img src="<?php echo $theme_folder?>/static/media/images/included-2.webp" alt="A Physician being shown on a mobile device." loading="lazy" decoding="async" width="224" height="224" /></picture>
+               </figure>
+               <div class="included-item-content">
+                  <div class="included-item-title-block">
+                     <h2>Physician Consultation</h2>
+                     <span class="price-wrapper"><span class="included-price">Included</span></span>
+                  </div>
+                  <p class="included-item-text">Private 1:1 video consultation</p>
+               </div>
+            </div>
+            <div class="included-item">
+               <figure class="media-block">
+                  <picture class=""><img src="<?php echo $theme_folder?>/static/media/images/included-3.webp" alt="DNA icon." loading="lazy" decoding="async" width="224" height="224" /></picture>
+               </figure>
+               <div class="included-item-content">
+                  <div class="included-item-title-block">
+                     <h2>Personalized Treatment Plan</h2>
+                     <span class="price-wrapper"><span class="included-price">Included</span></span>
+                  </div>
+                  <div class="list-block">
+                     <ul>
+                        <li class="icon-list-item"><span class="list-text">Comprehensive test results</span></li>
+                        <li class="icon-list-item"><span class="list-text">Biomarker breakdown</span></li>
+                        <li class="icon-list-item"><span class="list-text">Tailored prescriptions</span></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="total-display-wrapper">
+            <div class="discount-content">
+               <p class="discount-text"><img src='<?php echo $theme_folder?>/static/media/images/icons/price-tag.webp' alt='Price tag icon.' loading='lazy' decoding='async' width='60' height='60' /> Limited time discount</p>
+               <p class="discount-savings">Saving $100</p>
+            </div>
+            <div class="shipping-content">
+               <p class="shipping-text">Shipping</p>
+               <p class="shipping-cost">Free</p>
+            </div>
+            <div class="total-price-wrapper">
+               <h2 class="total-title">Total</h2>
+               <p class="total-cost"><span class="currency">US</span><span>$50</span></p>
+            </div>
+         </div>
+         <div class="cta-block">
+            <div class="cta-wrapper"><a class="btn" href="<?php echo($checkout_url); ?>" data-trackable="callout" data-interaction="0" rel="">Get Started Now</a></div>
+         </div>
+         <div class="trustpilot-widget" data-locale="en-US" data-template-id="5419b6ffb0d04a076446a9af" data-businessunit-id="60d5e077459f7400015a2290" data-style-height="38px" data-style-width="100%"><a href="https://www.trustpilot.com/review/honehealth.com" target="_blank" rel="noreferrer noopener">Trustpilot</a></div>
+      </div>
+   </div>
+</section>
+<section class="reviews-carousel-2 reviews-section page-section">
+   <div class="container">
+      <div class="title-block">
+         <h2>Real Guys, Real&nbsp;Results</h2>
+         <p class="lead">Join Thousands Using Hone To Treat Their Low T</p>
+      </div>
+      <div class="carousel" id="">
+         <?php 
+            $reviews =[
+               [
+                  'image_path'=>'/static/media/images/review-multi-3.webp',
+                  'title'=> '“I’m able to share my passion for fitness with my&nbsp;son.”',
+                  'body'=>'I saw an ad for Hone while scrolling Facebook. <b>Low energy? Struggling to build muscle? It could be low testosterone. Yeah, those were my symptoms to a T.</b> I ordered an at-home hormone assessment. Within six weeks, my energy started to pick up, and I started to build muscle. Six months into hormone therapy, I’m able to share my passion for fitness with my son. We go to the gym together every day—my wife practically has to drag us off of the basketball court. I’m down to 184 pounds, the lightest I’ve been in my adult life.',
+                  'name'=>'Brant Huerta',
+                  'age'=>'38',
+               ],
+               [
+                  'image_path'=>'/static/media/images/review-multi-1.webp',
+                  'title'=> '“I’ve lost 110 pounds and work out every day. I’m a better coach and husband.”',
+                  'body'=>'At the peak of my athletic game, I was 5’8” and 210 pounds. But when I turned 45, my weight started to creep up. By the time I turned 50, I weighed 285 pounds. I’ve now been on TRT for close to a year. <b>I’ve now lost 110 pounds and work out every day.</b> I’m a better coach and husband. I feel as strong as I did when I was playing college ball.',
+                  'name'=>'Eric Gerlach',
+                  'age'=>'54',
+               ],
+               [
+                  'image_path'=>'/static/media/images/review-multi-7.webp',
+                  'title'=> '“My motivation returned, and I actually enjoyed being physically active again”',
+                  'body'=>'My irritability went up and my motivation to do the things I used to find fun dropped; I had no stamina to keep up with my two-year-old daughter. I did some research online and all signs pointed to the symptoms of low testosterone, and I found Hone. <b>I’ve been on TRT for about six months: my motivation returned, and I actually enjoyed being physically active again.</b>',
+                  'name'=>'Amedee Irey',
+                  'age'=>'36',
+               ],
+               [
+                  'image_path'=>'/static/media/images/review-multi-4.webp',
+                  'title'=> '“My love life has done a 180.”',
+                  'body'=>'It’s been over a year and a half since starting TRT from Hone and my love life has done a 180. <b>Two weeks after starting treatment, I initiated bedroom drive for the first time in 6 months and was able to perform.</b>',
+                  'name'=>'Kevin Gallagher',
+                  'age'=>'44',
+               ],
+               [
+                  'image_path'=>'/static/media/images/review-multi-6.webp',
+                  'title'=> '“I had a heart attack at 42. Since starting Hone TRT, I’m healthier than ever.”',
+                  'body'=>'The biggest, the most important change I’ve experienced is that I haven\'t had a single heart problem since starting TRT. To me, that\'s way more important than any aesthetic perks.<br><br>I know that some guys are embarrassed to say that they’re on TRT because they think it means that they’re less of a man. But I never felt that it was a shameful thing. I trusted the doctor who put me on TRT in the first place, and I trust the physicians at Hone. I feel like I\'m in control of my health. Nothing fazes me like it used to.',
+                  'name'=>'Greg Brickey',
+                  'age'=>'62',
+               ],
+            ];
+            $i = 0;
+            foreach ($reviews as $review) {
+               $image_path = $review['image_path'];
+               $title = $review['title'];
+               $body = $review['body'];
+               $name = $review['name'];
+               $age = $review['age'];
+               ?>
+         <div data-index="<?php echo $i ?>" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline:none;width:20%">
+            <div>
+               <div class="action" tabindex="-1" style="width:100%;display:inline-block">
+                  <div class="review">
+                     <figure class="media-block">
+                        <picture class="">
+                           <img src="<?php echo $theme_folder . $image_path?>" alt="Hone customer review" loading="lazy" decoding="async" width="352" height="198" />
+                        </picture>
+                     </figure>
+                     <p class="quote-title"><?php echo $title ?></p>
+                     <blockquote class="quote-block">
+                        <p class="quote-body">
+                           <?php echo $body ?>
+                        </p>
+                        <small class="quote-attribution">
+                        <span><?php echo $name ?><span class='age'><?php echo $age ?></span></span>
+                        <span class='hone-member'>Hone member</span>
+                        </small>
+                     </blockquote>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <?php
+            $i++;
+            }
+            ?>
+      </div>
+   </div>
+</section>
+<?php
+   $timeline_items =[
+      ['title'=>'Get Started By Ordering a Test',
+      'description'=>'Measure your hormone levels and biomarkers with one of our convenient test options.'],
+      ['title'=>' Your Test Has Been Ordered',
+      'description'=>'Tests typically ship within 1 business day. Please allow 2-3 business days for your test to arrive.'],
+      ['title'=>'Complete Your At-Home Blood Test',
+      'description'=>' Please register your test and then review the instructions to prepare for your test.'],
+      ['title'=>'Your Completed Test is in Transit',
+      'description'=>' Your sample is on its way to our lab via priority shipping. Once received, samples are typically processed within 2-5 business days.'],
+      ['title'=>'Lab Processing',
+      'description'=>'Our lab has received your sample. Results should be available within 2-5 business days.'],
+      ['title'=>'Schedule Consult + Meet your doctor',
+      'description'=>'Your labs are ready to review with your doctor. Please complete the following intake forms and then verify your identity. This will take about 15 minutes and must be completed before your consultation.'],
+      ['title'=>'Review Your Treatment Plan',
+      'description'=>'Your doctor has shared your treatment plan for review and recommended medications are now available for purchase.'],
+      ['title'=>'Hone Membership',
+      'description'=>'Your initial treatment is just the beginning of Hone’s personalized health roadmap, designed specifically for your body using the latest health science. Our basic membership is aimed at giving you faster help, while the premium membership is designed to help you turn your life around. No commitments are necessary, cancel anytime.'],
+   ];
+
+   $timeline= '';
+   foreach ($timeline_items as $index => $item){
+      $timeline .=
+      '<li class="icon-list-item">
+         <figure class="list-icon">
+               <img alt="list icon" src=' . $theme_folder . '/static/media/images/ellipse.svg  />
+         </figure>
+         <span class="list-text">
+               <span class="accordion-listitem-title">'. $item['title'] .'</span>' .
+               $item['description']
+         . '</span>
+         </li>';
+      }
+
+   $accordion_items = [
+      [
+         'question' => "What’s the timeline I should expect?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">  Hone takes a deliberate approach to your health to ensure you are treated for your needs. The process generally takes between 20-30 days. See below for more detail.</p>
+                        <br/>
+                     </div>
+                     <div class="list-block">         
+                        <ul class="timeline-list">' .
+                           $timeline . 
+                        '</ul>
+                     </div>'
+      ],
+      [
+         'question' => "What’s covered during the consult?",
+         'answer' => '<div class="title-block">
+                        <div class="lead">
+                           <ol style="text-align: left; font-size:18px; font-family: DM Sans">
+                              <li>1. Deep understanding of you as a patient – what’s your ‘why’ and what factors go into care</li>
+                              <li>2. Analysis and education around what’s happening in your body based on biomarkers and patient history</li>
+                              <li>3. Creation of a personalized plan that fixes the immediate symptoms and improves long-term healthspan</li>
+                           </ol>
+                        </div>
+                     </div>'
+      ],
+      [
+         'question' => "What does a personalized plan consist of?",
+         'answer' => '<div class="title-block">
+                        <div class="lead">
+                           <ol style="text-align: left; font-size:18px; font-family: DM Sans">
+                              <li>1. Physicians will take the long view on creating a multi-faceted protocol that fits your life</li>
+                              <li>2. Prescription Medications + Supplements</li>
+                              <li>3. Lifestyle Guidance: Diet, Exercise, Stress Management, Sleep</li>
+                           </ol>
+                        </div>
+                     </div>'
+      ],
+      [
+         'question' => "Is this covered by insurance?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">Many of the treatments and testing offered by Hone are often not covered easily under traditional insurance, so we make it easier by charging an affordable cash price.
+                           <span class="accordion-content-paragraph-spacer">However, we strive to make care as low cost as possible and are exploring ways to offer insurance coverage in the future. Stay tuned for updates!</span>                    
+                        </p>
+                     </div>'
+      ],
+      [
+         'question' => "I’m already on HRT treatment, can I switch to Hone?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">Yes, you can. You’ll still need to take the assessment to get started with Hone, and we’ll make your customized treatment plan based on your current hormone levels. If you have questions about your current testosterone therapy, our licensed physicians can answer your concerns during your consultation.
+                        </p>
+                     </div>'
+      ],
+      [
+         'question' => "Is my personal information and DNA safe?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">
+                        Hone takes your security very seriously and encrypts all of your information, meaning that your confidential data is handled securely. We also use 256-BIT TLS Security to keep your payment information safe.
+                           <br><br>
+                           Your blood samples are sent directly to partnered labs where your sample is tested and promptly disposed of following California medical waste disposal regulations. These partner labs do not store or sell your DNA.
+                        </p>
+                     </div>'
+      ],
+      [
+         'question' => "Who are Hone’s physicians?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">
+                           Hone provides administrative and management services to independently physician-owned and operated medical practices. Hone licenses the “Hone” brand name to Broad Health, P.C., and other affiliated medical practices that use Hone’s business support services. Each Hone-branded medical practice is owned and operated by a licensed physician. There is no single provider of medical care called “Hone”. Each Hone-branded practice engages a network of United States-based clinicians who provide clinical telehealth services. The clinicians deliver clinical services via the Hone platform to their patients. 
+                           <br/><br/>
+                           Hone does not provide medical advice or care, own or operate the medical practices, employ or in any way supervise the clinicians providing medical care, and control over the care provided is the sole responsibility of the independent medical practices and the clinicians they employ. Services and practices may vary across clinicians, and patients should contact the clinicians at Broad Health, P.C., directly for all questions concerning their medical care.
+                        </p>
+                     </div>'
+      ],
+      [
+         'question' => "Do physicians review the risks and benefits of any medication?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">
+                           Yes, physicians have sufficient knowledge of the risks and benefits associated with the medicines they subscribe to patients. Physicians spend time explaining these during the consultation, and patients are required to consent to these risks before medication is provided.
+                        </p>
+                     </div>'
+      ],
+      [
+         'question' => "I messed up on my test, what can I do?",
+         'answer' => '<div class="title-block">
+                        <p class="lead">
+                        If you are having issues completing your test or have any errors in the steps, you can email us at  
+                           <a href="mailto:support@honehealth.com">support@honehealth.com</a>
+                           and we will help resolve your issue or ship you a free replacement.
+                           <br/>
+                           <br/>
+                           Unsure if your sample collection card is good?
+                           <br/>
+                           Send us a photo of your card to 
+                           <a href="mailto:support@honehealth.com">support@honehealth.com</a>
+                           and we will let you know if you should submit your sample.
+                        </p>'
+      ]
+   ];
+?>
+
+<section class="default-accordion bg-brand-warmgrey accordion-section page-section">
+   <div class="container">
+      <div class="title-block">
+      <h2>Any Questions?</h2>
+      <p class="lead">We’ve got answers.</p>
+      </div>
+      <div class="accordion-content">
+      <?php foreach ($accordion_items as $index => $item): ?>
+         <div class="accordion-slide index-<?php echo $index; ?>">
+         <button class="accordion-header">
+               <?php echo $item['question']; ?>
+               <img src="<?php echo $theme_folder; ?>/static/media/images/icons/slide-icon.svg" class="accordion-icon" alt="accordion icon"/>
+         </button>
+         <div class="accordion-content" style="display: none">
+               <?php echo $item['answer']; ?>
+         </div>
+         </div>
+      <?php endforeach; ?>
+      </div>
+   </div>
+</section>
+<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async=""></script>
+
+<?php get_footer(); ?>

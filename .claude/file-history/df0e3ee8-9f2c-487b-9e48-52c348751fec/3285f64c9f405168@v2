@@ -1,0 +1,17 @@
+module.exports = async (page, scenario) => {
+  // Wait for network to settle
+  await page.waitForNetworkIdle({ idleTime: 500 }).catch(() => {});
+
+  // Hide any fixed elements that might vary between runs (e.g. live chat widgets)
+  await page.evaluate(() => {
+    const selectors = [
+      '#launcher',           // Zendesk
+      '.intercom-lightweight-app',
+      '[id^="beacon-"]',    // Help Scout
+    ];
+    selectors.forEach((sel) => {
+      const el = document.querySelector(sel);
+      if (el) el.style.display = 'none';
+    });
+  });
+};

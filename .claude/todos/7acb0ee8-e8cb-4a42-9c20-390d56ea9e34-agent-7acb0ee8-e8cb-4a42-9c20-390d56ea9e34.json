@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix responsive alignment issues by replacing fixed padding with proper responsive approach",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Use calc() with viewport units for proper spacing at all screen sizes",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Test alignment at multiple screen sizes",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

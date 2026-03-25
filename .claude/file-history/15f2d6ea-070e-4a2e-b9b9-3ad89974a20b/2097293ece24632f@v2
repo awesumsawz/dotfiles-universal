@@ -1,0 +1,47 @@
+/**
+ * Generates backstop.json scenarios from page-*.php template files.
+ * Preserves any existing scenario configs (e.g. custom URLs).
+ * New scenarios get the default ?pagename={slug} URL pattern.
+ *
+ * Run standalone: node backstop/generate-backstop.js
+ * Also called automatically by build.js during yarn build.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const srcDir = path.resolve(__dirname, '../buy-honehealth-com/themes/HoneLandingPages/src');
+const configPath = path.resolve(__dirname, 'backstop.json');
+
+const files = fs.readdirSync(srcDir).filter((f) => /^page-.+\.php$/.test(f));
+const slugs = files
+  .map((f) => f.replace(/^page-/, '').replace(/\.php$/, ''))
+  .sort();
+
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+
+const existingByLabel = {};
+for (const s of config.scenarios) {
+  existingByLabel[s.label] = s;
+}
+
+const scenarios = slugs.map((slug) => {
+  if (existingByLabel[slug]) return existingByLabel[slug];
+  return {
+    label: slug,
+    url: `http://host.docker.internal:8081/?pagename=${slug}`,
+    delay: 600,
+    misMatchThreshold: 0.1,
+    requireSameDimensions: false,
+  };
+});
+
+const removed = config.scenarios.filter((s) => !slugs.includes(s.label));
+const added = slugs.filter((s) => !existingByLabel[s]);
+
+const newConfig = { ...config, scenarios };
+fs.writeFileSync(configPath, JSON.stringify(newConfig, null, 2) + '\n');
+
+if (added.length) console.log(`backstop: added ${added.length} scenario(s): ${added.join(', ')}`);
+if (removed.length) console.log(`backstop: removed ${removed.length} scenario(s): ${removed.map((s) => s.label).join(', ')}`);
+console.log(`backstop: ${scenarios.length} total scenarios written to backstop.json`);

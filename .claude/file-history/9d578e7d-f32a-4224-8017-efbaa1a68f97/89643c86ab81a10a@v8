@@ -1,0 +1,124 @@
+/**
+ * OPT Longevity
+ * Page-specific JavaScript for page-opt-longevity.php
+ *
+ * Gallery scroller: faux 3D horizontal scroll with CSS masking.
+ * The barrel curve effect is handled entirely via CSS radial-gradient masks.
+ * This JS provides touch-drag scrolling enhancement for desktop.
+ */
+
+function initGalleryScroller() {
+	const scroller = document.querySelector('.gallery-scroller');
+	if (!scroller) return;
+
+	// Desktop mouse-drag horizontal scrolling
+	let isDown = false;
+	let startX;
+	let scrollLeft;
+
+	scroller.addEventListener('mousedown', function (e) {
+		isDown = true;
+		scroller.style.cursor = 'grabbing';
+		startX = e.pageX - scroller.offsetLeft;
+		scrollLeft = scroller.scrollLeft;
+	});
+
+	scroller.addEventListener('mouseleave', function () {
+		isDown = false;
+		scroller.style.cursor = 'grab';
+	});
+
+	scroller.addEventListener('mouseup', function () {
+		isDown = false;
+		scroller.style.cursor = 'grab';
+	});
+
+	scroller.addEventListener('mousemove', function (e) {
+		if (!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - scroller.offsetLeft;
+		const walk = (x - startX) * 1.5;
+		scroller.scrollLeft = scrollLeft - walk;
+	});
+
+	// Set grab cursor on desktop
+	scroller.style.cursor = 'grab';
+}
+
+function initMarquee() {
+	const marquee = document.querySelector('.marquee.trustpilot-ratings .reviews-marquee');
+	const firstSet = marquee?.querySelector('.reviews-set');
+	if (!marquee || !firstSet) return;
+
+	const setWidth = firstSet.getBoundingClientRect().width;
+	marquee.style.setProperty('--marquee-offset', `-${setWidth}px`);
+}
+
+/**
+ * Longevity Timeline — click-to-expand cards
+ * - First card starts active (expanded with full text)
+ * - Clicking a card makes it active, others collapse
+ * - Active: wider, full opacity, shows description + steps
+ * - Inactive: narrower, 0.8 opacity, only shows heading
+ */
+function initLongevityTimeline() {
+	const cards = document.querySelectorAll('.longevity-timeline .timeline-card');
+	if (!cards.length) return;
+
+	// Set first card as active by default
+	cards[0].classList.add('active');
+
+	cards.forEach((card) => {
+		card.addEventListener('click', () => {
+			cards.forEach((c) => c.classList.remove('active'));
+			card.classList.add('active');
+		});
+	});
+}
+
+/**
+ * Proactive Care — Lottie play-once-on-scroll
+ * Uses IntersectionObserver to play each lottie-player once when it scrolls into view.
+ */
+function initProactiveLotties() {
+	const players = document.querySelectorAll('.proactive-care .proactive-lottie');
+	if (!players.length) return;
+
+	players.forEach((player) => {
+		let isReady = false;
+		let isInView = false;
+
+		function tryPlay() {
+			if (isReady && isInView) {
+				player.setLooping(false);
+				player.play();
+			}
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					isInView = true;
+					tryPlay();
+					observer.unobserve(player);
+				}
+			},
+			{ threshold: 0.3 }
+		);
+
+		player.addEventListener('ready', () => {
+			player.stop();
+			isReady = true;
+			tryPlay();
+		});
+
+		observer.observe(player);
+	});
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	initGalleryScroller();
+	initMarquee();
+	initLongevityTimeline();
+	initProactiveLotties();
+});

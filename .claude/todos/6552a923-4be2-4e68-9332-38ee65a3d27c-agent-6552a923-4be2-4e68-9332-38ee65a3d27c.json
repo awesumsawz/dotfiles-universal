@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Check current PHP configuration limits",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update PHP settings for large file uploads",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Restart WordPress container to apply changes",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

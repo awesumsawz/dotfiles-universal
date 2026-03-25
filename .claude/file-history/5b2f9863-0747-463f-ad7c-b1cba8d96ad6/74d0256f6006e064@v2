@@ -1,0 +1,7 @@
+<?php 
+// Navbar
+?>
+
+<section class="navbar">
+	<img src="<?php echo $theme_folder?>/static/media/images/logo-full.png" alt="Hone logo in black" class="header-logo" width="284" height="48" decoding="async" />
+</section>

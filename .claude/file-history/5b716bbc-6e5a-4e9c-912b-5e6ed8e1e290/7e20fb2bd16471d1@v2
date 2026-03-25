@@ -1,0 +1,215 @@
+# Enhanced PDP Naming Conventions
+
+Observed patterns from `page-mens-hrt-enhanced-pdp-1.php`. Use this as the authoritative reference for class naming — it reflects what's actually in production templates.
+
+> **Note:** `SECTION_LIBRARY.md` uses BEM-style naming (`hero__title`, `hero__content`) as an abstraction layer. Actual templates use **flat compound naming** instead. Follow the flat style documented here.
+
+---
+
+## Section Class Naming
+
+Sections use a **primary descriptive name** plus optional **modifier utility classes**:
+
+```php
+<section class="[primary-name] [modifier-classes]" [id="anchor"]>
+```
+
+### Examples from this template
+
+| Primary Name | Modifier Classes | Notes |
+|---|---|---|
+| `boost-your-testosterone hero` | `border-bottom` | Two semantic names on one section |
+| `marquee trustpilot-ratings` | `border-bottom extended-center-border-below` | |
+| `how-it-works social-videos` | `extended-center-border-below` | |
+| `benefits-timeline` | `border-bottom extended-center-border-above` | |
+| `proven-benefits` | `border-bottom extended-center-border-above` | |
+| `injections-section` | `border-bottom extended-center-border-below` | Has `id="injections-section"` for anchor |
+| `testimonials` | `extended-center-border-below` | |
+| `alternatives` | `extended-center-border-above` | |
+
+### Section Border Modifier Classes
+
+These control the decorative center-line border between sections:
+
+| Class | Effect |
+|---|---|
+| `border-bottom` | Adds a bottom border to the section |
+| `extended-center-border-below` | Extends a vertical center border downward into the next section |
+| `extended-center-border-above` | Extends a vertical center border upward into the previous section |
+
+These can be combined. Typical pairings:
+- `border-bottom extended-center-border-below` — section ends with border that continues down
+- `border-bottom extended-center-border-above` — section receives border from above
+
+---
+
+## Container/Wrapper/Block Vocabulary
+
+Consistent suffix vocabulary used throughout all templates:
+
+| Suffix | Role | Example |
+|---|---|---|
+| `.container` | Outermost layout container inside `<section>` | `<div class="container">` |
+| `.container.grid` | Grid layout variant | `<div class="container grid">` |
+| `.container.grid.grid-2-col` | 2-column grid | `<div class="container grid grid-2-col">` |
+| `*-wrapper` | Grouping container for a region | `.media-wrapper`, `.content-wrapper`, `.title-wrapper`, `.carousel-wrapper`, `.badges-wrapper` |
+| `*-block` | A self-contained content unit | `.title-block`, `.content-block`, `.media-block`, `.list-block`, `.cta-block`, `.grid-block`, `.faq-block` |
+| `*-item` or `*-card` | Repeating unit within a loop | `.review-item`, `.testimonial-item`, `.faq-item`, `.timeline-card`, `.benefits-item`, `.grid-item` |
+
+### Typical Section Structure
+
+```php
+<section class="[name] [modifiers]">
+    <div class="container [grid-class]">
+        <div class="[role]-wrapper">
+            <div class="[role]-block">
+                <!-- content -->
+            </div>
+        </div>
+        <div class="[role]-wrapper">
+            <div class="[role]-block">
+                <!-- content -->
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+---
+
+## Responsive Visibility Classes
+
+```php
+class="desktop-only"            // Hidden on tablet and smaller
+class="tablet-and-smaller-only" // Hidden on desktop
+```
+
+Used in `injections-section` to swap between a static desktop grid and a mobile carousel for the same image set.
+
+---
+
+## Grid Classes on `.container`
+
+```php
+<div class="container grid">            // Basic grid
+<div class="container grid grid-2-col"> // Two-column grid
+```
+
+Column children can have `.border-right` to add a divider:
+```php
+<div class="media-wrapper border-right">
+```
+
+---
+
+## Carousel Pattern (Actual)
+
+The `.container` child gets both a generic `.carousel` class and a **prefix-specific** class. The JS utility picks it up by prefix.
+
+```php
+<div class="wrapper carousel-wrapper carousel [prefix]-carousel">
+    <div class="[item-class]">...</div>
+</div>
+```
+
+Navigation arrows and dots:
+```php
+<div class="wrapper navigation-wrapper [prefix]-navigation">
+    <div class="previous">
+        <button type="button" class="[prefix]-prev">
+            <img src="...arrow-circle_left.svg" .../>
+        </button>
+    </div>
+    <div class="nav-dots [prefix]-dots">
+        <button class="nav-dot active" data-slide="0"></button>
+        <button class="nav-dot" data-slide="1"></button>
+    </div>
+    <div class="next">
+        <button type="button" class="[prefix]-next">
+            <img src="...arrow-circle_right.svg" .../>
+        </button>
+    </div>
+</div>
+```
+
+```javascript
+initCarousel({}, '.[prefix]');
+```
+
+---
+
+## FAQ Icon Pattern (Actual)
+
+The actual template uses **two `<span>` elements** for the +/× animation, NOT a plain `+` text character:
+
+```php
+<span class="faq-icon">
+    <span class="icon-line line-horizontal"></span>
+    <span class="icon-line line-vertical"></span>
+</span>
+```
+
+The `.line-vertical` is rotated/hidden via CSS on expand.
+
+---
+
+## `render_cta_block()` Signature
+
+```php
+render_cta_block($url, $label, $secondary = false, $extra_class = '');
+
+// Scroll to anchor on same page:
+render_cta_block('#injections-section', 'Test my T-Levels');
+
+// Checkout URL, default primary style:
+render_cta_block($checkout_url, 'Test My T-Levels');
+
+// With custom class on the wrapper:
+render_cta_block($checkout_url, 'Test My T-Levels', false, 'proven-benefits-cta-block');
+```
+
+---
+
+## Script Enqueuing with JS Data
+
+When a template needs to pass PHP data to JavaScript (e.g., `themeFolder`), use `add_action` + `wp_localize_script` instead of a direct enqueue call:
+
+```php
+add_action('wp_enqueue_scripts', function() use ($template_name, $theme_folder) {
+    wp_enqueue_script('hone-page-' . $template_name);
+    wp_localize_script('hone-page-' . $template_name, 'honePageData', array(
+        'themeFolder' => $theme_folder
+    ));
+});
+```
+
+In JS, access via `window.honePageData.themeFolder`.
+
+---
+
+## `$additional_disclaimers` Global
+
+For page-specific legal disclaimers appended in the footer:
+
+```php
+global $class_names, $additional_disclaimers;
+
+$additional_disclaimers = [
+    'Results may vary. Medications are prescribed if deemed to be clinically necessary...'
+];
+```
+
+---
+
+## Sections in This Template (Reference)
+
+Ordered as they appear on the page:
+
+1. **`boost-your-testosterone hero`** — Video autoplay + content split with bullet list, badges
+2. **`marquee trustpilot-ratings`** — Trustpilot static badge + CSS marquee of short review quotes
+3. **`how-it-works social-videos`** — Carousel of short-form review videos with play/mute controls
+4. **`benefits-timeline`** — Horizontal scroll carousel of day-milestone cards (Day 7/30/60/90)
+5. **`proven-benefits`** — 2-col grid: image left, 3×2 icon benefits grid right + CTA
+6. **`injections-section`** — Product gallery (desktop grid / mobile thumbs carousel) + content + inline FAQ
+7. **`testimonials`** — Testimonial carousel with star ratings, nav arrows + dots
+8. **`alternatives`** — Product alternatives grid (oral troches, cream) + CTA

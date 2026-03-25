@@ -1,0 +1,329 @@
+# Quick Reference
+
+Fast lookup for creating new templates from Figma designs.
+
+## File Creation Checklist
+
+```markdown
+Given slug: [slug]
+
+- [ ] Create `src/page-[slug].php`
+- [ ] Create `src/static/scss/pages/[slug].scss`
+- [ ] Create `src/static/js/pages/[slug].bundle.js`
+- [ ] Create `src/static/media/images/[slug]/` (for template images)
+- [ ] Add '[slug]' to HONE_PAGE_TEMPLATES in `src/functions.php`
+- [ ] Run `yarn build` from themes/HoneLandingPages/
+- [ ] Test at http://localhost:8081/[wordpress-page-slug]/
+```
+
+## Template Header (Copy/Paste)
+
+```php
+<?php
+// Template Name: [Display Name]
+
+global $class_names, $linkbar_vars;
+
+$template_name = '[slug]';
+$class_names[] = $template_name;
+$theme_folder = get_bloginfo('stylesheet_directory');
+$qs = get_query_string();
+
+$checkout_url = 'https://start.honehealth.com/product/hermes/labtest-hrt-1' . (!empty($qs) ? '?' . $qs : '');
+
+$linkbar_vars = [
+    'linkbar_content' => '$45 test + online doctor consultation included. <span class="underline">Start Now</span>',
+    'linkbar_link' => $checkout_url,
+];
+
+wp_enqueue_script('hone-page-' . $template_name);
+
+get_header();
+?>
+```
+
+## Template Footer (Copy/Paste)
+
+```php
+<?php get_footer(); ?>
+```
+
+With Trustpilot:
+```php
+<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async=""></script>
+<?php get_footer(); ?>
+```
+
+## SCSS File Header (Copy/Paste)
+
+```scss
+/**
+ * [Display Name]
+ * Page-specific styles for page-[slug].php
+ */
+@use '../variables/colors' as colors;
+@use '../variables/fonts' as fonts;
+@use '../variables/layout' as layout;
+
+.[slug] {
+    // All template styles scoped to template class
+}
+```
+
+## JS Bundle Header (Copy/Paste)
+
+```javascript
+/**
+ * [Display Name]
+ * Page-specific JavaScript for page-[slug].php
+ */
+import { initCarousel } from '../utilities/carousel.js';
+import '../utilities/accordion.js';
+// import { initQuiz } from '../utilities/quiz.js';
+// import { initStickyCTA } from '../utilities/stickyCTA.js';
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Carousel initialization
+    // initCarousel({}, '.reviews');
+});
+```
+
+## Color Quick Reference
+
+| Name | Hex | Use |
+|------|-----|-----|
+| Black (text) | `colors.$color-black` / `#0E0B20` | Primary text & dark backgrounds |
+| Yellow (CTA) | `colors.$color-yellow` / `#F8F93F` | Buttons |
+| Yellow hover | `colors.$color-yellow-vital-hover` / `#EDEE39` | Stat highlights |
+| Gray light | `colors.$color-gray-light` / `#F1F0EF` | Light section backgrounds |
+| Gray medium | `colors.$color-gray-medium` / `#D2CEC4` | Quiz/FAQ backgrounds |
+| Gray text | `colors.$color-gray` / `#605B52` | Secondary text |
+| White off | `colors.$color-white-off` / `#FCFCFA` | Card backgrounds |
+| Green | `colors.$color-green-dark` / `#119555` | Progress bar |
+
+## Font Quick Reference
+
+| Font | Variable | Use |
+|------|----------|-----|
+| STIX Two Text | `fonts.$STIX-Two-Text` | Headlines, display, prices |
+| DM Sans | `fonts.$DM-Sans` | Body, buttons, subheadings |
+| Azeret Mono | `fonts.$Azeret-Mono` | Stats, labels, prices |
+
+## Breakpoint Quick Reference
+
+```scss
+// Mobile-first (rare in this theme - theme is desktop-first)
+// Desktop = default, then override down:
+
+@media #{layout.$medium-screen-and-smaller} {
+    // Tablet: ≤ 1024px
+}
+
+@media #{layout.$small-screen-and-smaller} {
+    // Mobile: ≤ 600px
+}
+```
+
+## Section Padding Quick Reference
+
+```scss
+// Standard section
+padding: 80px 64px;                                    // Desktop
+@media #{layout.$medium-screen-and-smaller} { padding: 56px 32px; }  // Tablet
+@media #{layout.$small-screen-and-smaller} { padding: 40px 15px; }   // Mobile
+
+// Compact section
+padding: 64px;                                         // Desktop
+@media #{layout.$medium-screen-and-smaller} { padding: 32px; }       // Tablet
+@media #{layout.$small-screen-and-smaller} { padding: 24px 15px; }   // Mobile
+```
+
+## CTA Button (Copy/Paste)
+
+```scss
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: colors.$color-yellow;
+    color: colors.$color-black;
+    font-family: fonts.$DM-Sans;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.8px;
+    padding: 12px 32px;
+    border-radius: 2px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: colors.$color-yellow-dark;
+    }
+}
+```
+
+## Figma → SCSS Translation Cheat Sheet
+
+| Figma Tailwind | SCSS Equivalent |
+|---------------|-----------------|
+| `bg-[#F1F0EF]` | `background-color: colors.$color-gray-light;` |
+| `bg-[#0E0B20]` | `background-color: colors.$color-black;` |
+| `bg-[#F8F93F]` | `background-color: colors.$color-yellow;` |
+| `text-[54px]` | `font-size: 54px;` |
+| `font-['STIX_Two_Text']` | `font-family: fonts.$STIX-Two-Text;` |
+| `font-['DM_Sans']` | `font-family: fonts.$DM-Sans;` |
+| `font-['Azeret_Mono']` | `font-family: fonts.$Azeret-Mono;` |
+| `leading-none` | `line-height: 1;` |
+| `leading-[1.1]` | `line-height: 1.1;` |
+| `leading-[1.4]` | `line-height: 1.4;` |
+| `tracking-[-1.08px]` | `letter-spacing: -1.08px;` |
+| `gap-[24px]` | `gap: 24px;` |
+| `p-[64px]` | `padding: 64px;` |
+| `px-[32px] py-[12px]` | `padding: 12px 32px;` |
+| `rounded-[2px]` | `border-radius: 2px;` |
+| `rounded-[15px]` | `border-radius: 15px;` |
+| `flex flex-col` | `display: flex; flex-direction: column;` |
+| `flex-[1_0_0]` | `flex: 1;` |
+| `items-center` | `align-items: center;` |
+| `justify-center` | `justify-content: center;` |
+| `shrink-0` | `flex-shrink: 0;` |
+| `overflow-clip` | `overflow: hidden;` |
+| `self-stretch` | `align-self: stretch;` |
+
+## Carousel HTML Pattern
+
+```html
+<!-- Prefix = ".reviews" -->
+<div class="reviews-carousel">
+    <div class="slide">...</div>
+    <div class="slide">...</div>
+</div>
+<div class="reviews-nav">
+    <button class="reviews-prev nav-arrow">&lsaquo;</button>
+    <div class="reviews-dots">
+        <span class="nav-dot active" data-slide="0"></span>
+        <span class="nav-dot" data-slide="1"></span>
+    </div>
+    <button class="reviews-next nav-arrow">&rsaquo;</button>
+</div>
+```
+
+```javascript
+initCarousel({}, '.reviews');
+```
+
+## FAQ HTML Pattern
+
+```html
+<div class="faq-item">
+    <div class="faq-header" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-question">Question?</span>
+        <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-content">
+        <div class="faq-item-answer">
+            <p>Answer.</p>
+        </div>
+    </div>
+</div>
+```
+
+```javascript
+import '../utilities/accordion.js'; // Auto-initializes
+```
+
+## Quiz HTML Pattern
+
+```html
+<section class="quiz-section">
+    <div class="question-container">
+        <div class="progress-bar"></div>
+        <h2 id="question"></h2>
+        <div id="options" class="options-container"></div>
+        <button id="quiz-cta" class="cta-button" style="display:none;">Continue</button>
+    </div>
+    <div class="results-container" style="display:none;"></div>
+</section>
+```
+
+```javascript
+import { initQuiz } from '../utilities/quiz.js';
+
+const quizData = [
+    { id: 1, title: 'Question?', type: 'single-select', options: [
+        { id: 0, value: 'Answer 1' },
+        { id: 1, value: 'Answer 2' },
+    ]},
+];
+
+const quizResultContent = [
+    { header: 'Result', body: 'Text' },
+];
+
+initQuiz({ quizData, quizResultContent, themeFolder: '' });
+```
+
+## Build Commands
+
+```bash
+cd buy-honehealth-com/themes/HoneLandingPages
+
+yarn install            # First time only
+yarn build:assets       # Compile CSS + JS (no copy)
+yarn build              # Full build (compile + copy to build/)
+yarn watch:assets       # Watch mode for development
+```
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Slug mismatch between files | Check PHP filename, `$template_name`, SCSS filename, JS filename, and `HONE_PAGE_TEMPLATES` array — ALL must match |
+| Missing `global $class_names` | Must declare at top of template |
+| Styles not loading | Check slug is in `HONE_PAGE_TEMPLATES` array |
+| JS not loading | Check `wp_enqueue_script('hone-page-' . $template_name)` is called |
+| Fonts not rendering | Don't add @font-face — fonts are in main.css |
+| Wrong SCSS import path | Use `@use '../variables/colors'` not `@use 'variables/colors'` |
+| Styles leaking to other pages | Wrap all styles in `.[slug] { ... }` |
+| Images broken | Use `$theme_folder . '/static/media/images/...'` |
+| PHP string syntax error | Escape quotes: `'I\'m'` not `'I'm'` |
+| Carousel not working | Check jQuery is loaded, correct prefix naming, import carousel.js |
+
+## PHP String Escaping
+
+```php
+// CORRECT
+'I\'m able to share...'
+'It\'s been over a year...'
+'5\'8" and 210 pounds'
+
+// WRONG (will cause syntax error)
+'I'm able to share...'
+```
+
+## Image Path Pattern
+
+```php
+// Template-specific images
+$theme_folder . '/static/media/images/' . $template_name . '/hero.webp'
+
+// Shared images (icons, logos)
+$theme_folder . '/static/media/images/trustpilot-stars.svg'
+$theme_folder . '/static/media/images/icon-shipping.svg'
+```
+
+## Tracking Attributes
+
+```php
+// All clickable elements
+data-trackable="[section]-[element]"
+data-interaction="0"
+
+// Examples
+data-trackable="hero-cta"
+data-trackable="pricing-cta"
+data-trackable="how-it-works-cta"
+data-trackable="quiz-start"
+```

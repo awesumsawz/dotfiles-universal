@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Add unique project prefix to static directory structure",
+    "status": "completed",
+    "priority": "high",
+    "id": "add_project_prefix"
+  },
+  {
+    "content": "Update deployment script to use src/static/ target directory",
+    "status": "completed",
+    "priority": "high",
+    "id": "update_deploy_target"
+  },
+  {
+    "content": "Move PHP files to src/ directory instead of root",
+    "status": "completed",
+    "priority": "high",
+    "id": "update_php_target"
+  },
+  {
+    "content": "Remove INTEGRATION file creation during deployment",
+    "status": "completed",
+    "priority": "medium",
+    "id": "remove_integration_file"
+  }
+]

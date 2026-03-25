@@ -1,0 +1,56 @@
+<?php
+global $additional_disclaimers;
+
+if (!isset($additional_disclaimers)) {
+	$additional_disclaimers = array();
+}
+
+$theme_folder = get_bloginfo('stylesheet_directory');
+
+?>
+			<footer class="site-footer">
+				<div class="header-section">
+					<div class="hone-logo">
+						<img src="<?php echo $theme_folder?>/static/media/images/footer-hone-logo.svg" alt="Hone Logo" />
+					</div>
+				</div>
+				<div class="footer-disclaimer">
+					<a href='https://www.legitscript.com/websites/?checker_keywords=honehealth.com' class='legit-script' target='_blank' title='Verify LegitScript Approval'>
+						<img src='https://static.legitscript.com/seals/10842626.png' alt='LegitScript approved' loading='lazy' width='140' height='120'>
+					</a>
+					<?php 
+					if (!empty($additional_disclaimers)) {
+						?>
+						<div class="additional-disclaimers">
+							<?php
+							foreach ($additional_disclaimers as $disclaimer) { 
+								?>
+								<p><?php echo $disclaimer; ?></p>
+								<?php 
+							}
+							?>
+						</div>
+						<?php
+					} ?>
+					<p>Hone is an online clinic that helps men and women manage their health. As part of your subscription and as medically indicated, physicians prescribe medications, and recommend supplements that are delivered to you from the comfort of your home.</p>
+					<p>Hone-affiliated medical practices are independently owned and operated by licensed physicians who provide services using the Hone telehealth platform. For more information about the relationship between Hone and the medical practices <a href='https://honehealth.com/physicians'>click here</a>.</p>
+					<div class="footnotes">			
+						<p>*<a href='https://academic.oup.com/jcem/article/92/1/196/2598434'>https://academic.oup.com/jcem/article/92/1/196/2598434</a></p>
+						<p>*Saad F, Aversa A, Isidori AM, Zafalon L, Zitzmann M, Gooren L. Onset of effects of testosterone treatment and time span until maximum effects are achieved. Eur J Endocrinol. 2011 Nov;165(5):675-85. doi: 10.1530/EJE-11-0221. Epub 2011 Jul 13. PMID: 21753068; PMCID: PMC3188848.</p>
+					</div>
+				</div>
+				
+				<div class="bottom-section">
+					<p class="copyright">Copyright © <?php echo date('Y'); ?> Hone</p>
+					<div class="footer-links">
+						<a href="https://honehealth.com/privacy/" class="footer-link">Privacy Policy</a>
+						<a href="https://honehealth.com/terms/" class="footer-link">Terms of Use</a>
+					</div>
+				</div>
+			</footer>
+		</main>
+
+		<?php wp_footer(); ?>
+		
+	</body>
+</html>

@@ -1,0 +1,851 @@
+<?php
+// Template Name: OPT Longevity
+
+global $class_names;
+$template_name = 'opt-longevity';
+$class_names[] = $template_name;
+$theme_folder = get_bloginfo('stylesheet_directory');
+$qs = get_query_string();
+
+$checkout_url = 'https://start.honehealth.com/product/longevity/assessment' . (!empty($qs) ? '?' . $qs : '');
+$video_directory = $theme_folder . '/static/media/videos';
+
+wp_enqueue_script('hone-page-' . $template_name);
+
+get_header();
+require_once get_template_directory() . '/template-parts/image.php';
+?>
+
+<section class="longevity-hero border-bottom">
+	<div class="container">
+		<div class="gallery-wrapper">
+			<div class="gallery-scroller" role="region" aria-label="Image gallery" tabindex="0">
+				<?php
+				$gallery_images = [
+					['src' => 'gallery-1.png', 'alt' => 'Active lifestyle'],
+					['src' => 'gallery-2.png', 'alt' => 'Fitness and vitality'],
+					['src' => 'gallery-3.png', 'alt' => 'Couple embracing'],
+					['src' => 'gallery-4.png', 'alt' => 'Parent lifting child'],
+					['src' => 'gallery-5.png', 'alt' => 'Laughing together'],
+					['src' => 'gallery-6.png', 'alt' => 'Healthy aging'],
+					['src' => 'gallery-7.png', 'alt' => 'Energized living'],
+					['src' => 'gallery-8.png', 'alt' => 'Outdoor activity'],
+				];
+				foreach ($gallery_images as $image): ?>
+					<div class="gallery-item">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $image['src']; ?>"
+							alt="<?php echo $image['alt']; ?>"
+							loading="eager"
+							decoding="async" />
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<div class="content-wrapper">
+			<div class="title-block">
+				<h1 class="title">Longevity Isn&rsquo;t Just Living Longer. It&rsquo;s Living Fully.</h1>
+			</div>
+			<div class="content-block">
+				<p class="subtitle">Longevity care built to help you feel strong, sharp, and energized at every stage of life, today, tomorrow, and decades to come.</p>
+				<p class="price-line">Get started for just $65</p>
+			</div>
+			<div class="cta-block">
+				<a href="<?php echo $checkout_url; ?>" class="cta-button" data-trackable="hero-cta" data-interaction="0">
+					Start Your Longevity Assessment
+				</a>
+				<div class="badges-wrapper">
+					<?php
+					$badges = ['HSA/FSA eligible', 'Physician-led care', 'No insurance needed'];
+					foreach ($badges as $badge): ?>
+						<div class="badge">
+							<?php render_image('icons/check-green.svg', '', '', false); ?>
+							<span><?php echo $badge; ?></span>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="marquee trustpilot-ratings border-bottom extended-center-border-below">
+	<div class="container">
+		<div class="trustpilot-wrapper">
+			<a class="trustpilot-static" href="https://www.trustpilot.com/review/honehealth.com" target="_blank" rel="noreferrer noopener">
+				<span class="tp-text">Excellent</span>
+				<img class="tp-stars" src="<?php echo $theme_folder; ?>/static/media/images/icons/trustpilot-stars-5.svg" alt="Rated 5 out of 5 stars" width="85" height="16" decoding="async" />
+				<span class="tp-count">10,000+ reviews on</span>
+				<img class="tp-brandmark" src="<?php echo $theme_folder; ?>/static/media/images/icons/trustpilot-brandmark.svg" alt="" width="66" height="16" decoding="async" />
+			</a>
+		</div>
+		<div class="reviews-wrapper">
+			<?php
+			$reviews = [
+				['quote' => 'I\'m in control of my health', 'reviewer' => 'Greg B. 62'],
+				['quote' => 'My motivation returned', 'reviewer' => 'Amedee I. 36'],
+				['quote' => 'I\'m the lightest I\'ve been in adult life', 'reviewer' => 'Brant H. 38'],
+				['quote' => 'I\'m a better coach and husband', 'reviewer' => 'Eric G. 54'],
+				['quote' => 'My love life has done a 180', 'reviewer' => 'Kevin G. 44'],
+			];
+			?>
+			<div class="reviews-marquee" style="--review-count: <?php echo count($reviews) * 2; ?>">
+				<?php for ($set = 0; $set < 2; $set++) : ?>
+					<div class="reviews-set">
+						<?php
+						for ($i = 0; $i < 1; $i++) {
+							foreach ($reviews as $review) {
+						?>
+								<div class="review-item">
+									<span class="quote-content">&ldquo;<?php echo $review['quote']; ?>&rdquo;</span>
+									<span class="reviewer-details"><?php echo $review['reviewer']; ?></span>
+								</div>
+						<?php
+							}
+						}
+						?>
+					</div>
+				<?php endfor; ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="longevity-timeline extended-center-border-below">
+	<div class="container">
+		<div class="title-block">
+			<h2 class="title">Longevity looks different at every age.</h2>
+		</div>
+		<div class="wrapper timeline-wrapper">
+			<div class="longevity-timeline-carousel">
+				<?php
+				$timeline_cards = [
+					[
+						'image' => 'timeline-30s.png',
+						'alt' => 'Active runners in nature',
+						'heading' => 'Build the Foundation for Decades to Come',
+						'description' => 'This is the decade to strengthen your metabolic health, and optimize hormones.',
+						'steps' => [
+							'Support sexual health',
+							'Build muscle and metabolic resilience',
+							'Maintain steady energy despite busy schedules',
+							'Prevent subtle hormonal shifts from becoming bigger issues later',
+						],
+					],
+					[
+						'image' => 'timeline-40s.png',
+						'alt' => 'Couple enjoying outdoors',
+						'heading' => 'Sustain Energy During Life&rsquo;s Peak Demands',
+						'description' => 'Your 40s can be one of the most demanding decades&mdash;career pressure, growing children, aging parents. This is when many people first notice energy dips, slower recovery, or stubborn weight changes.',
+						'steps' => [
+							'Restoring consistent daily energy',
+							'Supporting cognitive sharpness and focus',
+							'Preserving muscle mass as natural decline begins',
+							'Improving metabolic flexibility and cardiovascular markers',
+						],
+					],
+					[
+						'image' => 'timeline-50s.png',
+						'alt' => 'Man staying active with children',
+						'heading' => 'Protect Strength, Preserve Vitality.',
+						'description' => 'In your 50s, the cumulative effects of hormonal decline become harder to ignore. Recovery slows, joint stiffness increases, and maintaining strength requires smarter strategies.',
+						'steps' => [
+							'Counteracting accelerated muscle and bone loss',
+							'Maintaining cardiovascular and metabolic health',
+							'Supporting mental clarity and emotional balance',
+							'Reducing inflammation and improving recovery',
+						],
+					],
+					[
+						'image' => 'timeline-60s.png',
+						'alt' => 'Couple relaxing together',
+						'heading' => 'Stay Strong for the Moments That Matter',
+						'description' => 'Your 60s are about sustaining independence, mobility, and quality of life. Proactive health management means staying active and present for what matters most.',
+						'steps' => [
+							'Preserving independence and functional mobility',
+							'Supporting bone density and joint health',
+							'Maintaining cognitive function and mental sharpness',
+							'Optimizing energy for an active lifestyle',
+						],
+					],
+				];
+				foreach ($timeline_cards as $card): ?>
+					<div class="timeline-card">
+						<div class="image-wrapper">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $card['image']; ?>"
+								alt="<?php echo $card['alt']; ?>"
+								width="344" height="344"
+								loading="lazy" decoding="async" />
+						</div>
+						<div class="divider-wrapper">
+							<span class="dot"></span>
+							<span class="line"></span>
+						</div>
+						<div class="content-wrapper">
+							<h3 class="heading"><?php echo $card['heading']; ?></h3>
+							<p class="description"><?php echo $card['description']; ?></p>
+							<div class="steps-block">
+								<?php foreach ($card['steps'] as $step): ?>
+									<div class="step-item">
+										<p><?php echo $step; ?></p>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="proactive-care extended-center-border-above extended-center-border-below">
+	<div class="container">
+		<div class="title-block">
+			<h2 class="title">Why a Long-Term, Proactive Care Model</h2>
+		</div>
+		<div class="cards-grid">
+			<?php
+			$proactive_cards = [
+				[
+					'lottie' => 'proactive-early-insight.json',
+					'heading' => 'Early insight, not late-stage intervention',
+					'description' => 'Identify subtle biomarker shifts before symptoms disrupt your life.',
+				],
+				[
+					'lottie' => 'proactive-personalized.json',
+					'heading' => 'Personalized over generic',
+					'description' => 'Your plan adapts to your biology, lifestyle, and goals, not population averages.',
+				],
+				[
+					'lottie' => 'proactive-optimization.json',
+					'heading' => 'Continuous optimization',
+					'description' => 'Regular testing and adjustments keep you moving forward, not guessing.',
+				],
+				[
+					'lottie' => 'proactive-long-game.json',
+					'heading' => 'Built for the long game',
+					'description' => 'Designed to support decades of strength, clarity, and vitality.',
+				],
+			];
+			foreach ($proactive_cards as $card): ?>
+				<div class="proactive-card">
+					<div class="card-text">
+						<h3 class="card-heading"><?php echo $card['heading']; ?></h3>
+						<p class="card-description"><?php echo $card['description']; ?></p>
+					</div>
+					<div class="card-illustration">
+						<lottie-player
+							src="<?php echo get_template_directory_uri(); ?>/static/media/lottie/opt-longevity/<?php echo $card['lottie']; ?>"
+							background="transparent"
+							speed="1"
+							class="proactive-lottie">
+						</lottie-player>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="cta-block">
+			<a href="<?php echo $checkout_url; ?>" class="cta-button" data-trackable="proactive-cta" data-interaction="0">
+				Start Testing
+			</a>
+		</div>
+	</div>
+</section>
+
+<section class="real-moments border-bottom extended-center-border-above">
+	<div class="container">
+		<div class="title-block">
+			<h2 class="title">Real people. Real-life moments.</h2>
+		</div>
+		<div class="carousel-wrapper">
+			<div class="real-moments-carousel">
+				<?php
+				$review_videos = [
+					['thumbnail' => 'review-vid-1.webp', 'video' => 'review-vid-1--dt.webm', 'alt' => 'Real moment 1'],
+					['thumbnail' => 'review-vid-1.webp', 'video' => 'review-vid-1--dt.webm', 'alt' => 'Real moment 2'],
+					['thumbnail' => 'review-vid-1.webp', 'video' => 'review-vid-1--dt.webm', 'alt' => 'Real moment 3'],
+					['thumbnail' => 'review-vid-1.webp', 'video' => 'review-vid-1--dt.webm', 'alt' => 'Real moment 4'],
+					['thumbnail' => 'review-vid-1.webp', 'video' => 'review-vid-1--dt.webm', 'alt' => 'Real moment 5'],
+					['thumbnail' => 'review-vid-1.webp', 'video' => 'review-vid-1--dt.webm', 'alt' => 'Real moment 6'],
+				];
+				foreach ($review_videos as $review_video): ?>
+					<div class="review-video-slide">
+						<div class="review-video-item">
+							<div class="thumbnail-wrapper">
+								<img src="<?php echo $video_directory; ?>/<?php echo $review_video['thumbnail']; ?>"
+									alt="<?php echo $review_video['alt']; ?>"
+									width="270" height="480" loading="lazy" decoding="async" />
+							</div>
+							<button class="play-button" aria-label="Play video">
+								<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24" fill="currentColor">
+									<polygon points="5 3 19 12 5 21 5 3" />
+								</svg>
+							</button>
+							<div class="video-wrapper">
+								<video data-src="<?php echo $video_directory; ?>/<?php echo $review_video['video']; ?>" muted loop playsinline preload="none"></video>
+							</div>
+							<button class="mute-toggle" aria-label="Unmute video">
+								<svg class="icon-muted" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+									<line x1="23" y1="9" x2="17" y2="15" />
+									<line x1="17" y1="9" x2="23" y2="15" />
+								</svg>
+								<svg class="icon-unmuted" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+									<path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+									<path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+								</svg>
+							</button>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<div class="carousel-nav">
+			<button type="button" class="real-moments-prev nav-arrow" aria-label="Previous">
+				<img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_left.svg" alt="" width="48" height="48" loading="lazy" decoding="async" />
+			</button>
+			<div class="real-moments-dots"></div>
+			<button type="button" class="real-moments-next nav-arrow" aria-label="Next">
+				<img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_right.svg" alt="" width="48" height="48" loading="lazy" decoding="async" />
+			</button>
+		</div>
+	</div>
+</section>
+
+<section class="longevity-benefits border-bottom extended-center-border-above">
+	<?php
+	$benefits = [
+		[
+			'icon' => 'lightning-bolt-inside-circle.svg',
+			'text' => 'Sustained energy and motivation',
+		],
+		[
+			'icon' => 'heart-inside-circle.svg',
+			'text' => 'Better metabolic and cardiovascular health',
+		],
+		[
+			'icon' => 'flexed-arm-inside-circle.svg',
+			'text' => 'Preserved muscle, strength, and mobility',
+		],
+		[
+			'icon' => 'brain-inside-circle.svg',
+			'text' => 'Sharper focus and cognitive resilience',
+		],
+		[
+			'icon' => 'moon-inside-circle.svg',
+			'text' => 'Improved mood, sleep, and recovery',
+		],
+		[
+			'icon' => 'female-inside-circle.svg',
+			'text' => 'Hormone support through peri/menopause',
+		],
+		[
+			'icon' => 'male-inside-circle.svg',
+			'text' => 'Balanced testosterone for lasting vitality',
+		],
+	];
+	?>
+	<div class="lbf-image">
+		<img src="<?php echo $theme_folder; ?>/static/media/images/opt-longevity/longevity-benefits.png" alt="" loading="lazy" decoding="async" />
+	</div>
+	<div class="lbf-content">
+		<div class="lbf-header">
+			<h2 class="lbf-title">Longevity Benefits</h2>
+			<p class="lbf-subtitle">What longevity feels like year after year.</p>
+		</div>
+		<ul class="lbf-list">
+			<?php foreach ($benefits as $benefit): ?>
+				<li class="lbf-item">
+					<img src="<?php echo $theme_folder; ?>/static/media/images/icons/<?php echo $benefit['icon']; ?>"
+						alt="" width="40" height="40" loading="lazy" decoding="async" />
+					<span><?php echo $benefit['text']; ?></span>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<a href="<?php echo $checkout_url; ?>" class="cta-button" data-trackable="longevity-benefits-cta" data-interaction="0">
+			Start Testing
+		</a>
+	</div>
+</section>
+
+<section class="how-it-works border-bottom">
+	<div class="container">
+		<div class="title-block">
+			<h2 class="title">How it works</h2>
+		</div>
+		<div class="carousel-wrapper">
+			<div class="how-it-works-carousel">
+				<?php
+				$steps = [
+					[
+						'step'        => 'Step 01',
+						'heading'     => 'Measure What Matters',
+						'description' => 'We start with advanced lab testing to assess the biomarkers most closely tied to aging, performance, and long-term health.',
+						'image'       => 'how-it-works-1.png',
+					],
+					[
+						'step'        => 'Step 02',
+						'heading'     => 'Personalized Longevity Plan',
+						'description' => 'A licensed clinician reviews your results and builds a tailored plan spanning nutrition, supplements, lifestyle guidance, and medical interventions when appropriate.',
+						'image'       => 'how-it-works-2.png',
+					],
+					[
+						'step'        => 'Step 03',
+						'heading'     => 'Ongoing Optimization',
+						'description' => 'You\'ll retest regularly, track progress over time, and refine your plan as your body and goals evolve.',
+						'image'       => 'how-it-works-3.png',
+					],
+					[
+						'step'        => 'Step 04',
+						'heading'     => 'Care That Grows With You',
+						'description' => 'Longevity isn\'t a one-time decision, it\'s a long-term partnership.',
+						'image'       => 'how-it-works-4.png',
+					],
+				];
+				foreach ($steps as $step): ?>
+					<div class="step-card">
+						<div class="step-card-inner">
+							<div class="card-image">
+								<img src="<?php echo $theme_folder; ?>/static/media/images/opt-longevity/<?php echo $step['image']; ?>" alt="<?php echo $step['heading']; ?>" loading="lazy" decoding="async" />
+							</div>
+							<div class="card-content">
+								<h3 class="card-heading"><?php echo $step['heading']; ?></h3>
+								<p class="card-description"><?php echo $step['description']; ?></p>
+							</div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<div class="carousel-nav">
+			<div class="how-it-works-dots"></div>
+		</div>
+		<div class="cta-block">
+			<a href="<?php echo $checkout_url; ?>" class="cta-button" data-trackable="how-it-works-cta" data-interaction="0">
+				Start Testing
+			</a>
+		</div>
+	</div>
+</section>
+
+<section class="buy-box">
+	<?php
+	$buy_box_images = [
+		['src' => 'buy-box-1.png', 'alt' => 'Hormone biomarker test results'],
+		['src' => 'buy-box-2.png', 'alt' => 'Patient results statistics'],
+		['src' => 'buy-box-3.png', 'alt' => 'Hone vs traditional care comparison'],
+		['src' => 'buy-box-4.png', 'alt' => 'Effortless treatment delivery'],
+		['src' => 'buy-box-5.png', 'alt' => 'Personalized health dashboard'],
+		['src' => 'buy-box-6.png', 'alt' => 'Personalized treatment medications'],
+	];
+
+	$buy_box_faqs = [
+		[
+			'q' => 'What Is Biomarker Testing?',
+			'a' => 'Biomarker testing measures specific biological markers in your blood to give a comprehensive picture of your health. Unlike a standard checkup, our 40+ biomarker panel covers hormones, cardiac risk, sexual health, kidney health, brain health, liver health, and more.',
+		],
+		[
+			'q' => 'Can Biomarker Testing Assess My Risk for Specific Diseases?',
+			'a' => 'Yes. By measuring key biomarkers, our panel can identify risk factors for conditions like cardiovascular disease, hormonal imbalances, metabolic issues, and more — often before symptoms appear.',
+		],
+		[
+			'q' => 'Where do I go for testing?',
+			'a' => 'We partner with a nationwide lab network so you can complete your blood draw at a convenient location near you. Most patients complete testing in a single 15-minute lab visit.',
+		],
+		[
+			'q' => 'How fast will I get results?',
+			'a' => 'Results are typically available within one week. You\'ll receive a detailed breakdown in your Hone dashboard, with each biomarker explained in plain language.',
+		],
+		[
+			'q' => 'Is this covered by insurance?',
+			'a' => 'Our biomarker test is HSA/FSA eligible. While it may not be covered by traditional insurance, the out-of-pocket cost of $65 makes it accessible without dealing with claims or approvals.',
+		],
+		[
+			'q' => 'What if I have questions about my treatment plan?',
+			'a' => 'Your Hone care team is available to answer questions any time. After your physician reviews your results, you\'ll have a consultation to walk through your personalized plan and next steps.',
+		],
+	];
+	?>
+	<div class="container">
+		<div class="gallery-wrapper">
+			<div class="image-grid desktop-only">
+				<?php foreach ($buy_box_images as $img): ?>
+					<div class="grid-tile">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $img['src']; ?>"
+							alt="<?php echo $img['alt']; ?>"
+							loading="lazy"
+							decoding="async" />
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<div class="buy-box-slider-wrapper tablet-and-smaller-only">
+				<div class="buy-box-main-carousel">
+					<?php foreach ($buy_box_images as $index => $img): ?>
+						<div class="slide" data-slide="<?php echo $index; ?>">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $img['src']; ?>"
+								alt="<?php echo $img['alt']; ?>"
+								loading="lazy"
+								decoding="async" />
+						</div>
+					<?php endforeach; ?>
+				</div>
+				<div class="buy-box-thumbs">
+					<?php foreach ($buy_box_images as $index => $img): ?>
+						<div class="thumb<?php echo $index === 0 ? ' active' : ''; ?>" data-slide="<?php echo $index; ?>">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $img['src']; ?>"
+								alt="<?php echo $img['alt']; ?>"
+								loading="lazy"
+								decoding="async" />
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+		<div class="content-wrapper">
+			<div class="content-block">
+				<div class="title-block">
+					<h2 class="title">Optimal Health Biomarker Test</h2>
+					<span class="price">$65</span>
+				</div>
+				<p class="description">Start your longevity journey with a 40+ biomarker test. Deeper insights than an average checkup across your heart, hormones, kidneys, liver, thyroid, and more. Get results in as little as a week to review with your physician and start a personalized treatment plan to get you feeling your best.</p>
+				<ul class="feature-list">
+					<li>Complete testing often in one 15-minute lab visit</li>
+					<li>Your results in a clear, easy-to-read dashboard with each biomarker explained.</li>
+					<li>Personalized treatment plan</li>
+				</ul>
+				<div class="cta-block">
+					<a href="<?php echo $checkout_url; ?>" class="cta-button" data-trackable="buy-box-cta" data-interaction="0">
+						Start Testing $65
+					</a>
+					<div class="badges-wrapper">
+						<div class="badge">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/icons/check-green.svg"
+								alt="" width="24" height="24" loading="lazy" decoding="async" />
+							<span>HSA/FSA eligible</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="faq-block">
+				<?php foreach ($buy_box_faqs as $faq): ?>
+					<div class="faq-item">
+						<div class="faq-header" role="button" tabindex="0" aria-expanded="false">
+							<span class="faq-question"><?php echo $faq['q']; ?></span>
+							<span class="faq-icon">
+								<span class="icon-line line-horizontal"></span>
+								<span class="icon-line line-vertical"></span>
+							</span>
+						</div>
+						<div class="faq-content">
+							<div class="faq-item-answer">
+								<?php echo $faq['a']; ?>
+							</div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="disease-monitor">
+	<?php
+	$disease_rows = [
+		'row-one' => [
+			'Low testosterone',
+			'Hormone Imbalance',
+			'Brain Fog',
+			'Low Energy',
+			'Hot Flashes',
+			'Inflammation',
+			'Impaired Cognition',
+			'Leukocytosis',
+			'Night Sweats',
+			'Shortness of Breath',
+			'Unexplained Weight Loss',
+			'Leukopenia',
+			'Anemia',
+			'Vitamin deficiency',
+			'Thrombocytopenia',
+			'Thrombocytosis',
+			'Hyperglycemia',
+			'Hypoglycemia',
+			'Kidney Disease',
+		],
+		'row-two' => [
+			'Diabetic Nephropathy',
+			'Hypertensive Nephrosclerosis',
+			'High Blood Pressure',
+			'Electrolyte Imbalance',
+			'Liver Disease',
+			'Cardiovascular Disease',
+			'Coronary Artery Disease',
+			'Metabolic Syndrome',
+			'Type 2 Diabetes',
+			'Non Alcoholic Fatty Liver Disease',
+			'Pancreatitis',
+			'Hypothyroidism',
+			'Hyperthyroidism',
+			"Hashimoto's",
+			'PCOS',
+			'Hypogonadism',
+			'Perimenopause',
+			'Menopause',
+			'Estrogen Dominance',
+			'Adrenal Disorders',
+		],
+	];
+
+	$monitor_badges = [
+		'Establish your biomarker baselines',
+		'Monitor Body Changes',
+		'Physician-led care',
+	];
+	?>
+	<div class="container">
+		<div class="section-inner">
+			<div class="title-block">
+				<h2 class="title">Monitor for early indicators of thousands of diseases.</h2>
+				<div class="badges-row">
+					<?php foreach ($monitor_badges as $badge): ?>
+						<div class="check-badge">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/icons/check-green.svg"
+								alt="" width="24" height="24" loading="lazy" decoding="async" />
+							<span><?php echo $badge; ?></span>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+			<!-- Mobile: biomarker card sits as its own block above the parallax -->
+			<div class="biomarker-card-standalone">
+				<img src="<?php echo $theme_folder; ?>/static/media/images/opt-longevity/tracking-mb.png"
+					alt="Biomarker tracking chart showing out-of-range result improving to in-range"
+					width="331" height="229"
+					loading="lazy" decoding="async" />
+			</div>
+
+			<!-- Disease tag marquee rows; desktop floating card overlaid -->
+			<div class="tags-area">
+				<div class="disease-list">
+					<?php
+					$num_sets = 3;
+					foreach ($disease_rows as $row_key => $row):
+						// row-two items are reversed so the LTR backward scan cycles seamlessly
+						$items         = $row_key === 'row-two' ? array_reverse($row) : $row;
+						$item_count    = count($items) * $num_sets;
+						$marquee_offset = '-' . round(100 / $num_sets, 4) . '%';
+					?>
+						<div class="disease-row-wrapper <?php echo $row_key; ?>">
+							<div class="disease-row-container">
+								<div class="disease-row-list" style="--item-count: <?php echo $item_count; ?>; --marquee-offset: <?php echo $marquee_offset; ?>">
+									<?php for ($set = 0; $set < $num_sets; $set++): ?>
+										<div class="disease-row-set">
+											<?php foreach ($items as $item): ?>
+												<div class="disease-item"><?php echo $item; ?></div>
+											<?php endforeach; ?>
+										</div>
+									<?php endfor; ?>
+								</div>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+
+				<!-- Desktop: floating modal-style overlay over the parallax rows -->
+				<div class="biomarker-card-float desktop-only">
+					<img src="<?php echo $theme_folder; ?>/static/media/images/opt-longevity/tracking-dt.png"
+						alt="Biomarker tracking chart showing out-of-range result improving to in-range"
+						width="243" height="168"
+						loading="eager" decoding="async" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="care-callout extended-center-border-below">
+	<?php
+	$care_reviews = [
+		[
+			'title' => 'Changed my life',
+			'text'  => 'My doctor knows exactly what my labs mean and how to pivot when things change. He&rsquo;s helped me change my life in the last year.',
+			'name'  => 'Anderson S',
+		],
+		[
+			'title' => 'Best decision I have ever made',
+			'text'  => 'I have been with Hone for over a year and it is the best decision I have ever made. I am a liver transplant patient and I was worried that I wouldn&rsquo;t be able to get help. I am happy, healthy and enjoying the &ldquo;extra&rdquo; life given to me by my donor hero!',
+			'name'  => 'John W.',
+		],
+		[
+			'title' => 'In less than a year, all my numbers are great',
+			'text'  => 'My doctor has been doing a phenomenal job with my care, and has even actually lowered my fatty liver numbers, tremendously in less than a year, all my numbers are looking great',
+			'name'  => 'Elli',
+		],
+		[
+			'title' => 'HIGHLY RECOMMEND',
+			'text'  => 'This was by far the absolute BEST 45mins of conversation I&rsquo;ve had about my health in 8yrs&hellip;!!! I&rsquo;ve been STRUGGLING with little relief from health professionals. I had to research and figure things out myself. It was rewarding to learn I was on the right track AND now able to find viable alternatives and health plan.',
+			'name'  => 'Mrs S Thomas',
+		],
+		[
+			'title' => 'Confident in the path forward',
+			'text'  => 'As a 54-year-old man who exercises regularly and eats well, I was curious about some recent symptoms like low energy and mild weight gain. The doctor took the time to understand my lifestyle, sleep patterns, and fitness routine before reviewing my hormone levels. I appreciated how he personalized the interpretation of my lab results.',
+			'name'  => 'Rick H.',
+		],
+		[
+			'title' => 'Finally an affordable way to get help',
+			'text'  => 'So excited to finally find an affordable way to get help with my hormones levels! I put it off for a year because I couldn&rsquo;t afford the $1000 lab work my primary doctor recommended and they didn&rsquo;t even test as many levels as Hone. The lab was local and efficient with zero waiting time.',
+			'name'  => 'Dolores',
+		],
+	];
+	$care_featured = [
+		'title' => 'Concierge-level care',
+		'text'  => 'This is concierge-level care along with the feeling that you&rsquo;re being treated in the way someone would treat their own family; that&rsquo;s rare and precious! And, it&rsquo;s practical and affordable!',
+		'name'  => 'Laura D C',
+	];
+	$care_doctors = [
+		['src' => 'care-doctor-1.png', 'alt' => 'Hone physician'],
+		['src' => 'care-doctor-2.png', 'alt' => 'Hone physician'],
+		['src' => 'care-doctor-3.png', 'alt' => 'Hone physician'],
+		['src' => 'care-doctor-4.png', 'alt' => 'Hone physician'],
+	];
+	?>
+	<div class="container">
+
+		<!-- Tout: title + featured review left; doctor photos right -->
+		<div class="tout-block">
+			<div class="tout-content">
+				<h2 class="title">Get the care you've been searching for</h2>
+				<div class="review-block">
+					<div class="stars-wrapper">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/icons/five-stars-green.webp"
+							alt="5 stars" width="173" height="31" loading="lazy" decoding="async" />
+					</div>
+					<blockquote class="featured-review">
+						<h3 class="review-heading"><?php echo $care_featured['title']; ?></h3>
+						<p><?php echo $care_featured['text']; ?></p>
+					</blockquote>
+					<div class="review-attribution">
+						<span class="name"><?php echo $care_featured['name']; ?></span>
+						<span class="label">Hone Member</span>
+					</div>
+				</div>
+				<a href="<?php echo $checkout_url; ?>" class="cta-button" rel="noopener">Start Testing</a>
+			</div>
+			<div class="doctor-grid">
+				<?php foreach ($care_doctors as $doc): ?>
+					<div class="doctor-tile">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $doc['src']; ?>"
+							alt="<?php echo $doc['alt']; ?>" width="244" height="282"
+							loading="lazy" decoding="async" />
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
+		<!-- Review cards carousel -->
+		<div class="carousel-block">
+			<div class="care-callout-carousel">
+				<?php foreach ($care_reviews as $review): ?>
+					<div class="review-card">
+						<div class="review-rating">
+							<img src="<?php echo $theme_folder; ?>/static/media/images/icons/five-stars-green.webp"
+								alt="Five star rating" width="90" height="16" loading="lazy" decoding="async" />
+						</div>
+						<p class="review-title"><?php echo $review['title']; ?></p>
+						<p class="review-text"><?php echo $review['text']; ?></p>
+						<div class="review-attribution">
+							<span class="name"><?php echo $review['name']; ?></span>
+							<span class="label">Hone Member</span>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+
+			<div class="navigation-wrapper care-callout-navigation">
+				<div class="previous">
+					<button type="button" class="care-callout-prev">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_left.svg"
+							alt="Arrow pointing left" width="48" height="48" loading="lazy" decoding="async" />
+					</button>
+				</div>
+				<div class="nav-dots care-callout-dots"></div>
+				<div class="next">
+					<button type="button" class="care-callout-next">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/icons/arrow-circle_right.svg"
+							alt="Arrow pointing right" width="48" height="48" loading="lazy" decoding="async" />
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<section class="guide extended-center-border-above extended-center-border-below">
+	<?php
+	$guide_items = [
+		[
+			'image'     => 'guide-health-hub.png',
+			'bg_color'  => '#d2cec4',
+			'title'     => 'Health Hub',
+			'desc'      => 'Track your labs over time, review your clinical health plan, improve your numbers',
+		],
+		[
+			'image'     => 'guide-prescriptions.png',
+			'bg_color'  => '#d2cec4',
+			'title'     => 'Prescriptions',
+			'desc'      => 'Medications you can buy from us at a discount, shipped to your door',
+		],
+		[
+			'image'     => 'guide-supplements.png',
+			'bg_color'  => '#f1f0ef',
+			'title'     => 'Supplements',
+			'desc'      => 'Curated supplements and health products, cheaper than Amazon',
+		],
+		[
+			'image'     => 'guide-addon-testing.png',
+			'bg_color'  => '#0e0b20',
+			'title'     => 'Add-on Testing',
+			'desc'      => 'Further advanced testing, like full-body MRIs, for a deeper look',
+		],
+		[
+			'image'     => 'guide-lifestyle.png',
+			'bg_color'  => '#d2cec4',
+			'title'     => 'Lifestyle Guidance',
+			'desc'      => 'Improve your health through diet, fitness, sleep, and more',
+		],
+		[
+			'image'     => 'guide-concierge.png',
+			'bg_color'  => '#d2cec4',
+			'title'     => 'Unlimited Concierge',
+			'desc'      => 'Use your 24/7 message access to ask questions, our care team will answer within 24 hours',
+		],
+	];
+	?>
+	<div class="container">
+		<h2 class="title">We guide you to what you need</h2>
+		<div class="guide-cards" role="region" aria-label="What&rsquo;s included" tabindex="0">
+			<?php foreach ($guide_items as $item): ?>
+				<div class="guide-card">
+					<div class="guide-card-image" style="background-color: <?php echo $item['bg_color']; ?>">
+						<img src="<?php echo $theme_folder; ?>/static/media/images/<?php echo $template_name; ?>/<?php echo $item['image']; ?>"
+							alt="<?php echo $item['title']; ?>"
+							loading="lazy" decoding="async"
+							onerror="this.style.display='none'" />
+					</div>
+					<div class="guide-card-content">
+						<p class="card-title"><?php echo $item['title']; ?></p>
+						<p class="card-desc"><?php echo $item['desc']; ?></p>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<a href="<?php echo $checkout_url; ?>" class="cta-button" rel="noopener">Start Testing $65</a>
+	</div>
+</section>
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<?php get_footer(); ?>

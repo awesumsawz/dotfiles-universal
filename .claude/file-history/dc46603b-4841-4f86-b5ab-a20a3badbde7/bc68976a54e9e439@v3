@@ -1,0 +1,342 @@
+{
+  "id": "HoneLandingPages",
+  "viewports": [
+    { "label": "mobile", "width": 375, "height": 812 },
+    { "label": "tablet", "width": 768, "height": 1024 },
+    { "label": "desktop", "width": 1440, "height": 900 }
+  ],
+  "onReadyScript": "puppet/onReady.js",
+  "scenarios": [
+    {
+      "label": "article-hrt-overview",
+      "url": "http://host.docker.internal:8081/?pagename=article-hrt-overview",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "article-trt-new-copy",
+      "url": "http://host.docker.internal:8081/?pagename=article-trt-new-copy",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "article-trt-old-design-new-copy",
+      "url": "http://host.docker.internal:8081/?pagename=article-trt-old-design-new-copy",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "article-trt-pmax",
+      "url": "http://host.docker.internal:8081/?pagename=article-trt-pmax",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "article-trt",
+      "url": "http://host.docker.internal:8081/?pagename=article-trt",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "basic-membership-v2",
+      "url": "http://host.docker.internal:8081/?pagename=basic-membership-v2",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "basic-membership",
+      "url": "http://host.docker.internal:8081/?pagename=basic-membership",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-aol-forbes",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-aol-forbes",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-aol",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-aol",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-big-swing",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-big-swing",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-cc-buybox",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-cc-buybox",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-cc-why-seek",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-cc-why-seek",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-enhanced-pdp-1",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-enhanced-pdp-1",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-hrt-enhanced-pdp-2",
+      "url": "http://host.docker.internal:8081/?pagename=mens-hrt-enhanced-pdp-2",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-multiquiz",
+      "url": "http://host.docker.internal:8081/?pagename=mens-multiquiz",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-comparison-forbes-hero",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-comparison-forbes-hero",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-comparison-forbes",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-comparison-forbes",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-comparison-wo-quiz",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-comparison-wo-quiz",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-comparison",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-comparison",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-forbes",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-forbes",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-tiktok-pricing",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-tiktok-pricing",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-opt-tiktok",
+      "url": "http://host.docker.internal:8081/?pagename=mens-opt-tiktok",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "mens-trt-forbes",
+      "url": "http://host.docker.internal:8081/?pagename=mens-trt-forbes",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-3",
+      "url": "http://host.docker.internal:8081/?pagename=overview-3",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-hormone-optimization-monitor-2",
+      "url": "http://host.docker.internal:8081/?pagename=overview-hormone-optimization-monitor-2",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-hormone-optimization-pricing",
+      "url": "http://host.docker.internal:8081/?pagename=overview-hormone-optimization-pricing",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-hormone-optimization",
+      "url": "http://host.docker.internal:8081/?pagename=overview-hormone-optimization",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-light-rebrand",
+      "url": "http://host.docker.internal:8081/?pagename=overview-light-rebrand",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-mhrt-affiliate",
+      "url": "http://host.docker.internal:8081/?pagename=overview-mhrt-affiliate",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-multiquiz",
+      "url": "http://host.docker.internal:8081/?pagename=overview-multiquiz",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-pricing-variant-a",
+      "url": "http://host.docker.internal:8081/?pagename=overview-pricing-variant-a",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-pricing-variant-b",
+      "url": "http://host.docker.internal:8081/?pagename=overview-pricing-variant-b",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-pricing",
+      "url": "http://host.docker.internal:8081/?pagename=overview-pricing",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-tiktok-pricing",
+      "url": "http://host.docker.internal:8081/?pagename=overview-tiktok-pricing",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview-tiktok",
+      "url": "http://host.docker.internal:8081/?pagename=overview-tiktok",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "overview",
+      "url": "http://host.docker.internal:8081/?pagename=overview",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "run-club",
+      "url": "http://host.docker.internal:8081/?pagename=run-club",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "success",
+      "url": "http://host.docker.internal:8081/?pagename=success",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-hormone-imbalance-pmax",
+      "url": "http://host.docker.internal:8081/?pagename=womens-hormone-imbalance-pmax",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-hormone-imbalance-tt",
+      "url": "http://host.docker.internal:8081/?pagename=womens-hormone-imbalance-tt",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-hormone-imbalance",
+      "url": "http://host.docker.internal:8081/?pagename=womens-hormone-imbalance",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-menopause-tt",
+      "url": "http://host.docker.internal:8081/?pagename=womens-menopause-tt",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-menopause",
+      "url": "http://host.docker.internal:8081/?pagename=womens-menopause",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-opt-light-touch",
+      "url": "http://host.docker.internal:8081/?pagename=womens-opt-light-touch",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    },
+    {
+      "label": "womens-second-funnel",
+      "url": "http://host.docker.internal:8081/?pagename=womens-second-funnel",
+      "delay": 500,
+      "misMatchThreshold": 0.1,
+      "requireSameDimensions": false
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "/src/bitmaps_reference",
+    "bitmaps_test": "/src/bitmaps_test",
+    "engine_scripts": "/src/engine_scripts",
+    "html_report": "/src/html_report",
+    "ci_report": "/src/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}

@@ -1,0 +1,197 @@
+<?php
+/**
+ * HoneLandingPages functions and definitions
+ */
+
+// Theme setup
+function hone_landing_theme_setup() {
+    // Add theme support for title tag
+    add_theme_support('title-tag');
+    
+    // Add theme support for post thumbnails
+    add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'hone_landing_theme_setup');
+
+// Disable Sitemaps
+add_filter( 'wp_sitemaps_enabled', '__return_false' );
+
+/**
+ * List of templates that have page-specific CSS files
+ * Template names match both $class_names[] in page templates and compiled CSS filenames
+ */
+define('HONE_PAGE_TEMPLATES', [
+    'article-hrt-overview',
+    'article-trt',
+    'article-trt-new-copy',
+    'article-trt-old-design-new-copy',
+    'article-trt-pmax',
+    'basic-membership',
+    'basic-membership-v2',
+    'mens-hrt-aol',
+    'mens-hrt-aol-forbes',
+    'mens-hrt-big-swing',
+    'mens-hrt-cc-buybox',
+    'mens-hrt-cc-why-seek',
+    'mens-hrt-enhanced-pdp-1',
+    'mens-multiquiz',
+    'mens-opt-comparison',
+    'mens-opt-comparison-forbes',
+    'mens-opt-comparison-forbes-hero',
+    'mens-opt-comparison-wo-quiz',
+    'mens-opt-enhanced-pdp',
+    'mens-opt-forbes',
+    'opt-longevity',
+    'mens-opt-tiktok',
+    'mens-opt-tiktok-pricing',
+    'mens-trt-forbes',
+    'overview-3',
+    'overview-hormone-optimization',
+    'overview-hormone-optimization-monitor-2',
+    'overview-hormone-optimization-pricing',
+    'overview-light-rebrand',
+    'overview-mhrt-affiliate',
+    'overview-multiquiz',
+    'overview-pricing',
+    'overview-pricing-variant-a',
+    'overview-pricing-variant-b',
+    'overview-tiktok',
+    'overview-tiktok-pricing',
+    'run-club',
+    'success',
+    'womens-hormone-imbalance',
+    'womens-hormone-imbalance-pmax',
+    'womens-hormone-imbalance-tt',
+    'womens-menopause',
+    'womens-menopause-tt',
+    'womens-opt-light-touch',
+    'womens-second-funnel',
+]);
+
+// Enqueue styles and scripts
+function hone_landing_enqueue_assets() {
+    global $class_names;
+
+    $theme_version = wp_get_theme()->get('Version');
+    $theme_uri = get_template_directory_uri();
+
+    // Always load main.min.css - contains all common styles (reset, settings, parts)
+    wp_enqueue_style(
+        'hone-main-style',
+        $theme_uri . '/static/css/main.min.css',
+        array(),
+        $theme_version
+    );
+
+    // Early return if no class_names set
+    if (empty($class_names) || !is_array($class_names)) {
+        return;
+    }
+
+    // Check if this template has page-specific styles
+    $matches = array_intersect($class_names, HONE_PAGE_TEMPLATES);
+
+    // Load all matching page-specific styles in order
+    // This allows for layered styles (e.g., base 'mens-hrt-aol' + specific 'mens-hrt-aol-forbes')
+    if (!empty($matches)) {
+        $dependencies = array('hone-main-style'); // First match depends on main styles
+        
+        foreach ($matches as $matched_class) {
+            $css_file = get_template_directory() . '/static/css/pages/' . $matched_class . '.css';
+            if (file_exists($css_file)) {
+                wp_enqueue_style(
+                    'hone-page-' . $matched_class,
+                    $theme_uri . '/static/css/pages/' . $matched_class . '.css',
+                    $dependencies,
+                    $theme_version,
+                    'all'
+                );
+                // Make next stylesheet depend on this one to maintain load order
+                $dependencies = array('hone-page-' . $matched_class);
+            }
+        }
+    }
+    
+    // Enqueue main JavaScript (always loaded - contains trackQuizEvent)
+    wp_enqueue_script(
+        'hone-main-script',
+        $theme_uri . '/static/js/dist/combined.js',
+        array(),
+        $theme_version,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'hone_landing_enqueue_assets');
+
+/**
+ * Register page-specific JavaScript bundles
+ * 
+ * These bundles are built with esbuild and include all dependencies
+ * (except jQuery which is loaded via WordPress).
+ * 
+ * Each bundle includes: Slick carousel + relevant utilities
+ * 
+ * Usage in templates:
+ *   wp_enqueue_script('hone-page-article-trt-new-copy');
+ */
+function hone_register_bundles() {
+    $theme_version = wp_get_theme()->get('Version');
+    $theme_uri = get_template_directory_uri();
+    $theme_dir = get_template_directory();
+    
+    // Register jQuery Migrate (dependency for Slick)
+    wp_register_script(
+        'jquery-migrate',
+        $theme_uri . '/static/js/dist/jquery-migrate-1.2.1.min.js',
+        array('jquery'),
+        '1.2.1',
+        true
+    );
+    
+    // Register Slick carousel
+    wp_register_script(
+        'slick-carousel',
+        $theme_uri . '/static/js/dist/slick.min.js',
+        array('jquery', 'jquery-migrate'),
+        '1.8.1',
+        true
+    );
+    
+    // Register each page bundle with jQuery, jQuery Migrate, and Slick as dependencies
+    foreach (HONE_PAGE_TEMPLATES as $page) {
+        $bundle_path = $theme_dir . '/static/js/dist/pages/' . $page . '.bundle.min.js';
+        $bundle_url = $theme_uri . '/static/js/dist/pages/' . $page . '.bundle.min.js';
+        if (file_exists($bundle_path)) {
+            wp_register_script(
+                'hone-page-' . $page,
+                $bundle_url,
+                array('jquery', 'jquery-migrate', 'slick-carousel'),
+                $theme_version,
+                true
+            );
+        }
+    }
+}
+add_action('wp_enqueue_scripts', 'hone_register_bundles', 5);
+
+// the current LPs had funky urls and we need to match them exactly so that the ads don't get reset
+// The pages in wp-admin need to be set with these specific slugs and cannot have a parent page.
+remove_filter('template_redirect', 'redirect_canonical');
+add_action('init', function() {
+    add_rewrite_rule('^overview/3/?$', 'index.php?pagename=overview-3', 'top');
+    add_rewrite_rule('^overview/3/hormone-optimization/?$', 'index.php?pagename=overview-3-hormone-optimization', 'top');    
+    add_rewrite_rule('^overview/3/rww/tiktok/?$', 'index.php?pagename=overview-tiktok', 'top');        
+});
+
+add_filter('query_vars', function($vars) {
+    $vars[] = 'pagename';
+    return $vars;
+});
+
+function get_query_string(){
+    $query_params = [];
+    foreach ($_GET as $key => $value) {
+        $query_params[$key] = sanitize_text_field($value);
+    }
+    return http_build_query($query_params);
+}

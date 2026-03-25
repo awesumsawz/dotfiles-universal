@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Identify all page files with carousel usage patterns",
+    "status": "completed",
+    "activeForm": "Identifying all page files with carousel usage patterns"
+  },
+  {
+    "content": "Update article pages (page-article-hrt-overview.php)",
+    "status": "in_progress",
+    "activeForm": "Updating article pages"
+  },
+  {
+    "content": "Update multiquiz pages (2 files)",
+    "status": "pending",
+    "activeForm": "Updating multiquiz pages"
+  },
+  {
+    "content": "Update men's HRT pages (3 files)",
+    "status": "pending",
+    "activeForm": "Updating men's HRT pages"
+  },
+  {
+    "content": "Update pricing/overview pages (7 files)",
+    "status": "pending",
+    "activeForm": "Updating pricing/overview pages"
+  },
+  {
+    "content": "Update women's hormone pages (6 files)",
+    "status": "pending",
+    "activeForm": "Updating women's hormone pages"
+  },
+  {
+    "content": "Update remaining article and pricing pages (24 files)",
+    "status": "pending",
+    "activeForm": "Updating remaining article and pricing pages"
+  }
+]

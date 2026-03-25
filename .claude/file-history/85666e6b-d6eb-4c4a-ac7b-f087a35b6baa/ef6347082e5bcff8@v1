@@ -1,0 +1,6 @@
+[submodule "ai-coding-assistant"]
+	path = ai-coding-assistant
+	url = https://github.com/honehealth/ai-coding-assistant.git
+[submodule "AI Assistants"]
+	path = AI Assistants
+	url = https://github.com/honehealth/ai-coding-assistant.git

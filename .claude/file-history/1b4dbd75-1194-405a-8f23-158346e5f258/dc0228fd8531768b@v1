@@ -1,0 +1,45 @@
+services: 
+  wordpress:
+    container_name: honehealth_lp_wp
+    image: wordpress:6.8.1-php8.2
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: awesumsawz
+      WORDPRESS_DB_PASSWORD: dukesilver
+      WORDPRESS_DB_NAME: honehealth_lp_db
+    volumes:
+      - ./:/var/tmp:delegated
+      - ./buy-honehealth-com/themes/HoneLandingPages:/var/www/html/wp-content/themes/HoneLandingPages:delegated
+      - ./plugins/:/var/www/html/wp-content/plugins:delegated
+      - ./mu-plugins/:/var/www/html/wp-content/mu-plugins:delegated
+      - ./uploads/:/var/www/html/wp-content/uploads:delegated
+      - ./debug.log:/var/www/html/wp-content/debug.log:delegated
+      - ./wp-config.php:/var/www/html/wp-config.php:delegated
+      - ./custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini:delegated
+  
+  db:
+    container_name: honehealth_lp_db
+    image: mysql:8.0
+    ports:
+      - "34307:3306"
+    environment: 
+      MYSQL_DATABASE: honehealth_lp_db
+      MYSQL_USER: awesumsawz
+      MYSQL_PASSWORD: dukesilver
+      MYSQL_ROOT_PASSWORD: awesome1234
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf:delegated
+      - ./mysql/lib:/var/lib/mysql:delegated
+
+  backstop:
+    container_name: honehealth_lp_backstop
+    image: backstopjs/backstopjs:6.3.23
+    entrypoint: ["/bin/sh", "/src/run.sh"]
+    volumes:
+      - ./backstop:/src
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    profiles:
+      - testing

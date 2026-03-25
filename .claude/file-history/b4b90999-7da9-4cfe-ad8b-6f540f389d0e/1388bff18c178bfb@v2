@@ -1,0 +1,421 @@
+/**
+ * Adapted Legacy Template
+ * Womens Hormone Imbalance PMAX
+ *
+ * This bundle includes:
+ * - Multi-select quiz system (5 questions)
+ * - Reviews carousel with expand/collapse
+ * - Product actions carousel (Slick)
+ * - FAQ accordion
+ */
+
+// Import utilities
+import { initStickyCTA } from '../utilities/stickyCTA.js';
+
+// Export to window
+window.initStickyCTA = initStickyCTA;
+
+/**
+ * =============================
+ * QUIZ DATA & CONFIGURATION
+ * =============================
+ */
+
+const quizData = [
+	{
+		"id": 1,
+		"type": "single-select",
+		"title": "What's your biggest health goal?",
+		"options": [
+			{ "id": 0, "value": "Get relief for existing condition" },
+			{ "id": 1, "value": "Understand my hormone levels" },
+			{ "id": 2, "value": "Talk to a doctor about my symptoms" },
+			{ "id": 3, "value": "Optimize my health" }
+		]
+	},
+	{
+		"id": 2,
+		"type": "multi-select",
+		"title": "What's holding you back<br class='is-visible-tablet-only' /> from feeling your best? <span class='select-all'>(Select all that apply)</span>",
+		"ctaText": "Next Question",
+		"options": [
+			{ "id": 0, "value": "Fatigue" },
+			{ "id": 1, "value": "Brain Fog" },
+			{ "id": 2, "value": "Weight gain" },
+			{ "id": 3, "value": "Low libido" },
+			{ "id": 4, "value": "Mood swings" },
+			{ "id": 5, "value": "Night sweats" },
+			{ "id": 6, "value": "Hair loss" },
+			{ "id": 7, "value": "Irregular periods" },
+			{ "id": 8, "value": "None" }
+		]
+	},
+	{
+		"id": 3,
+		"type": "multi-select",
+		"title": "What about long-term health concerns? <span class='select-all'>(Select all that apply)</span>",
+		"ctaText": "Next Question",
+		"options": [
+			{ "id": 0, "value": "Blood sugar issues" },
+			{ "id": 1, "value": "Chronic inflammation" },
+			{ "id": 2, "value": "Environmental stress" },
+			{ "id": 3, "value": "Vitamin deficiencies" },
+			{ "id": 4, "value": "Too much stress" },
+			{ "id": 5, "value": "None" }
+		]
+	},
+	{
+		"id": 4,
+		"type": "multi-select",
+		"title": "Is your sex life where you want it to be? <span class='select-all'>(Select all that apply)</span>",
+		"ctaText": "Next Question",
+		"options": [
+			{ "id": 0, "value": "No drive" },
+			{ "id": 1, "value": "Could use a boost" },
+			{ "id": 2, "value": "Dryness is an issue" },
+			{ "id": 3, "value": "Discomfort or pain" },
+			{ "id": 4, "value": "No problems here" }
+		]
+	},
+	{
+		"id": 5,
+		"type": "single-select",
+		"title": "How familiar are you with hormone&nbsp;therapy?",
+		"options": [
+			{ "id": 0, "value": "New to this" },
+			{ "id": 1, "value": "Know a little, want more info" },
+			{ "id": 2, "value": "Informed and comparing options" }
+		]
+	}
+];
+
+const quizResultContent = [
+	{
+		"header": "We've got you covered",
+		"body": "You deserve to understand what's happening with your body, and Hone's got your back. Your licensed doctor will guide you through everything, from hormone balancing basics to creating a custom plan that fits your life. No more guesswork, just real answers."
+	},
+	{
+		"header": "Get to know more with our licensed physicians",
+		"body": "You've got questions, and we've got answers. Dive deeper into how balancing your hormones can kick symptoms to the curb and help you thrive. Our doctors will take you through the whole process, from symptom relief to long-term wellness—tailored just for you."
+	},
+	{
+		"header": "Hone in on your health",
+		"body": "You've done your research, now let's see if Hone can work for you. Ready to feel more energized, focused, and back in control?<br/><br/>Order your comprehensive blood test and get started on your personalized plan."
+	}
+];
+
+/**
+ * =============================
+ * QUIZ FUNCTIONALITY
+ * =============================
+ */
+
+function initQuiz() {
+	const questionElement = document.getElementById("question");
+	const optionsElement = document.getElementById("options");
+	const ctaButton = document.getElementById("quiz-cta");
+	const questionContainer = document.getElementsByClassName("question-container")[0];
+	const resultsContainer = document.getElementsByClassName("results-container")[0];
+	const progress = document.getElementsByClassName("progress")[0];
+	
+	if (!questionElement || !optionsElement || !questionContainer || !resultsContainer || !progress) {
+		return;
+	}
+	
+	let currentQuestion = 0;
+
+	function showQuestion() {
+		const question = quizData[currentQuestion];
+		questionContainer.classList.remove('question' + '-' + (question.id - 1));
+		questionContainer.classList.add('question' + '-' + question.id);
+		questionElement.innerHTML = question.title;
+		optionsElement.innerHTML = "";
+		
+		question.options.forEach(option => {
+			const button = document.createElement("button");
+			button.innerText = option.value;
+			button.classList.add('option-button', question.type);
+			button.setAttribute('data-answer', option.id);
+			
+			if (question.type === 'multi-select') {
+				ctaButton.style.display = 'block';
+				ctaButton.classList.add('disabled');
+				ctaButton.addEventListener("click", selectAnswer);
+				const checkbox = document.createElement("span");
+				checkbox.classList.add('checkbox');
+				button.insertBefore(checkbox, button.firstChild);
+				button.addEventListener("click", selectMulti);
+			} else {
+				ctaButton.style.display = 'none';
+				button.addEventListener("click", selectAnswer);
+			}
+			optionsElement.appendChild(button);
+		});
+	}
+
+	function selectMulti() {
+		if (this.classList.contains('selected')) {
+			this.classList.remove('selected');
+		} else {
+			this.classList.add('selected');
+		}
+
+		const noneOption = quizData[currentQuestion].options.length - 1;
+		let selectedElements = document.getElementsByClassName("selected");
+		
+		if (this.dataset.answer == noneOption) {
+			Array.from(selectedElements).forEach(element => {
+				if (element.dataset.answer != noneOption) {
+					element.classList.remove('selected');
+				}
+			});
+		} else {
+			Array.from(selectedElements).forEach(element => {
+				if (element.dataset.answer == noneOption) {
+					element.classList.remove('selected');
+				}
+			});
+		}
+
+		if (selectedElements.length > 0) {
+			ctaButton.classList.remove('disabled');
+		} else {
+			ctaButton.classList.add('disabled');
+		}
+	}
+
+	function bindClickEvents() {
+		let ctaButtons = document.getElementsByClassName('quiz-end-cta');
+		if (ctaButtons) {
+			Array.from(ctaButtons).forEach((button) => {
+				button.addEventListener("click", (e) => {
+					if (typeof trackQuizEvent === 'function') {
+						trackQuizEvent('last_question', e.target.innerText);
+					}
+
+					const href = button.getAttribute('href');
+					if (href && href.startsWith('#')) {
+						e.preventDefault();
+						const targetId = href.slice(1);
+						requestAnimationFrame(() => {
+							const target = document.getElementById(targetId);
+							if (target) {
+								target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+							}
+						});
+					}
+				});
+			});
+		}
+	}
+
+	function selectAnswer(e) {
+		if (e.target.id === 'quiz-cta') {
+			const selectedElements = document.getElementsByClassName("selected");
+			let options = '';
+			if (selectedElements) {
+				Array.from(selectedElements).forEach((element, index) => {
+					options = options + element.innerText;
+					if (index !== selectedElements.length - 1) {
+						options += ', ';
+					}
+				});
+			}
+			if (typeof trackQuizEvent === 'function') {
+				trackQuizEvent('Q' + (currentQuestion + 1), options);
+			}
+		} else {
+			if (typeof trackQuizEvent === 'function') {
+				trackQuizEvent('Q' + (currentQuestion + 1), e.target.innerText);
+			}
+		}
+		
+		let answer = e.target.dataset.answer;
+		let width = progress.style.width.replace("%", "");
+		width = parseInt(width);
+		width = width + 17 + "%";
+		progress.style.width = width;
+
+		currentQuestion++;
+
+		if (currentQuestion < quizData.length) {
+			showQuestion();
+		} else {
+			resultsContainer.innerHTML +=
+				`<div>
+					<div class="results-content">
+						<h2>` + quizResultContent[answer].header + `</h2>
+						<p>` + quizResultContent[answer].body + `</p>
+					</div>
+					<div class="options-container">
+						<a href="#whats-included" class="btn quiz-end-cta">
+						I'm Ready To Start
+						</a>
+						<a href="#treatment-with-hone" class="option-button quiz-end-cta">
+						Still Thinking About it
+						</a>
+					</div>
+				</div>`;
+			bindClickEvents();
+			showResult();
+		}
+	}
+
+	function showResult() {
+		questionContainer.style.display = 'none';
+		resultsContainer.style.display = 'block';
+	}
+
+	showQuestion();
+}
+
+/**
+ * =============================
+ * CAROUSELS INITIALIZATION
+ * =============================
+ */
+
+function initCarousels() {
+	if (typeof jQuery === 'undefined') {
+		return;
+	}
+
+	jQuery(document).ready(function($) {
+		// Reviews carousel
+		$('.carousel').slick({
+			slidesToShow: 3,
+			infinite: false,
+			slidesToScroll: 1,
+			dots: true,
+			arrows: true,
+			responsive: [
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					}
+				},
+				{
+					breakpoint: 1280,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1
+					}
+				}
+			]
+		});
+
+		// Product actions carousel
+		$('.product-actions-slick').slick({
+			slidesToShow: 4,
+			infinite: false,
+			slidesToScroll: 1,
+			dots: true,
+			arrows: true,
+			draggable: false,
+			responsive: [
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						infinite: true,
+					}
+				},
+				{
+					breakpoint: 1280,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1
+					}
+				}
+			]
+		});
+	});
+}
+
+/**
+ * =============================
+ * ACCORDION FUNCTIONALITY
+ * =============================
+ */
+
+function initAccordion() {
+	const acc = document.getElementsByClassName("accordion-slide");
+
+	if (!acc || acc.length === 0) {
+		return;
+	}
+
+	const toggleAccordion = (e) => {
+		let target = e.currentTarget;
+		if (!target.classList.contains("active")) {
+			Array.from(acc).forEach((slide) => {
+				slide.classList.remove("active");
+				slide.children[1].style.display = "none";
+			});
+			target.classList.add("active");
+			target.children[1].style.display = "block";
+		} else {
+			target.classList.remove("active");
+			target.children[1].style.display = "none";
+		}
+	};
+
+	Array.from(acc).forEach((slide) => {
+		slide.addEventListener("click", (e) => toggleAccordion(e));
+	});
+}
+
+/**
+ * =============================
+ * REVIEWS EXPAND/COLLAPSE
+ * =============================
+ */
+
+function initReviewsExpand() {
+	const buttons = document.querySelectorAll('.quote-attribution');
+	
+	buttons.forEach(button => {
+		button.addEventListener('click', function() {
+			let dots = this.parentNode.querySelector('#dots');
+			let moreText = this.parentNode.querySelector('#more');
+			
+			if (dots && moreText) {
+				if (dots.style.display === "none") {
+					dots.style.display = "inline";
+					this.innerHTML = "Read more";
+					moreText.style.display = "none";
+				} else {
+					dots.style.display = "none";
+					this.innerHTML = "Read less";
+					moreText.style.display = "inline";
+				}
+			}
+		});
+	});
+}
+
+/**
+ * =============================
+ * INITIALIZATION
+ * =============================
+ */
+
+// Initialize quiz immediately
+initQuiz();
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', () => {
+		initCarousels();
+		initAccordion();
+		initReviewsExpand();
+	});
+} else {
+	initCarousels();
+	initAccordion();
+	initReviewsExpand();
+}
+

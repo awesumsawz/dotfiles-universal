@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Update README.md with new media scraping functionality",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update TECHNICAL_DOCUMENTATION.md with implementation details",
+    "status": "completed",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "Update script docstring and help text",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

@@ -1,0 +1,297 @@
+/**
+ * Mens HRT Enhanced PDP 1
+ * Page-specific JavaScript for page-mens-hrt-enhanced-pdp-1.php
+ *
+ * Vanilla JS only — no jQuery or Slick dependency.
+ */
+
+/**
+ * Hero — lazy-load video after page load, swapping out the static LCP image.
+ */
+function initHeroVideo() {
+	const poster = document.querySelector('.boost-your-testosterone .hero-poster');
+	const video  = document.querySelector('.boost-your-testosterone .hero-video');
+	if (!poster || !video) return;
+
+	window.addEventListener('load', function () {
+		video.querySelectorAll('source[data-src]').forEach(function (source) {
+			source.src = source.dataset.src;
+		});
+		video.load();
+		video.addEventListener('canplay', function () {
+			poster.style.display = 'none';
+			video.style.display  = '';
+			video.play().catch(() => {});
+		}, { once: true });
+	});
+}
+
+/**
+ * How It Works — click-to-play video cards
+ * - Thumbnail shows by default as placeholder
+ * - On click: lazy-load video src, play, hide thumbnail
+ * - Clicking a playing video pauses it
+ * - Only one video plays at a time
+ */
+function initSocialVideos() {
+	const items = document.querySelectorAll('.how-it-works.social-videos .review-video-item');
+	const loadedMap = new WeakMap();
+
+	function loadAndPlay(item) {
+		const video = item.querySelector('video');
+		if (!video) return;
+
+		items.forEach((other) => {
+			if (other !== item) stopVideo(other);
+		});
+
+		if (!loadedMap.get(video)) {
+			const lazySrc = video.getAttribute('data-src');
+			if (!lazySrc) return;
+			video.src = lazySrc;
+			video.load();
+			loadedMap.set(video, true);
+		}
+
+		video.play().then(() => {
+			item.classList.add('playing');
+		}).catch(() => {});
+	}
+
+	function stopVideo(item) {
+		const video = item.querySelector('video');
+		if (!video) return;
+		video.pause();
+		item.classList.remove('playing');
+	}
+
+	items.forEach((item) => {
+		const video   = item.querySelector('video');
+		const muteBtn = item.querySelector('.mute-toggle');
+		if (!video) return;
+
+		item.addEventListener('click', () => {
+			if (item.classList.contains('playing')) {
+				stopVideo(item);
+			} else {
+				loadAndPlay(item);
+			}
+		});
+
+		if (muteBtn) {
+			muteBtn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const shouldUnmute = video.muted;
+
+				if (shouldUnmute) {
+					items.forEach((other) => {
+						const otherVideo = other.querySelector('video');
+						if (otherVideo && otherVideo !== video) {
+							otherVideo.muted = true;
+							other.classList.remove('unmuted');
+							const otherBtn = other.querySelector('.mute-toggle');
+							if (otherBtn) otherBtn.setAttribute('aria-label', 'Unmute video');
+						}
+					});
+				}
+
+				video.muted = !shouldUnmute;
+				item.classList.toggle('unmuted', shouldUnmute);
+				muteBtn.setAttribute('aria-label', shouldUnmute ? 'Mute video' : 'Unmute video');
+			});
+		}
+	});
+
+	// Autoplay first video when the section scrolls into view
+	const firstItem = items[0];
+	if (firstItem) {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					loadAndPlay(firstItem);
+					observer.disconnect();
+				}
+			});
+		}, { threshold: 0.3 });
+
+		observer.observe(firstItem);
+	}
+}
+
+/**
+ * Testimonials — native CSS scroll-snap carousel (no Slick/jQuery).
+ * Replaces initCarousel() call. Respects existing prev/next/dot markup.
+ */
+function initTestimonialsCarousel() {
+	const track   = document.querySelector('.testimonials-carousel');
+	if (!track) return;
+
+	const items   = Array.from(track.querySelectorAll('.testimonial-item'));
+	const prevBtn = document.querySelector('.testimonials-prev');
+	const nextBtn = document.querySelector('.testimonials-next');
+	const dots    = Array.from(document.querySelectorAll('.testimonials-dots .nav-dot'));
+	let current   = 0;
+
+	function goTo(index) {
+		if (index < 0)             index = items.length - 1;
+		if (index >= items.length) index = 0;
+		current = index;
+
+		const item       = items[current];
+		const scrollLeft = item.offsetLeft - (track.clientWidth / 2) + (item.offsetWidth / 2);
+		track.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+
+		dots.forEach((d, i) => d.classList.toggle('active', i === current));
+	}
+
+	if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+	if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+	dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+	// Sync active dot when user scrolls natively
+	let scrollTimer;
+	track.addEventListener('scroll', () => {
+		clearTimeout(scrollTimer);
+		scrollTimer = setTimeout(() => {
+			const mid = track.scrollLeft + track.clientWidth / 2;
+			let closest = 0, closestDist = Infinity;
+			items.forEach((item, i) => {
+				const dist = Math.abs((item.offsetLeft + item.offsetWidth / 2) - mid);
+				if (dist < closestDist) { closestDist = dist; closest = i; }
+			});
+			if (closest !== current) {
+				current = closest;
+				dots.forEach((d, i) => d.classList.toggle('active', i === current));
+			}
+		}, 50);
+	});
+}
+
+// Injections gallery — native scroll carousel + clickable thumbnail nav (tablet/mobile)
+function initInjectionsGallery() {
+	const mainCarousel = document.querySelector('.injections-main-carousel');
+	if (!mainCarousel) return;
+
+	const slides = mainCarousel.querySelectorAll('.slide');
+	const thumbs = document.querySelectorAll('.injections-thumbs .thumb');
+
+	function getSlideByIndex(idx) {
+		return mainCarousel.querySelector('.slide[data-slide="' + idx + '"]');
+	}
+
+	function updateActiveThumb(dataIndex) {
+		thumbs.forEach(t => t.classList.remove('active'));
+		const match = document.querySelector('.injections-thumbs .thumb[data-slide="' + dataIndex + '"]');
+		if (match) match.classList.add('active');
+	}
+
+	function scrollToSlide(slide) {
+		mainCarousel.style.scrollSnapType = '';
+		mainCarousel.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' });
+	}
+
+	thumbs.forEach(thumb => {
+		thumb.addEventListener('click', () => {
+			const index = parseInt(thumb.dataset.slide, 10);
+			const slide = getSlideByIndex(index);
+			if (slide) {
+				updateActiveThumb(index);
+				scrollToSlide(slide);
+			}
+		});
+	});
+
+	let scrollTimeout;
+	mainCarousel.addEventListener('scroll', () => {
+		clearTimeout(scrollTimeout);
+		scrollTimeout = setTimeout(() => {
+			const scrollLeft = mainCarousel.scrollLeft;
+			let closestSlide = slides[0];
+			let closestDist  = Infinity;
+			slides.forEach(slide => {
+				const dist = Math.abs(slide.offsetLeft - scrollLeft);
+				if (dist < closestDist) {
+					closestDist  = dist;
+					closestSlide = slide;
+				}
+			});
+			updateActiveThumb(parseInt(closestSlide.dataset.slide, 10));
+		}, 50);
+	});
+
+	// Mouse drag-to-scroll
+	let isDragging = false, startX = 0, scrollStart = 0;
+
+	mainCarousel.addEventListener('mousedown', (e) => {
+		isDragging  = true;
+		startX      = e.pageX;
+		scrollStart = mainCarousel.scrollLeft;
+		mainCarousel.style.cursor        = 'grabbing';
+		mainCarousel.style.scrollSnapType = 'none';
+		e.preventDefault();
+	});
+
+	window.addEventListener('mousemove', (e) => {
+		if (!isDragging) return;
+		mainCarousel.scrollLeft = scrollStart - (e.pageX - startX);
+	});
+
+	window.addEventListener('mouseup', () => {
+		if (!isDragging) return;
+		isDragging = false;
+		mainCarousel.style.cursor        = '';
+		mainCarousel.style.scrollSnapType = '';
+	});
+
+	updateActiveThumb(0);
+}
+
+/**
+ * Benefits Timeline — click-to-expand cards
+ */
+function initBenefitsTimeline() {
+	const cards = document.querySelectorAll('.benefits-timeline .timeline-card');
+	if (!cards.length) return;
+
+	cards[0].classList.add('active');
+
+	cards.forEach((card) => {
+		card.addEventListener('click', () => {
+			cards.forEach((c) => c.classList.remove('active'));
+			card.classList.add('active');
+		});
+	});
+}
+
+/**
+ * FAQ Accordion
+ */
+function initFaqAccordion() {
+	const items = document.querySelectorAll('.faq-block .faq-item');
+	if (!items.length) return;
+
+	items.forEach((item) => {
+		const header = item.querySelector('.faq-header');
+		if (!header) return;
+
+		header.addEventListener('click', () => {
+			const isOpen = item.classList.contains('open');
+			items.forEach((other) => other.classList.remove('open'));
+			if (!isOpen) {
+				item.classList.add('open');
+				header.setAttribute('aria-expanded', 'true');
+			} else {
+				header.setAttribute('aria-expanded', 'false');
+			}
+		});
+	});
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	initHeroVideo();
+	initSocialVideos();
+	initTestimonialsCarousel();
+	initInjectionsGallery();
+	initBenefitsTimeline();
+	initFaqAccordion();
+});

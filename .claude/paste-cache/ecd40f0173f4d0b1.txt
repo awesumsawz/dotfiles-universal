@@ -1,0 +1,56 @@
+Ask: 
+
+On src/mens-hrt-enhanced-pdp-1
+  
+Buy box: 
+
+Check your current T levels with an at-home lab test. Simple 10-minute finger-prick test, get results in as little as 3 days.  
+
+Improve your T levels from your couch  
+
+90-day supply  
+
+Prescriptions delivered straight to your door  
+
+->
+
+Check your current T levels with a simple 10-minute finger-prick at-home lab test.   
+
+Improve your T levels from your couch  
+
+Results in as little as 3 days  
+
+Prescriptions delivered straight to your door  
+
+  
+Last section - change copy 
+
+Needle-free testosterone options available with the At-Home Testosterone Testing Kit  
+
+Needle-free testosterone options available with the At-Home Testosterone Test  
+
+  
+on src/mens-opt-enhanced-pdp
+
+Last section - change copy 
+
+Needle-free testosterone options available with the At-Home Testosterone Testing Kit  
+
+Needle-free testosterone options available with the Testosterone Test  
+  
+Buy box:   
+Check your current T levels with an at-home lab test. Simple 10-minute finger-prick test, get results in as little as 3 days.  
+Improve your T levels from your couch  
+90-day supply  
+Prescriptions delivered straight to your door  
+-> 
+
+Check your current T levels with a quick 10-min test at a local lab or have someone come to your home.  
+Improve your T levels from your couch  
+Results in as little as 3 days  
+Prescriptions delivered straight to your door  
+  
+On the HIW video section - please add this video as the last video (so we have 4 total videos):   
+src/static/media/videos/020926_INT-M_077_FullStoryRecutNoEndCard_KP_VIDEO_Meta_TRT_9x16.mp4
+
+resize it to match the dimensions of the others in its row, then export to webm at 70% quality. Also grab a screenshot of the first frame of the video to use as a placeholder poster while the video loads. (match the formatting of the existing video elements in its section). Also rename the new video and image to match the other video elements from its section

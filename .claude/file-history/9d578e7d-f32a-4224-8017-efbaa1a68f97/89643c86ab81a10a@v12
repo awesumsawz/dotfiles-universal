@@ -1,0 +1,313 @@
+/**
+ * OPT Longevity
+ * Page-specific JavaScript for page-opt-longevity.php
+ *
+ * Gallery scroller: faux 3D horizontal scroll with CSS masking.
+ * The barrel curve effect is handled entirely via CSS radial-gradient masks.
+ * This JS provides touch-drag scrolling enhancement for desktop.
+ */
+
+import { initCarousel } from '../utilities/carousel.js';
+import { toggleFaqItem } from '../utilities/accordion.js';
+
+function initGalleryScroller() {
+	const scroller = document.querySelector('.gallery-scroller');
+	if (!scroller) return;
+
+	// Desktop mouse-drag horizontal scrolling
+	let isDown = false;
+	let startX;
+	let scrollLeft;
+
+	scroller.addEventListener('mousedown', function (e) {
+		isDown = true;
+		scroller.style.cursor = 'grabbing';
+		startX = e.pageX - scroller.offsetLeft;
+		scrollLeft = scroller.scrollLeft;
+	});
+
+	scroller.addEventListener('mouseleave', function () {
+		isDown = false;
+		scroller.style.cursor = 'grab';
+	});
+
+	scroller.addEventListener('mouseup', function () {
+		isDown = false;
+		scroller.style.cursor = 'grab';
+	});
+
+	scroller.addEventListener('mousemove', function (e) {
+		if (!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - scroller.offsetLeft;
+		const walk = (x - startX) * 1.5;
+		scroller.scrollLeft = scrollLeft - walk;
+	});
+
+	// Set grab cursor on desktop
+	scroller.style.cursor = 'grab';
+}
+
+function initMarquee() {
+	const marquee = document.querySelector('.marquee.trustpilot-ratings .reviews-marquee');
+	const firstSet = marquee?.querySelector('.reviews-set');
+	if (!marquee || !firstSet) return;
+
+	const setWidth = firstSet.getBoundingClientRect().width;
+	marquee.style.setProperty('--marquee-offset', `-${setWidth}px`);
+}
+
+/**
+ * Longevity Timeline — click-to-expand cards
+ * - First card starts active (expanded with full text)
+ * - Clicking a card makes it active, others collapse
+ * - Active: wider, full opacity, shows description + steps
+ * - Inactive: narrower, 0.8 opacity, only shows heading
+ */
+function initLongevityTimeline() {
+	const cards = document.querySelectorAll('.longevity-timeline .timeline-card');
+	if (!cards.length) return;
+
+	// Set first card as active by default
+	cards[0].classList.add('active');
+
+	cards.forEach((card) => {
+		card.addEventListener('click', () => {
+			cards.forEach((c) => c.classList.remove('active'));
+			card.classList.add('active');
+		});
+	});
+}
+
+/**
+ * Proactive Care — Lottie play-once-on-scroll
+ * Uses IntersectionObserver to play each lottie-player once when it scrolls into view.
+ */
+function initProactiveLotties() {
+	const players = document.querySelectorAll('.proactive-care .proactive-lottie');
+	if (!players.length) return;
+
+	players.forEach((player) => {
+		let isReady = false;
+		let isInView = false;
+
+		function tryPlay() {
+			if (isReady && isInView) {
+				player.setLooping(false);
+				player.play();
+			}
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					isInView = true;
+					tryPlay();
+					observer.unobserve(player);
+				}
+			},
+			{ threshold: 0.3 }
+		);
+
+		player.addEventListener('ready', () => {
+			player.stop();
+			isReady = true;
+			tryPlay();
+		});
+
+		observer.observe(player);
+	});
+}
+
+/**
+ * Real Moments — Slick carousel
+ * Desktop: 4 cards per page (slidesToShow: 4, slidesToScroll: 4)
+ * Mobile: 1 card centered with adjacent cards peeking (centerMode)
+ */
+function initRealMoments() {
+	if (typeof jQuery === 'undefined' || typeof jQuery.fn.slick === 'undefined') return;
+	const $ = jQuery;
+	const $carousel = $('.real-moments-carousel');
+	if (!$carousel.length) return;
+
+	$carousel.slick({
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		infinite: false,
+		dots: true,
+		appendDots: '.real-moments .real-moments-dots',
+		arrows: false,
+		accessibility: false,
+		responsive: [
+			{
+				breakpoint: 1025,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: true,
+					centerPadding: '40px',
+					accessibility: false,
+				},
+			},
+		],
+	});
+
+	$('.real-moments-prev').on('click', function () {
+		$carousel.slick('slickPrev');
+	});
+
+	$('.real-moments-next').on('click', function () {
+		$carousel.slick('slickNext');
+	});
+}
+
+/**
+ * How It Works — Slick carousel (mobile only)
+ * Desktop: all 4 cards in a static grid (slidesToShow: 4, no navigation shown)
+ * Mobile: 1 card centered with adjacent peeking (centerMode)
+ */
+function initHowItWorks() {
+	if (typeof jQuery === 'undefined' || typeof jQuery.fn.slick === 'undefined') return;
+	const $ = jQuery;
+	const $carousel = $('.how-it-works-carousel');
+	if (!$carousel.length) return;
+
+	$carousel.slick({
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		infinite: false,
+		dots: false,
+		arrows: false,
+		accessibility: false,
+		responsive: [
+			{
+				breakpoint: 1025,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: true,
+					centerPadding: '40px',
+					dots: true,
+					appendDots: '.how-it-works .how-it-works-dots',
+					accessibility: false,
+				},
+			},
+		],
+	});
+
+	$('.how-it-works-prev').on('click', function () {
+		$carousel.slick('slickPrev');
+	});
+
+	$('.how-it-works-next').on('click', function () {
+		$carousel.slick('slickNext');
+	});
+}
+
+/**
+ * Buy Box — mobile gallery thumbnail navigation
+ */
+function initBuyBoxGallery() {
+	const carousel = document.querySelector('.buy-box-main-carousel');
+	const thumbs = document.querySelectorAll('.buy-box-thumbs .thumb');
+	if (!carousel || !thumbs.length) return;
+
+	const slides = carousel.querySelectorAll('.slide');
+
+	function setActiveThumb(index) {
+		thumbs.forEach((thumb, i) => {
+			thumb.classList.toggle('active', i === index);
+		});
+	}
+
+	thumbs.forEach((thumb, index) => {
+		thumb.addEventListener('click', () => {
+			const slide = slides[index];
+			if (!slide) return;
+			carousel.scrollTo({ left: slide.offsetLeft - carousel.offsetLeft, behavior: 'smooth' });
+			setActiveThumb(index);
+		});
+	});
+
+	carousel.addEventListener('scroll', () => {
+		let closestIndex = 0;
+		let closestDistance = Infinity;
+		slides.forEach((slide, i) => {
+			const distance = Math.abs(slide.offsetLeft - carousel.offsetLeft - carousel.scrollLeft);
+			if (distance < closestDistance) {
+				closestDistance = distance;
+				closestIndex = i;
+			}
+		});
+		setActiveThumb(closestIndex);
+	}, { passive: true });
+}
+
+/**
+ * Disease Monitor — scroll-driven parallax on disease tag rows.
+ * Each row translates at a different speed in alternating directions
+ * as the section scrolls through the viewport.
+ * Content is duplicated in HTML so the modulo wrap is seamless.
+ */
+function initDiseaseMonitorParallax() {
+	const section = document.querySelector('.disease-monitor');
+	const rows = document.querySelectorAll('.disease-monitor .disease-row-list');
+	if (!section || !rows.length) return;
+
+	// speed and direction per row index
+	const config = [
+		{ speed: 0.15, dir: 1 },
+		{ speed: 0.12, dir: -1 },
+	];
+
+	let ticking = false;
+
+	function update() {
+		const rect = section.getBoundingClientRect();
+		const vh = window.innerHeight;
+		const sh = rect.height;
+
+		if (rect.top > vh || rect.bottom < 0) {
+			ticking = false;
+			return;
+		}
+
+		// progress: 0 when section bottom enters viewport, 1 when section top leaves
+		const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + sh)));
+
+		rows.forEach((row, i) => {
+			const { speed, dir } = config[i] || { speed: 0.1, dir: 1 };
+			const half = row.scrollWidth / 2; // half = one full set of items
+			const rawOffset = progress * half * speed;
+			const offset = ((rawOffset % half) + half) % half;
+
+			row.style.transform = dir === 1
+				? `translateX(-${offset}px)`
+				: `translateX(${offset - half * 0.5}px)`;
+		});
+
+		ticking = false;
+	}
+
+	function requestTick() {
+		if (!ticking) {
+			requestAnimationFrame(update);
+			ticking = true;
+		}
+	}
+
+	window.addEventListener('scroll', requestTick, { passive: true });
+	window.addEventListener('resize', requestTick, { passive: true });
+	update();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	initGalleryScroller();
+	initMarquee();
+	initLongevityTimeline();
+	initProactiveLotties();
+	initRealMoments();
+	initHowItWorks();
+	initBuyBoxGallery();
+	initDiseaseMonitorParallax();
+});

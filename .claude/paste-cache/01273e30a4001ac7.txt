@@ -1,0 +1,117 @@
+## Summary  
+
+Quiz completion CTAs use native anchor links (`href="#whats-included"`) combined with global `html { scroll-behavior: smooth }` (set in `settings/common.scss`). The smooth scroll calculates the target position **at the start of the animation**. During that animation, pending DOM changes — Slick carousel initialization or lazy-image reflow in the `#longform` and reviews sections — shift `#whats-included` further down the page. The scroll ends at the originally-calculated position, which is now occupied by an intermediate section (the listicle/longform numbered steps). This affects all 5 WOPT pages since they share the same quiz JS pattern and the `min-height: 100vh` on `.quiz-wrapper` (mobile) keeps the user deep in the page when they click the CTA.  
+
+  
+
+## Root Cause  
+
+- `html { scroll-behavior: smooth }` → native anchor scroll calculates target offset once at click-time, then animates  
+
+- `.quiz-wrapper { min-height: 100vh }` (mobile, from legacy SCSS) → user is positioned far down the page when quiz completes  
+
+- Layout reflow from Slick carousel init (`initCarousels` runs on `DOMContentLoaded`) and/or lazy-loaded images in sections between quiz and `#whats-included` shifts the target downward mid-animation  
+
+- Result: smooth scroll lands at the listicle (`#longform` numbered steps or `.monitor-for-early-indicators`) instead of `#whats-included`  
+
+  
+
+## Proposed Fix  
+
+Replace the passive-only click handler in `bindClickEvents()` with one that intercepts the click, prevents default, and calls `scrollIntoView` inside a `requestAnimationFrame` — ensuring any pending reflows settle before the scroll position is computed.  
+
+  
+
+```js  
+
+function bindClickEvents() {  
+
+    let ctaButtons = document.getElementsByClassName('quiz-end-cta');  
+
+    if (ctaButtons) {  
+
+        Array.from(ctaButtons).forEach((button) => {  
+
+            button.addEventListener("click", (e) => {  
+
+                if (typeof trackQuizEvent === 'function') {  
+
+                    trackQuizEvent('last_question', e.target.innerText);  
+
+                }  
+
+                const href = button.getAttribute('href');  
+
+                if (href && href.startsWith('#')) {  
+
+                    e.preventDefault();  
+
+                    const targetId = href.slice(1);  
+
+                    requestAnimationFrame(() => {  
+
+                        const target = document.getElementById(targetId);  
+
+                        if (target) {  
+
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });  
+
+                        }  
+
+                    });  
+
+                }  
+
+            });  
+
+        });  
+
+    }  
+
+}  
+
+```  
+
+  
+
+This fix is **identical across all 6 bundle files** — only `bindClickEvents()` changes.  
+
+  
+
+## Affected Files  
+
+- `src/static/js/pages/womens-hormone-imbalance.bundle.js`  
+
+- `src/static/js/pages/womens-hormone-imbalance-hero.bundle.js`  
+
+- `src/static/js/pages/womens-hormone-imbalance-pmax.bundle.js`  
+
+- `src/static/js/pages/womens-hormone-imbalance-tt.bundle.js`  
+
+- `src/static/js/pages/womens-menopause.bundle.js`  
+
+- `src/static/js/pages/womens-menopause-tt.bundle.js` (same pattern, fix proactively)  
+
+  
+
+## Steps  
+
+1. Update `bindClickEvents()` in all 6 bundle files as shown above  
+
+2. Run `yarn build` from `themes/HoneLandingPages/`  
+
+3. Verify on local Docker (`http://localhost:8081`) that clicking "I'm Ready To Start" after completing the quiz scrolls correctly to the `#whats-included` section on all affected URLs  
+
+4. Verify on mobile viewport (≤600px) since the `min-height: 100vh` issue is most pronounced there  
+
+  
+
+## Notes  
+
+- No PHP template changes required  
+
+- No SCSS changes required  
+
+- The `href="#whats-included"` attribute is retained as a no-JS fallback; only the JS scroll behavior changes  
+
+- `womens-menopause-tt` is not in the listed URLs but shares the same quiz pattern — include in the fix to be consistent

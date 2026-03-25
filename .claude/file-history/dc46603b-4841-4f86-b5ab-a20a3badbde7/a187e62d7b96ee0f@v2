@@ -1,0 +1,131 @@
+# Visual Regression Testing with BackstopJS
+
+BackstopJS captures screenshots of landing pages at multiple viewport sizes and compares them against approved reference images to catch unintended visual changes.
+
+## Prerequisites
+
+- Docker and Docker Compose running
+- WordPress stack up (`docker-compose up`)
+- Pages created in WordPress with slugs matching the template names (e.g. a page with slug `overview` using the `overview` template)
+
+## Workflow
+
+### 1. Capture reference screenshots (baseline)
+
+Run this once before making changes to establish the approved baseline:
+
+```bash
+docker-compose --profile testing run --rm backstop reference
+```
+
+Reference images are saved to `backstop/bitmaps_reference/` and should be committed to git.
+
+### 2. Make your changes
+
+Edit templates, SCSS, or JS as needed. Build assets:
+
+```bash
+cd buy-honehealth-com/themes/HoneLandingPages
+yarn build
+```
+
+### 3. Run a comparison test
+
+```bash
+docker-compose --profile testing run --rm backstop test
+```
+
+BackstopJS screenshots the pages again and diffs them against the references. Results open in your browser automatically, or you can open `backstop/html_report/index.html` manually.
+
+### 4. Review results
+
+- **Pass** — screenshot matches reference within the allowed threshold (0.1% mismatch)
+- **Fail** — visual difference detected; the diff is highlighted in red in the HTML report
+
+### 5. Approve intentional changes
+
+If the visual changes are deliberate, update the references:
+
+```bash
+docker-compose --profile testing run --rm backstop approve
+```
+
+This copies the new test screenshots over the references. Commit the updated `backstop/bitmaps_reference/` images.
+
+---
+
+## Configuration
+
+Config lives at `backstop/backstop.json`.
+
+### Viewports
+
+| Label   | Width | Height |
+|---------|-------|--------|
+| mobile  | 375px | 812px  |
+| tablet  | 768px | 1024px |
+| desktop | 1440px | 900px |
+
+### Scenarios
+
+Each scenario targets one page using the WordPress `?pagename=` query parameter:
+
+```json
+{
+  "label": "overview",
+  "url": "http://host.docker.internal:8081/?pagename=overview",
+  "delay": 500,
+  "misMatchThreshold": 0.1,
+  "requireSameDimensions": false
+}
+```
+
+`delay` (ms) gives the page time to finish rendering before the screenshot is taken. Increase it if animations or lazy-loaded content causes inconsistent results.
+
+`misMatchThreshold` is the percentage of pixels allowed to differ before a test fails. The default `0.1` is strict — raise it (e.g. `0.5`) for pages with dynamic content like carousels.
+
+### Adding a new page
+
+Add an entry to the `scenarios` array in `backstop/backstop.json`:
+
+```json
+{
+  "label": "my-new-page",
+  "url": "http://host.docker.internal:8081/?pagename=my-new-page",
+  "delay": 500,
+  "misMatchThreshold": 0.1,
+  "requireSameDimensions": false
+}
+```
+
+Then capture a reference for it:
+
+```bash
+docker-compose --profile testing run --rm backstop reference
+```
+
+### Hiding dynamic elements
+
+Third-party widgets (live chat, etc.) are hidden before screenshots via `backstop/engine_scripts/puppet/onReady.js` to prevent false positives. Add selectors there for any other elements that change between runs.
+
+---
+
+## File Structure
+
+```
+backstop/
+├── backstop.json              # Main config (viewports, scenarios, paths)
+├── bitmaps_reference/         # Approved baseline screenshots (committed to git)
+├── bitmaps_test/              # Latest test run output (gitignored)
+├── html_report/               # Visual diff report (gitignored)
+├── ci_report/                 # JUnit XML report for CI (gitignored)
+└── engine_scripts/
+    └── puppet/
+        └── onReady.js         # Runs in page context before each screenshot
+```
+
+## URL Troubleshooting
+
+The scenarios use `host.docker.internal:8081` so the BackstopJS container can reach the WordPress container via the host's exposed port. This relies on WordPress being configured with `http://localhost:8081` as its site URL.
+
+If pages return 404, verify the page slug in WordPress matches the `?pagename=` value, or switch to a pretty permalink URL (e.g. `http://host.docker.internal:8081/overview/`).
