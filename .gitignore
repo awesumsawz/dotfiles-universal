@@ -10,3 +10,6 @@ local.nu
 notes/
 nohup.out
 .claude/shell-snapshots/
+.claude/backups
+.claude/file-history/c40ebe51-28e8-4336-90b0-a3df2cac1cd5
+.claude
