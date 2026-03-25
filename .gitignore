@@ -9,3 +9,4 @@ local.zsh
 local.nu
 notes/
 nohup.out
+.claude/shell-snapshots/
