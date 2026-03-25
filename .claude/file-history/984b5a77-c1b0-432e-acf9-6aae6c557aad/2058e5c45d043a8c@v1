@@ -1,7 +1,0 @@
-<?php
-function render_image($image_path, $alt = '', $classes = '', $lazy = true) {
-    $theme_folder = get_bloginfo('stylesheet_directory');
-    $image_url = $theme_folder . '/static/media/images/' . $image_path;
-    $loading = $lazy ? 'loading="lazy"' : '';
-    echo '<img src="' . $image_url . '" alt="' . $alt . '" class="' . $classes . '" ' . $loading . '/>';
-}

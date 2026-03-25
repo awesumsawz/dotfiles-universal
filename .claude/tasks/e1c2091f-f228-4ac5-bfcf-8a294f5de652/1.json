@@ -1,9 +1,0 @@
-{
-  "id": "1",
-  "subject": "Create new landing page template from Figma designs",
-  "description": "Build complete PHP template, SCSS styles, and JS bundle from Figma designs using .local/figma-to-code documentation. Steps: extract Figma content, choose slug, create PHP/SCSS/JS files, update functions.php.",
-  "activeForm": "Creating new landing page template",
-  "status": "in_progress",
-  "blocks": [],
-  "blockedBy": []
-}

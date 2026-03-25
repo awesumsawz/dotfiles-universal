@@ -1,7 +1,0 @@
-#!/bin/sh
-set -e
-
-echo "Checking which pages exist..."
-node /src/filter-scenarios.js
-
-exec /usr/local/bin/backstopjs --config=/src/backstop.filtered.json "$@"

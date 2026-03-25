@@ -1,6 +1,0 @@
-[submodule "ai-coding-assistant"]
-	path = ai-coding-assistant
-	url = git@github.com:Hone-Health/ai-coding-assistant.git
-[submodule "AI Assistants"]
-	path = AI Assistants
-	url = git@github.com:Hone-Health/ai-coding-assistant.git
