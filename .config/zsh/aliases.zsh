@@ -46,6 +46,7 @@ alias zj="zellij"
 
 # # AI Assistant
 # alias chat="tgpt --key '$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)' --provider 'openai' --model 'gpt-3.5-turbo'"
+alias cc="claude --permission-mode auto"
 
 alias yz="yazi"
 
