@@ -1,23 +1,27 @@
 # Main ZSH configuration index
 # Sources all configuration files in a specific order
 
+# ZSH config directory path
+local zsh_dir="$XDG_CONFIG_HOME/zsh"
+
 # Core configurations
-source "$XDG_CONFIG_HOME/zsh/settings.zsh"  # Basic ZSH settings
-source "$XDG_CONFIG_HOME/zsh/plugins.zsh"   # Plugin management
-source "$XDG_CONFIG_HOME/zsh/bindkeys.zsh"  # Key bindings
-source "$XDG_CONFIG_HOME/zsh/style.zsh"     # Prompt and appearance
-source "$XDG_CONFIG_HOME/zsh/aliases.zsh"   # Common aliases
-source "$XDG_CONFIG_HOME/zsh/tools.zsh"     # Tool-specific configurations
+source "$zsh_dir/settings.zsh"  # Basic ZSH settings
+source "$zsh_dir/plugins.zsh"   # Plugin management
+source "$zsh_dir/bindkeys.zsh"  # Key bindings
+source "$zsh_dir/style.zsh"     # Prompt and appearance
+source "$zsh_dir/aliases.zsh"   # Common aliases
+source "$zsh_dir/functions.zsh" # Common functions
+source "$zsh_dir/tools.zsh"     # Tool-specific configurations
 
 # OS-specific configuration
 if [[ "$OSTYPE" == "linux"* ]]; then
-  local os_config="$XDG_CONFIG_HOME/zsh/linux.zsh"
+  local os_config="$zsh_dir/linux.zsh"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  local os_config="$XDG_CONFIG_HOME/zsh/mac.zsh"
+  local os_config="$zsh_dir/mac.zsh"
 fi
 
 # Local machine-specific configuration
-local local_config="$XDG_CONFIG_HOME/zsh/local.zsh"
+local local_config="$zsh_dir/local.zsh"
 
 # Source OS and local configs if they exist
 [[ -f "$os_config" ]] && source "$os_config"

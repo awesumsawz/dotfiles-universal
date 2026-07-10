@@ -24,9 +24,6 @@ alias l="eza --color=always --color=auto --long --git --icons=always"
 alias ll="eza --color=always --color=auto --long --git --icons=always --all"
 alias ls="eza --color=always --color=auto --git --icons=always --all"
 
-# Replace cd with zoxide
-unalias cd 2>/dev/null
-alias cd="z"
 
 # ==================================================
 # DEVELOPMENT TOOLS
@@ -46,7 +43,6 @@ alias zj="zellij"
 
 # # AI Assistant
 # alias chat="tgpt --key '$(op item get 'rgxhrxsbuaqgr4gur4vfnbamx4' --fields 'credential' --reveal)' --provider 'openai' --model 'gpt-3.5-turbo'"
-alias cc="claude --permission-mode auto"
 
 alias yz="yazi"
 

@@ -14,7 +14,7 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)" 
 
 # zoxide
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd cd)"
 
 # thefuck
 eval "$(thefuck --alias fix)"
@@ -23,7 +23,7 @@ eval "$(thefuck --alias fix)"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 export LS_COLORS="$(vivid generate dracula)"
 
-## 1password
+# # 1password
 # if [[ -f ~/.op_session ]]; then
 #     source ~/.op_session
 # fi

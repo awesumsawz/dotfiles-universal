@@ -61,12 +61,15 @@ return {
         }
       }
 
-      -- Setup all LSPs with shared config using vim.lsp.config
+      -- Setup all LSPs with shared config using new vim.lsp.config API
       for lsp, config in pairs(servers) do
-        vim.lsp.config[lsp] = vim.tbl_deep_extend("force", {
+        local final_config = vim.tbl_deep_extend("force", {
           capabilities = capabilities,
           on_attach = on_attach,
         }, config)
+
+        -- Use the new vim.lsp.config API
+        vim.lsp.config[lsp] = final_config
         vim.lsp.enable(lsp)
       end
     end,
