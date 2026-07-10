@@ -3,6 +3,9 @@ font-family = "RobotoMono Nerd Font Mono"
 font-family = "Symbols Nerd Font Mono"
 font-size = 10
 
+# Shell
+command = /usr/bin/zsh
+
 # Mouse
 mouse-hide-while-typing = true
 
