@@ -1,136 +1,98 @@
 #!/bin/bash
+# Kanata launcher for macOS and Linux.
+# macOS: needs the Karabiner VirtualHIDDevice daemon and sudo.
+# Linux: runs unprivileged; needs input group membership and a udev rule
+#        granting the input group access to /dev/uinput.
 
-start_tray() {
+CFG="$HOME/.config/kanata/kanata.kbd"
+LOG="$HOME/.cache/kanata.log"
+DAEMON='/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon'
+OS="$(uname -s)"
+
+start_kanata() {
+    if pgrep -x kanata > /dev/null; then
+        echo "Kanata is already running."
+        return
+    fi
     echo "Starting Kanata..."
-    sudo nohup '/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon' > /dev/null 2>&1 &
-    sudo nohup kanata --quiet --nodelay --cfg ~/.config/kanata/kanata.kbd > /dev/null 2>&1 &
-    sleep 10 
+    if [ "$OS" = "Darwin" ]; then
+        sudo nohup "$DAEMON" > /dev/null 2>&1 &
+        sudo nohup kanata --quiet --nodelay --cfg "$CFG" > /dev/null 2>&1 &
+        sleep 10
+    else
+        mkdir -p "$(dirname "$LOG")"
+        nohup kanata --quiet --nodelay --cfg "$CFG" > "$LOG" 2>&1 &
+        sleep 1
+        if ! pgrep -x kanata > /dev/null; then
+            echo "Kanata failed to start. Log output:"
+            cat "$LOG"
+            exit 1
+        fi
+    fi
     echo "Kanata startup complete!"
 }
 
-stop_tray() {
-    # Stop Kanata processes more aggressively
-    echo "Stopping Kanata processes..."
-    
-    # Method 1: Try regular pkill first
-    if pgrep -f "kanata" > /dev/null; then
-        echo "Found Kanata process, terminating..."
-        sudo pkill -f "kanata"
+# $1: pgrep/pkill match flag (-x exact name, -f full cmdline), $2: pattern, $3: display name
+kill_process() {
+    local flag="$1" pattern="$2" name="$3"
+    if pgrep "$flag" "$pattern" > /dev/null; then
+        echo "Stopping $name..."
+        $SUDO pkill "$flag" "$pattern"
         sleep 2
-        
-        # Method 2: If still running, use SIGKILL
-        if pgrep -f "kanata" > /dev/null; then
-            echo "Kanata still running, force killing..."
-            sudo pkill -9 -f "kanata"
-            sleep 1
-        fi
-    else 
-        echo "No Kanata process found."
-    fi
-    
-    # Stop Karabiner daemon more aggressively
-    echo "Stopping Karabiner daemon..."
-    
-    # Method 1: Try regular pkill first
-    if pgrep -f "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
-        echo "Found Karabiner daemon, terminating..."
-        sudo pkill -f "Karabiner-VirtualHIDDevice-Daemon"
-        sleep 2
-        
-        # Method 2: If still running, use SIGKILL
-        if pgrep -f "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
-            echo "Karabiner daemon still running, force killing..."
-            sudo pkill -9 -f "Karabiner-VirtualHIDDevice-Daemon"
-            sleep 1
-        fi
-        
-        # Method 3: Kill by exact process name if pattern matching fails
-        if pgrep "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
-            echo "Using exact process name to kill Karabiner daemon..."
-            sudo pkill -9 "Karabiner-VirtualHIDDevice-Daemon"
+        if pgrep "$flag" "$pattern" > /dev/null; then
+            echo "$name still running, force killing..."
+            $SUDO pkill -9 "$flag" "$pattern"
             sleep 1
         fi
     else
-        echo "No Karabiner daemon found."
+        echo "No $name process found."
     fi
-    
-    # Final verification
-    if pgrep -f "kanata\|Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
-        echo "Warning: Some processes may still be running:"
-        pgrep -fl "kanata\|Karabiner-VirtualHIDDevice-Daemon"
+}
+
+stop_kanata() {
+    SUDO=""
+    [ "$OS" = "Darwin" ] && SUDO="sudo"
+
+    kill_process -x "kanata" "Kanata"
+    if [ "$OS" = "Darwin" ]; then
+        kill_process -f "Karabiner-VirtualHIDDevice-Daemon" "Karabiner daemon"
+    fi
+
+    if pgrep -x kanata > /dev/null || pgrep -f "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
+        echo "Warning: Some processes may still be running."
     else
         echo "All processes stopped successfully."
     fi
 }
 
-# Alternative stop function using more specific process identification
-stop_tray_alternative() {
-    echo "Stopping processes (alternative method)..."
-    
-    # Get PIDs and kill them individually
-    KANATA_PIDS=$(pgrep -f "kanata.*\.kbd")
-    DAEMON_PIDS=$(pgrep -f "Karabiner-VirtualHIDDevice-Daemon")
-    
-    if [ ! -z "$KANATA_PIDS" ]; then
-        echo "Killing Kanata PIDs: $KANATA_PIDS"
-        for pid in $KANATA_PIDS; do
-            sudo kill $pid 2>/dev/null
-            sleep 1
-            # Force kill if still running
-            if kill -0 $pid 2>/dev/null; then
-                sudo kill -9 $pid 2>/dev/null
-            fi
-        done
-    fi
-    
-    if [ ! -z "$DAEMON_PIDS" ]; then
-        echo "Killing Daemon PIDs: $DAEMON_PIDS"
-        for pid in $DAEMON_PIDS; do
-            sudo kill $pid 2>/dev/null
-            sleep 1
-            # Force kill if still running
-            if kill -0 $pid 2>/dev/null; then
-                sudo kill -9 $pid 2>/dev/null
-            fi
-        done
-    fi
-    
-    echo "Process termination complete."
-}
-
 case "$1" in
     start)
-        stop_tray
-        start_tray
+        start_kanata
         ;;
     stop)
-        stop_tray
-        ;;
-    stop-alt)
-        stop_tray_alternative
+        stop_kanata
         ;;
     restart)
-        stop_tray
-        start_tray
+        stop_kanata
+        start_kanata
         ;;
     status)
-        echo "Checking process status..."
-        if pgrep -f "kanata" > /dev/null; then
+        if pgrep -x kanata > /dev/null; then
             echo "Kanata is running:"
-            pgrep -fl "kanata"
+            pgrep -ax kanata 2>/dev/null || pgrep -fl kanata
         else
             echo "Kanata is not running."
         fi
-        
-        if pgrep -f "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
-            echo "Karabiner daemon is running:"
-            pgrep -fl "Karabiner-VirtualHIDDevice-Daemon"
-        else
-            echo "Karabiner daemon is not running."
+        if [ "$OS" = "Darwin" ]; then
+            if pgrep -f "Karabiner-VirtualHIDDevice-Daemon" > /dev/null; then
+                echo "Karabiner daemon is running."
+            else
+                echo "Karabiner daemon is not running."
+            fi
         fi
         ;;
     *)
-        echo "Usage: $0 {start|stop|stop-alt|restart|status}"
+        echo "Usage: $0 {start|stop|restart|status}"
         exit 1
         ;;
 esac
