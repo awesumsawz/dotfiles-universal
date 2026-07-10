@@ -1,13 +1,23 @@
-;; defsrc is still necessary
+;; Shared config for macOS and Linux.
+;; The fn key and media-key row only exist on macOS — on Linux the laptop
+;; firmware handles fn, so those keys never reach kanata.
 (defcfg
   process-unmapped-keys yes
 )
 
+(platform (macos)
 (defsrc
   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
   caps a s d f g h j k l ;
   fn lalt lmet rmet ralt
-)
+))
+
+(platform (linux)
+(defsrc
+  caps a s d f g h j k l ;
+  lalt lmet rmet ralt
+))
+
 (defvar
   tap-hold-time 250
   tap-hold-time-fast 150
@@ -28,27 +38,46 @@
   k (tap-hold $tap-hold-time $hold-time k rsft)
   l (tap-hold $tap-hold-time $hold-time l rmet)
   ; (tap-hold $tap-hold-time $hold-time ; ralt)
-  fnl (tap-hold 200 200 fn (layer-toggle fn))
   lmet (tap-hold $tap-hold-time $hold-time bspc lmet)
   rmet (tap-hold $tap-hold-time $hold-time ret rmet)
   lalt (layer-while-held layer1)
   ralt (layer-while-held layer1)
 )
 
+(platform (macos)
+(defalias
+  fnl (tap-hold 200 200 fn (layer-toggle fn))
+))
+
+(platform (macos)
 (deflayer base
   brdn  brup  _    _    _    _   prev  pp  next  mute  vold  volu
   @escctrl @a @s @d @f @g @h @j @k @l @;
   @fnl @lalt @lmet @rmet @ralt
-)
+))
 
+(platform (linux)
+(deflayer base
+  @escctrl @a @s @d @f @g @h @j @k @l @;
+  @lalt @lmet @rmet @ralt
+))
+
+(platform (macos)
 (deflayer layer1
   _ _ _ _ _ _ _ _ _ _ _ _
   _ _ _ _ _ _ left down up right _
   _ _ _ _ _
-)
+))
 
+(platform (linux)
+(deflayer layer1
+  _ _ _ _ _ _ left down up right _
+  _ _ _ _
+))
+
+(platform (macos)
 (deflayer fn
   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
   @escctrl _ _ _ _ _ _ _ _ _ _
   @fnl _ _ _ _
-)
+))
