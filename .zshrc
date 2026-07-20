@@ -31,5 +31,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$HOME/.local/bin:$PATH"
-
 . "$HOME/.local/share/../bin/env"
+export PATH="$HOME/Miniforge3/bin:$PATH"
