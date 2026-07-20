@@ -35,3 +35,4 @@ if ($nu.os-info.name | str starts-with "macos") {
 } else if ($nu.os-info.name | str starts-with "windows") {
   source ~/.config/nushell/config-modules/os-specific/windows.nu
 }
+source "~/.cargo/env.nu"
